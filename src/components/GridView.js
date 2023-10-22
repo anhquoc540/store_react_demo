@@ -12,7 +12,7 @@ const GridView = ({ data }) => {
     if (!Array.isArray(data) || data.length === 0) {
 
         return (
-            <div className="d-flex justify-content-center" style={{width:'100%'}}>
+            <div >
                 <p>Không tìm được dữ liệu</p>
             </div>
         );
