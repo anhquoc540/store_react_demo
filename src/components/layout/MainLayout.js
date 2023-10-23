@@ -1,20 +1,22 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, Row } from 'antd';
 import FilterForm from '../FilterForm';
 
 import StoreList from '../StoreList';
 import styled from "styled-components";
 import HeroSection from '../HeroSection';
 import { Affix } from 'antd';
+import { color } from '@cloudinary/url-gen/qualifiers/background';
 
 const { Header, Footer, Sider, Content } = Layout;
 
-const MainLayout = () => {
+const MainLayout = (children) => {
 
     const [top, setTop] = React.useState(100);
     const data = {
         name: "The Laundry",
     }
+    const { filter, list } = children
 
 
 
@@ -29,32 +31,46 @@ const MainLayout = () => {
                 </Header>
             </Affix>
 
-            <Content style={{ padding: '20px 10px'}} className='justify_content'>
+            <Content hasSider>
 
-                <Layout style={{minHeight:'100vh', position: 'relative'}}>
-                    
-                        <Sider style={{ background: "white"}} className='d-flex align-items-centers'>
-                    
-                            <FilterForm></FilterForm>
-                          
-                        </Sider>
-                  
+                <Layout style={{ minHeight: '100vh', position: 'relative' }} hasSider>
+
+
+                    <Sider style={{ background: 'white' }} className='h6'>
+
+                        {/* <FilterForm></FilterForm> */}
+
+                        {filter}
+
+
+                    </Sider>
+
+
+
+
+
                     <Content>
-                        <HeroSection myData={data}></HeroSection>
-                        < Wrapper >
-                            <div className="container grid grid-filter-column">
-                                <section>
 
-                                    <StoreList></StoreList>
+
+
+                        < Wrapper >
+                            <HeroSection myData={data}></HeroSection>
+
+                            <div className="container">
+                                <section>
+                                    {list}
 
                                 </section>
                             </div>
+
                         </Wrapper>
+
+
 
                     </Content>
                 </Layout>
             </Content>
-            <Footer style={{ textAlign: 'center', background:'#3876BF', color:'white', position: 'relative',width:"100%", bottom: '0'}}>Ant Design ©2023 Created by Ant UED</Footer>
+            <Footer style={{ textAlign: 'center', background: '#3876BF', color: 'white', position: 'relative', width: "100%", bottom: '0' }}>Ant Design ©2023 Created by Ant UED</Footer>
         </Layout>
 
     );

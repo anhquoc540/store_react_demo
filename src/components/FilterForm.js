@@ -11,7 +11,7 @@ import { getFilter } from "../action/features/filter/filterSlice";
 
 import SingleSelect from "./SingleSelect";
 
-import { Button, Form} from 'antd';
+import { Button, Form, Affix } from 'antd';
 
 
 const FilterForm = () => {
@@ -28,33 +28,33 @@ const FilterForm = () => {
     }, []);
 
     const districts = [
-      {
-        value: 'Quan 1'
-      }  ,
-      {
-        value: 'Quan 2'
-      },
-      {
-        value: 'Quan 3'
-      },
-      {
-        value: 'Quan 4'
-      },
-      {
-        value: 'Quan 5'
-      },
-      {
-        value: 'Quan 6'
-      },
-      {
-        value: 'Quan 7'
-      },
-      {
-        value: 'Quan 8'
-      },
-      {
-        value: 'Quan 9'
-      }
+        {
+            value: 'Quan 1'
+        },
+        {
+            value: 'Quan 2'
+        },
+        {
+            value: 'Quan 3'
+        },
+        {
+            value: 'Quan 4'
+        },
+        {
+            value: 'Quan 5'
+        },
+        {
+            value: 'Quan 6'
+        },
+        {
+            value: 'Quan 7'
+        },
+        {
+            value: 'Quan 8'
+        },
+        {
+            value: 'Quan 9'
+        }
     ]
 
     const materials = useSelector((state) => state.material.materials);
@@ -84,7 +84,7 @@ const FilterForm = () => {
     const [inputValues, setInputValue] = useState({
         materials: [],
         clothId: '',
-        district:''
+        district: ''
     });
 
 
@@ -135,60 +135,65 @@ const FilterForm = () => {
                     </button>
                 </div>
             </form> */}
-            <h6 className="px-2 py-2">
-                Tìm kiếm cửa hàng :
-            </h6>
-            <Divider></Divider>
-            <Form
-                layout="vertical"
-                onFinish={handleSubmit}
-                labelCol={{ lg: 12 }}
-                labelWrap
-                style={{ maxWidth: 600 }}
-                className="px-1"
+            <Affix offsetTop={100} onChange={(affixed) => console.log(affixed)}>
+                <h6 className="px-2 py-2">
+                    Tìm kiếm cửa hàng :
+                </h6>
+                <Divider></Divider>
+                <Form
+                    layout="vertical"
+                    onFinish={handleSubmit}
+                    labelCol={{ lg: 12 }}
+                    labelWrap
+                    style={{ maxWidth: 600 }}
+                    className="px-2 justify-content"
 
-            >   <Form.Item className="px-2 h6" >
-                <h5>Giặt hấp:</h5>
-                <Form.Item label="Chất liệu vải" >
+                >   <Form.Item className="px-2 h6" >
+                        <h5>Giặt hấp:</h5>
+                        <Form.Item label="Chất liệu vải" >
 
-                    <Form.Item
-                        name={'materials'}
-                        noStyle
+                            <Form.Item
+                                name={'materials'}
+                                noStyle
 
-                    >
-                        <MultipleSelect name="materials" options={data1} onChange={handleMaterialInput} value={inputValues.materials} ></MultipleSelect>
+                            >
+                                <MultipleSelect name="materials" options={data1} onChange={handleMaterialInput} value={inputValues.materials} ></MultipleSelect>
+                            </Form.Item>
+
+
+
+                        </Form.Item>
+                        <Form.Item label="Loại quần áo">
+                            <Form.Item
+                                name={'clothId'}
+                                noStyle
+                            >
+                                <SingleSelect name='clothId' options={data2} onChange={handleClothInput} value={inputValues.clothId}></SingleSelect>
+                            </Form.Item>
+                        </Form.Item>
                     </Form.Item>
 
 
-
-                </Form.Item>
-                <Form.Item label="Loại quần áo">
-                    <Form.Item
-                        name={'clothId'}
-                        noStyle
-                    >
-                        <SingleSelect name='clothId' options={data2} onChange={handleClothInput} value={inputValues.clothId}></SingleSelect>
+                    <Form.Item className="px-2 h6" >
+                        <h5>Quận:</h5>
+                        <Form.Item
+                            name={'district'}
+                            noStyle
+                        >
+                            <SingleSelect name='district' options={districts} onChange={handleDistrictInput} value={inputValues.district}></SingleSelect>
+                        </Form.Item>
                     </Form.Item>
-                </Form.Item>
-                </Form.Item>
 
-              
-                <Form.Item className="px-2 h6" >
-                <h5>Quận:</h5>
-                    <Form.Item
-                        name={'district'}
-                        noStyle
-                    >
-                         <SingleSelect name='district' options={districts} onChange={handleDistrictInput} value={inputValues.district}></SingleSelect>
-                    </Form.Item>
-                </Form.Item>
-                
 
-                <Button type="primary" htmlType="submit" className="my-4 col-12">
-                    Tìm kiếm
-                </Button>
+                    <Button type="primary" htmlType="submit" className="my-4 col-12">
+                        Tìm kiếm
+                    </Button>
 
-            </Form>
+                </Form>
+
+
+            </Affix>
+
 
 
         </>

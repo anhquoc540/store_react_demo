@@ -1,21 +1,23 @@
 //import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../style/Button";
+import {Cloudinary} from "@cloudinary/url-gen";
+import { AdvancedImage } from "@cloudinary/react";
+import { scale } from "@cloudinary/url-gen/actions/resize";
+import { ignoreInitialAspectRatio } from "@cloudinary/url-gen/qualifiers/aspectRatio";
 
 const HeroSection = ({ myData }) => {
   const { name, image } = myData;
-
-
+  const cld = new Cloudinary({cloud: {cloudName: 'df6mibrwv'}});
+  const imageSection= cld.image("ifcbbfxfbngpkprwr1j8")
+  
   return (
     <Wrapper>
       <div className="container">
         <div className="grid grid-two-column">
           <div className="hero-section-data">
             <p className="intro-data">Welcome to </p>
-            <h1> { name }</h1>
-            <p>
-            Let us help you keep your clothes clean and shining!
-            </p>
+            <h1 className="intro-data">{ name }</h1>
             {/* <NavLink to={`/stores`}>
               <Button>show now</Button>
             </NavLink> */}
@@ -23,10 +25,10 @@ const HeroSection = ({ myData }) => {
           {/* our homepage image  */}
           <div className="hero-section-image">
             <figure>
-            <img
-            src="../images/hero.jpg" // Use the 'image' property
-            alt="hero-section-photo"
-            className="img-style"/>
+            <AdvancedImage cldImg={imageSection}  className="img">
+                
+            </AdvancedImage>
+       
             </figure>
           </div>
         </div>
@@ -39,13 +41,13 @@ const Wrapper = styled.section`
   padding: 0;
 
   img {
-    min-width: 10rem;
-    height: 10rem;
+    min-width: 70rem;
+    height: 20rem;
   }
 
   .hero-section-data {
     p {
-      margin: 2rem 0;
+      margin: 1rem 0;
     }
 
     h1 {
@@ -54,7 +56,7 @@ const Wrapper = styled.section`
     }
 
     .intro-data {
-      margin-bottom: 0;
+      margin-left: 5rem;
     }
   }
 

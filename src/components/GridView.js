@@ -12,7 +12,7 @@ const GridView = ({ data }) => {
     if (!Array.isArray(data) || data.length === 0) {
 
         return (
-            <div >
+            <div style={{opacity:"40%"}} className="h4 d-flex justify-content-center" >
                 <p>Không tìm được dữ liệu</p>
             </div>
         );
@@ -24,11 +24,11 @@ const GridView = ({ data }) => {
     return (
 
 
-        <Row gutter={[10, 24]}>
+        <Row gutter={[8,8]}>
             {data.map((curElem) => {
                 return <Col className="gutter-row" span={8}>
                     <Wrapper className="section">
-                        <Store key={curElem.id} {...curElem} />
+                        <Store key={curElem.id} {...curElem}  />
 
                     </Wrapper>
 
@@ -44,14 +44,10 @@ const GridView = ({ data }) => {
 
 };
 const Wrapper = styled.section`
-  padding: 2rem 0;
+  padding: 1rem 0;
 
   .container {
     max-width: 120rem;
-  }
-
-  .grid {
-    gap: 1rem;
   }
 
   figure {
@@ -96,7 +92,7 @@ const Wrapper = styled.section`
     }
 
     .card-data-flex {
-      margin: 2rem 0;
+      margin: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
