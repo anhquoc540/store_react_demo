@@ -7,51 +7,55 @@ import { Col, Divider, Row } from 'antd';
 
 
 const GridView = ({ data }) => {
-    // const { singleServiceStore} = useStoreContext();
+  // const { singleServiceStore} = useStoreContext();
 
-    if (!Array.isArray(data) || data.length === 0) {
-
-        return (
-            <div >
-                <p>Không tìm được dữ liệu</p>
-            </div>
-        );
-    }
-    //  console.log(
-    //   "~ file: grid.js", singleServiceStore
-    // );
+  if (!Array.isArray(data) || data.length === 0) {
 
     return (
-
-
-        <Row gutter={[10, 24]}>
-            {data.map((curElem) => {
-                return <Col className="gutter-row" span={8}>
-                    <Wrapper className="section">
-                        <Store key={curElem.id} {...curElem} />
-
-                    </Wrapper>
-
-
-                </Col>
-            })}
-        </Row>
-
-
-
-
+      <div style={{ opacity: "40%" }} className="h4 d-flex justify-content-center" >
+        <p>Không tìm được dữ liệu</p>
+      </div>
     );
+  }
+  //  console.log(
+  //   "~ file: grid.js", singleServiceStore
+  // );
+
+  return (
+
+    // <Wrapper className="section">
+    //   <Row gutter={[8, 8]}>
+    //     {data.map((curElem) => {
+    //       return <Col className="gutter-row" span={8}>
+
+    //         <Store key={curElem.id} {...curElem} />
+
+
+
+
+    //       </Col>
+    //     })}
+    //   </Row>
+    // </Wrapper>
+    <Wrapper className="section">
+      <div className="container grid grid-three-column">
+        {data.map((curElem) => {
+          return <Store key={curElem.id} {...curElem} />;
+        })}
+      </div>
+    </Wrapper>
+
+
+
+
+  );
 
 };
 const Wrapper = styled.section`
-  padding: 2rem 0;
+  padding: 4rem 0;
 
   .container {
     max-width: 120rem;
-  }
-
-  .grid {
-    gap: 1rem;
   }
 
   figure {
@@ -80,9 +84,9 @@ const Wrapper = styled.section`
       transform: scale(1.2);
     }
     img {
-      max-width: 90%;
+      max-width: 100%;
       margin-top: 1.5rem;
-      height: 20rem;
+      height: 30rem;
       transition: all 0.2s linear;
     }
   }
@@ -90,13 +94,15 @@ const Wrapper = styled.section`
   .card {
     background-color: ${({ theme }) => theme.colors.bg};
     border-radius: 1rem;
+    width: 32rem;
+    height: 32rem;
 
     .card-data {
       padding: 0 1rem;
     }
 
     .card-data-flex {
-      margin: 2rem 0;
+      margin: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;

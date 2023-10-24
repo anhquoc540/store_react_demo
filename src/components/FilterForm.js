@@ -8,11 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Divider, Select } from 'antd';
 import { getClothes, resetState } from "../action/features/clothes/clothSlice";
 import { getFilter } from "../action/features/filter/filterSlice";
-import { Affix } from 'antd';
+
 
 import SingleSelect from "./SingleSelect";
 
-import { Button, Form } from 'antd';
+
+
+import { Button, Form, Affix } from 'antd';
+
 
 
 const FilterForm = () => {
@@ -137,10 +140,9 @@ const FilterForm = () => {
                 </div>
             </form> */}
             <Affix offsetTop={100} onChange={(affixed) => console.log(affixed)}>
-
-                <h6 className="px-2 py-1">
+                <h5 className="px-2 py-2">
                     Tìm kiếm cửa hàng :
-                </h6>
+                </h5>
                 <Divider></Divider>
                 <Form
                     layout="vertical"
@@ -148,7 +150,7 @@ const FilterForm = () => {
                     labelCol={{ lg: 12 }}
                     labelWrap
                     style={{ maxWidth: 600 }}
-                    className="px-1"
+                    className="px-2 justify-content"
 
                 >   <Form.Item className="px-2 h6" >
                         <h5>Giặt hấp:</h5>
@@ -192,6 +194,7 @@ const FilterForm = () => {
                     </Button>
 
                 </Form>
+
             </Affix>
 
 

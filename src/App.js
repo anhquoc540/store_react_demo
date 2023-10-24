@@ -6,6 +6,9 @@ import MultipleSelect from './components/MultipleSelect';
 import FilterForm from './components/FilterForm';
 import MainLayout from './components/layout/MainLayout';
 import { ThemeProvider } from "styled-components";
+import StoreList from './components/StoreList';
+import { GlobalStyle } from './style/GlobalStyle';
+
 
 function App() {
   const theme = {
@@ -33,9 +36,14 @@ function App() {
     },
   };
 
+ 
+   
+  
+
   return (
     <ThemeProvider theme={theme}>
-      <MainLayout></MainLayout>
+      <GlobalStyle/>
+      <MainLayout filter={<FilterForm></FilterForm>} list={<StoreList></StoreList>}></MainLayout>
 
 
     </ThemeProvider>
