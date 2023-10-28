@@ -1,23 +1,25 @@
 //import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../style/Button";
-import {Cloudinary} from "@cloudinary/url-gen";
+import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage } from "@cloudinary/react";
 import { scale } from "@cloudinary/url-gen/actions/resize";
 import { ignoreInitialAspectRatio } from "@cloudinary/url-gen/qualifiers/aspectRatio";
 
 const HeroSection = ({ myData }) => {
   const { name, image } = myData;
-  const cld = new Cloudinary({cloud: {cloudName: 'df6mibrwv'}});
-  const imageSection= cld.image("ifcbbfxfbngpkprwr1j8")
-  
+  const cld = new Cloudinary({ cloud: { cloudName: 'df6mibrwv' } });
+  const imageSection = cld.image("ifcbbfxfbngpkprwr1j8")
+
   return (
     <Wrapper>
-      <div className="container">
+      <div className="container mx-6" style={{ background: 'white', padding: '10px', borderRadius: '1rem' }}>
         <div className="grid grid-two-column">
           <div className="hero-section-data">
-            <p className="intro-data">Welcome to </p>
-            <h1 className="intro-data">{ name }</h1>
+            
+              <img src="https://res.cloudinary.com/df6mibrwv/image/upload/v1698172847/xeasuevjyadfgzuj25jx.png" className="img-logo-section" />
+              <h1 className="text-center">Nothing but the best</h1>
+
             {/* <NavLink to={`/stores`}>
               <Button>show now</Button>
             </NavLink> */}
@@ -25,7 +27,7 @@ const HeroSection = ({ myData }) => {
           {/* our homepage image  */}
           <div className="hero-section-image">
             <figure>
-           <img src="https://res.cloudinary.com/df6mibrwv/image/upload/v1698121213/e36txqj4nysoqbop852a.jpg"/>
+              <img src="https://res.cloudinary.com/df6mibrwv/image/upload/v1698121213/e36txqj4nysoqbop852a.jpg" />
             </figure>
           </div>
         </div>
@@ -37,15 +39,22 @@ const HeroSection = ({ myData }) => {
 const Wrapper = styled.section`
   padding: 0;
 
+  .img-logo-section {
+    
+    min-width: 50rem;
+    height: 350px;
+   
+  }
+
   img {
-    min-width: 80rem;
-    height: 30rem;
+    min-width: 50rem;
+    height: auto;
+    border-radius: 1rem;
   }
 
   .hero-section-data {
-    p {
-      margin: 1rem 0;
-    }
+
+    
 
     h1 {
       text-transform: capitalize;
@@ -53,16 +62,18 @@ const Wrapper = styled.section`
     }
 
     .intro-data {
-      margin-left: 5rem;
+      margin-left: 10%;
+      
     }
   }
 
   .hero-section-image {
-    width: 100%;
+    width: 90%;
     height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    
   }
   figure {
     position: relative;

@@ -12,7 +12,7 @@ export const getMaterials = createAsyncThunk(
       }
     }
   );
-  export const resetState = createAction("Reset_all");
+export const resetState = createAction("Reset_all");
 const initialState = {
   materials: [],
   isError: false,

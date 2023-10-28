@@ -1,12 +1,12 @@
 import React from "react";
-// import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Store = (curElem) => {
     const { id, name, address, phone, image, district } = curElem;
     //onst { price, from, to, unit } = details;
 
     return (
-        // <NavLink to={`/singleproduct/${id}`}>
+ <NavLink to={`/singleproduct/${id}`}>
         <div className="card">
             <figure>
                 <img src={image} alt={name} />
@@ -26,7 +26,7 @@ const Store = (curElem) => {
                 </div>
             </div>
         </div>
-        // </NavLink>
+    </NavLink>
     );
 };
 export default Store;

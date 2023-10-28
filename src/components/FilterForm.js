@@ -15,6 +15,7 @@ import SingleSelect from "./SingleSelect";
 
 
 import { Button, Form, Affix } from 'antd';
+import { opacity } from "@cloudinary/url-gen/actions/adjust";
 
 
 
@@ -140,9 +141,9 @@ const FilterForm = () => {
                 </div>
             </form> */}
             <Affix offsetTop={100} onChange={(affixed) => console.log(affixed)}>
-                <h5 className="px-2 py-2">
+                <h4 className="px-3 py-1">
                     Tìm kiếm cửa hàng :
-                </h5>
+                </h4>
                 <Divider></Divider>
                 <Form
                     layout="vertical"
@@ -150,11 +151,11 @@ const FilterForm = () => {
                     labelCol={{ lg: 12 }}
                     labelWrap
                     style={{ maxWidth: 600 }}
-                    className="px-2 justify-content"
+                    
 
-                >   <Form.Item className="px-2 h6" >
-                        <h5>Giặt hấp:</h5>
-                        <Form.Item label="Chất liệu vải" >
+                >   <Form.Item className="px-3 h6" >
+                         <p className="display-6">Theo giặt hấp:</p>
+                        <Form.Item label="Chất liệu vải" style={{opacity:'65%'}}>
 
                             <Form.Item
                                 name={'materials'}
@@ -167,7 +168,7 @@ const FilterForm = () => {
 
 
                         </Form.Item>
-                        <Form.Item label="Loại quần áo">
+                        <Form.Item label="Loại quần áo"  style={{opacity:'65%'}}>
                             <Form.Item
                                 name={'clothId'}
                                 noStyle
@@ -178,8 +179,8 @@ const FilterForm = () => {
                     </Form.Item>
 
 
-                    <Form.Item className="px-2 h6" >
-                        <h5>Quận:</h5>
+                    <Form.Item className="px-3" >
+                        <p className="display-6">Theo quận:</p>
                         <Form.Item
                             name={'district'}
                             noStyle
@@ -189,7 +190,7 @@ const FilterForm = () => {
                     </Form.Item>
 
 
-                    <Button type="primary" htmlType="submit" className="my-4 col-12">
+                    <Button type="primary" htmlType="submit" className="my-5 col-sm-10 mx-4">
                         Tìm kiếm
                     </Button>
 

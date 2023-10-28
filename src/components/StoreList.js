@@ -12,7 +12,7 @@ const StoreList = () => {
     return (
         <>
 
-            <h5 style={{ marginLeft: '5rem' }} className="py-3">Danh sách cửa hàng: </h5>
+            <h3 style={{ marginLeft: '1rem' }} className="py-5">Danh sách cửa hàng: </h3>
             <br />
             <GridView data={stores} />
 

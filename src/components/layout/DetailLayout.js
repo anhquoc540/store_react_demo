@@ -35,14 +35,7 @@ const MainLayout = (children) => {
                 <Layout style={{ minHeight: '100vh', position: 'relative' }} hasSider>
 
 
-                    <Sider style={{ background: 'white', borderRadius:'1rem'}} className='h6'>
-
-                        {/* <FilterForm></FilterForm> */}
-
-                        {filter}
-
-
-                    </Sider>
+                   
 
 
 
@@ -53,14 +46,7 @@ const MainLayout = (children) => {
 
 
                         < Wrapper >
-                            <HeroSection myData={data}></HeroSection>
-
-                            <div className="container grid grid-filter-collumn">
-                                <section>
-                                    {list}
-
-                                </section>
-                            </div>
+                         
 
                         </Wrapper>
 
