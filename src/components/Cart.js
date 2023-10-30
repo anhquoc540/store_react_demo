@@ -7,6 +7,7 @@ import {
     getTotals,
     removeFromCart,
 } from "../action/features/cart/cartSlice";
+import { createOrder } from "../action/features/orders/orderSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -19,6 +20,8 @@ const Cart = () => {
     const [inputValues, setInputValues] = useState({
         items: [],
         total: "",
+        createDate: "",
+        storeId: "",
 
     }
 
@@ -50,6 +53,10 @@ const Cart = () => {
     const handleClearCart = () => {
         dispatch(clearCart());
     };
+    const handleSubmitOrder = (product) => {
+        dispatch(createOrder(product));
+    };
+
 
     const handleOrder = () => {
         for (let i = 0; i < cart.cartItems.length; i++) {
@@ -57,19 +64,29 @@ const Cart = () => {
 
                 id: cart.cartItems[i].id,
                 quantity: cart.cartItems[i].cartQuantity,
-                price: cart.cartItems[i].price > 0 ? cart.cartItems[i].price : ""
+                price: cart.cartItems[i].price > 0 ? cart.cartItems[i].price : "",
 
             });
         }
         inputValues.total = cart.cartTotalAmount;
+        inputValues.storeId = cart.storeId;
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const hours = String(currentDate.getHours()).padStart(2, '0');
+        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        const seconds = String(currentDate.getSeconds()).padStart(2, '0');
 
-     
-        console.log(inputValues);
+        const updatedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        inputValues.createDate = updatedDateTime;
         handleClearCart();
+        console.log(inputValues);
         toast.success("Đặt dịch vụ thành công", {
             position: "top-center",
-          });
-      
+        });
+        handleSubmitOrder(inputValues);
+
     }
 
 

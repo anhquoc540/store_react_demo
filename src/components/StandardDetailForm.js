@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { addToCart } from "../action/features/cart/cartSlice";
 const StandardDetailForm = (props) => {
   // const { name, image } = myData;
-  let { id, name, prices, feedback, isStandard } = props;
+  let { id, name, prices, feedback, store, isStandard } = props;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ const StandardDetailForm = (props) => {
     id,
     name,
     isStandard,
+    storeId: store.id,
   
 
 
@@ -85,7 +86,7 @@ const StandardDetailForm = (props) => {
   const handleAddToCart = (product) => {
 
     dispatch(addToCart(product));
-    navigate('/cart');
+    //navigate('/cart');
     
   };
 
@@ -117,7 +118,7 @@ const StandardDetailForm = (props) => {
 
 
             <Table
-              columns={columns} dataSource={data} size="middle" bordered
+              columns={columns} key={data.key} dataSource={data} size="middle" bordered
               className="my-4"
               pagination={false}
             >
@@ -133,6 +134,7 @@ const StandardDetailForm = (props) => {
                 <h3 class="h3 fw-bold" style={{ color: 'white' }} >Đánh giá từ khách hàng  : </h3>
                 {feedback.map(item =>
                   <Card
+                    key={item.id}
                     style={{ marginTop: 16 }}
                     title={item.username}
                     type="inner"

@@ -5,7 +5,7 @@ import { Cloudinary } from "@cloudinary/url-gen";
 import { AiFillStar } from 'react-icons/ai';
 import { RxReset } from 'react-icons/rx';
 import React, { useState } from 'react';
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../action/features/cart/cartSlice";
 
@@ -16,25 +16,26 @@ const SpecialDetailForm = (props) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-   
-    let { id, materials, name, price, feedback, image} = props;
-    
+
+    let { id, materials, name, store, price, feedback, image } = props;
+
     const [inputValues, setInputValue] = useState({
         id,
         name,
         image,
         price,
-        isStandard:false,
+        storeId: store.id,
+        isStandard: false,
     });
 
 
     const handleAddToCart = (product) => {
-        
+
         dispatch(addToCart(product));
-        navigate('/cart');
-      };
-    
-  
+       // navigate('/cart');
+    };
+
+
     // const { name, image } = myData;
 
     function starRating(params) {
@@ -49,7 +50,7 @@ const SpecialDetailForm = (props) => {
 
 
 
-   
+
 
     price = price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
 
@@ -68,7 +69,7 @@ const SpecialDetailForm = (props) => {
 
                                 <div class="col-lg-4 d-flex justify-content-center py-5">
                                     <figure>
-                                        <img src='https://pos.nvncdn.net/778773-105877/ps/20230713_WcskjVVYHE.jpeg' />
+                                        <img src='https://pos.nvncdn.net/778773-105877/ps/20230713_WcskjVVYHE.jpeg' alt={name}/>
 
 
                                     </figure>
@@ -79,7 +80,7 @@ const SpecialDetailForm = (props) => {
                                         <div className="card-body px-5">
                                             <h2 className="fw-bolder">{name}</h2>
                                             {materials.map(item => <Space size={[0, 8]} wrap>
-                                                <Tag color='blue'>{item}</Tag>
+                                                <Tag key={item.id} color='blue'>{item}</Tag>
                                             </Space>)
                                             }
 
@@ -100,12 +101,12 @@ const SpecialDetailForm = (props) => {
                                             <br />
                                             <p className="mx-2 display-1 fw-bold" style={{ color: 'green' }}>Giá: {price}</p>
 
-                                         
-                                               <Button type="primary" htmlType="submit" size='large' className="my-4 col-12" onClick={() => handleAddToCart(inputValues)}>
+
+                                            <Button type="primary" htmlType="submit" size='large' className="my-4 col-12" onClick={() => handleAddToCart(inputValues)}>
                                                 Thêm vào giỏ hàng
                                             </Button>
 
-                                           
+
                                         </div>
 
                                     </div>
@@ -131,6 +132,7 @@ const SpecialDetailForm = (props) => {
 
                                 {feedback.map(item =>
                                     <Card
+                                        key={item.id}
                                         style={{ marginTop: 16 }}
                                         title={item.username}
                                         type="inner"

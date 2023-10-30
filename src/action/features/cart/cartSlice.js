@@ -7,47 +7,74 @@ const initialState = {
         : [],
     cartTotalQuantity: 0,
     cartTotalAmount: 0,
+    storeId: ""
 };
 
 const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
+
+
         addToCart(state, action) {
-            const existingIndex = state.cartItems.findIndex(
-                (item) => item.id === action.payload.id
-            );
 
-            if (existingIndex >= 0 && !state.cartItems[existingIndex].isStandard) {
-                state.cartItems[existingIndex] = {
-                    ...state.cartItems[existingIndex],
-                    cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
-                };
 
-            } else if (!action.payload.isStandard) {
-                let tempProductItem = { ...action.payload, cartQuantity: 1 };
-                state.cartItems.push(tempProductItem);
-                toast.success("Product added to cart", {
+
+            const sameStore = state.cartItems.findIndex(
+                (item) => item.storeId === action.payload.storeId
+            )
+
+
+            console.log(sameStore)
+            console.log(state.cartItems.length)
+
+            if (sameStore < 0 && state.cartItems.length > 0) {
+                toast.error("Vui lòng chọn dịch vụ có cùng cửa hàng", {
                     position: "bottom-left",
                 });
+            } else {
+                const existingIndex = state.cartItems.findIndex(
+                    (item) => item.id === action.payload.id
+                );
+
+                if (existingIndex >= 0 && !state.cartItems[existingIndex].isStandard) {
+                    state.cartItems[existingIndex] = {
+                        ...state.cartItems[existingIndex],
+                        cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
+                        
+                    }; 
+                    toast.success(`Số lượng của dịch vụ ${state.cartItems[existingIndex].name} đã được cập nhật trong 
+                    giỏ hàng` , {
+                        position: "bottom-left",
+                    });
+
+                } else if (!action.payload.isStandard) {
+                    let tempProductItem = { ...action.payload, cartQuantity: 1 };
+                    state.cartItems.push(tempProductItem);
+                    toast.success("Product added to cart", {
+                        position: "bottom-left",
+                    });
+                }
+
+                else if (existingIndex >= 0 && state.cartItems[existingIndex].isStandard) {
+
+                    toast.success("Dịch vụ đã được đặt", {
+                        position: "bottom-left",
+                    });
+                }
+                else if (action.payload.isStandard) {
+                    toast.success("Dịch vụ đã được đặt", {
+                        position: "bottom-left",
+                    });
+
+                    let tempProductItem = { ...action.payload, cartQuantity: 1, price: 0.0 };
+                    state.cartItems.push(tempProductItem);
+
+                }
+                localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+
             }
 
-            else if (existingIndex >= 0 && state.cartItems[existingIndex].isStandard) {
-
-                toast.success("Dịch vụ đã được đặt", {
-                    position: "bottom-left",
-                });
-            }
-            else if (action.payload.isStandard) {
-                toast.success("Dịch vụ đã được đặt", {
-                    position: "bottom-left",
-                });
-
-                let tempProductItem = { ...action.payload, cartQuantity: 1, price: 0.0 };
-                state.cartItems.push(tempProductItem);
-
-            }
-            localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
         },
         decreaseCart(state, action) {
             const itemIndex = state.cartItems.findIndex(
@@ -56,6 +83,9 @@ const cartSlice = createSlice({
 
             if (state.cartItems[itemIndex].cartQuantity > 1) {
                 state.cartItems[itemIndex].cartQuantity -= 1;
+                toast.success("Dịch vụ đã được cập nhật", {
+                    position: "bottom-left",
+                });
 
 
             } else if (state.cartItems[itemIndex].cartQuantity === 1) {
@@ -89,29 +119,34 @@ const cartSlice = createSlice({
             });
         },
         getTotals(state, action) {
-            let { total, quantity } = state.cartItems.reduce(
+
+            let { total, quantity, storeId } = state.cartItems.reduce(
                 (cartTotal, cartItem) => {
-                    const { price, cartQuantity } = cartItem;
+                    const { price, cartQuantity, storeId } = cartItem;
                     const itemTotal = price * cartQuantity;
+
 
                     cartTotal.total += itemTotal;
                     cartTotal.quantity += cartQuantity;
-
+                    cartTotal.storeId = storeId;
                     return cartTotal;
                 },
                 {
                     total: 0,
                     quantity: 0,
+                    storeId: ""
                 }
             );
             total = parseFloat(total.toFixed(2));
             state.cartTotalQuantity = quantity;
             state.cartTotalAmount = total;
+            state.storeId = storeId;
+
         },
         clearCart(state, action) {
             state.cartItems = [];
             localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-            //   toast.error("Cart cleared", { position: "bottom-left" });
+            toast.error("Cart cleared", { position: "bottom-left" });
         },
     },
 });

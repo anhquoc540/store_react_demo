@@ -93,6 +93,15 @@ const App = () => {
 
   ];
 
+  const store1 = {
+    id:1
+  };
+
+  const store2 = {
+    id:2
+  };
+
+
 
 
   return (
@@ -120,13 +129,17 @@ const App = () => {
 
     // </ThemeProvider >
 
+
+
+
     <ThemeProvider theme={theme}>
       <Router>
         <ToastContainer />
         <Routes>
+        <Route path="/" element={<MainLayout filter={<FilterForm></FilterForm>} list ={<StoreList></StoreList>}/>}/>
           <Route path="/cart" element={<Cart />} /> 
-          <Route path="/" element={<StandardDetailForm id ={5} name='Giat say tong hop' feedback={feedback} prices={price} isStandard={true}></StandardDetailForm> }/>
-          <Route path="/special" element={<SpecialDetailForm name='Giat ao so mi' id={1} price={30000} materials={data} feedback={feedback} ></SpecialDetailForm>} />
+          <Route path="/standard" element={<StandardDetailForm id ={5} name='Giat say tong hop' store={store1} feedback={feedback} prices={price} isStandard={true}></StandardDetailForm> }/>
+          <Route path="/special" element={<SpecialDetailForm name='Giat ao so mi' id={4} store={store2}  price={30000} materials={data} feedback={feedback} ></SpecialDetailForm>} />
           
          
         </Routes>

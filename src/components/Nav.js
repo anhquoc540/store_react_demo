@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
 import Dropdown from "react-bootstrap/Dropdown";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useSelector, useDispatch } from "react-redux";
+import { getTotals } from "../action/features/cart/cartSlice";
+
 
 
 
 const Nav = () => {
   const [menuIcon, setMenuIcon] = useState();
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart, dispatch]);
 
   const Nav = styled.nav`
     .navbar-lists {
@@ -169,13 +178,13 @@ const Nav = () => {
     <Nav>
       <div className={menuIcon ? "navbar active" : "navbar"}>
         <ul className="navbar-lists">
-          
-         
-         
+
+
+
           <li>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">
               <FiShoppingCart className="cart-trolley" />
-              <span className="cart-total--item"> 10 </span>
+              <span className="cart-total--item"> {cart.cartTotalQuantity} </span>
             </NavLink>
           </li>
 

@@ -1,44 +1,48 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
-import filterService from "./filterService";
+import orderService from "./orderService";
 
-export const getFilter = createAsyncThunk(
-    "filters/get-store",
-    async (filter,thunkAPI) => {
+export const createOrder = createAsyncThunk(
+    "orders/create",
+    async (newOrder,thunkAPI) => {
       try {
-        return await filterService.getFilter(filter);
-        
+        return await orderService.createOrder(newOrder);
       } catch (error) {
         return thunkAPI.rejectWithValue(error);
       }
     }
+
+    
   );
+
+  const initialState = {
+    orders: [],
+  
+    isError: false,
+    isLoading: false,
+    isSuccess: false,
+    message: "",
+  };
+ 
   export const resetState = createAction("Reset_all");
-const initialState = {
-  filters: [],
 
-  isError: false,
-  isLoading: false,
-  isSuccess: false,
-  message: "",
-};
 
-export const filterSlice = createSlice({
-    name: "filters",
+export const orderSlice = createSlice({
+    name: "orders",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(getFilter.pending, (state) => {
+        .addCase(createOrder.pending, (state) => {
             state.isLoading = true;
           })
-          .addCase(getFilter.fulfilled, (state, action) => {
+          .addCase(createOrder.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isError = false;
             state.isSuccess = true;
-            state.filters = action.payload;
+            state.newOrders = action.payload;
           })
-          .addCase(getFilter.rejected, (state, action) => {
+          .addCase(createOrder.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.isSuccess = false;
@@ -48,4 +52,4 @@ export const filterSlice = createSlice({
 
     } 
 });
-export default filterSlice.reducer;
+export default orderSlice.reducer;
