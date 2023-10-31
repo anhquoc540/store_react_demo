@@ -16,6 +16,7 @@ import SingleSelect from "./SingleSelect";
 
 import { Button, Form, Affix } from 'antd';
 import { opacity } from "@cloudinary/url-gen/actions/adjust";
+import { color } from "@cloudinary/url-gen/qualifiers/background";
 
 
 
@@ -144,14 +145,14 @@ const FilterForm = () => {
                 <h4 className="px-3 py-1">
                     Tìm kiếm cửa hàng :
                 </h4>
-                <Divider></Divider>
+              <br/>
                 <Form
                     layout="vertical"
                     onFinish={handleSubmit}
                     labelCol={{ lg: 12 }}
                     labelWrap
-                    style={{ maxWidth: 600 }}
-                    
+                    style={{ maxWidth: 600, backgroundColor:'white' }}
+                    className="py-3"
 
                 >   <Form.Item className="px-3 h6" >
                          <p className="display-6">Theo giặt hấp:</p>

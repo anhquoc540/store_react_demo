@@ -12,10 +12,8 @@ const {  Footer, Sider, Content } = Layout;
 const MainLayout = (children) => {
 
     
-    const data = {
-        name: "The Laundry",
-    }
-    const { filter, list } = children
+   
+    const { filter, content, section } = children
 
 
 
@@ -35,14 +33,12 @@ const MainLayout = (children) => {
                 <Layout style={{ minHeight: '100vh', position: 'relative' }} hasSider>
 
 
-                    <Sider style={{ background: 'white', borderRadius:'1rem'}} className='h6'>
-
-                        {/* <FilterForm></FilterForm> */}
+                   
 
                         {filter}
 
 
-                    </Sider>
+                  
 
 
 
@@ -53,11 +49,11 @@ const MainLayout = (children) => {
 
 
                         < Wrapper >
-                            <HeroSection myData={data}></HeroSection>
+                            {section}
 
-                            <div className="container grid grid-filter-collumn">
+                            <div className="container">
                                 <section>
-                                    {list}
+                                    {content}
 
                                 </section>
                             </div>

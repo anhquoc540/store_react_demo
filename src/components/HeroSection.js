@@ -6,10 +6,10 @@ import { AdvancedImage } from "@cloudinary/react";
 import { scale } from "@cloudinary/url-gen/actions/resize";
 import { ignoreInitialAspectRatio } from "@cloudinary/url-gen/qualifiers/aspectRatio";
 
-const HeroSection = ({ myData }) => {
-  const { name, image } = myData;
+const HeroSection = () => {
+ 
   const cld = new Cloudinary({ cloud: { cloudName: 'df6mibrwv' } });
-  const imageSection = cld.image("ifcbbfxfbngpkprwr1j8")
+
 
   return (
     <Wrapper>
@@ -42,12 +42,14 @@ const Wrapper = styled.section`
   .img-logo-section {
     
     min-width: 50rem;
+    padding:auto;
+    margin-left: 10%;
     height: 350px;
    
   }
 
   img {
-    min-width: 50rem;
+    min-width: 80%;
     height: auto;
     border-radius: 1rem;
   }
@@ -61,10 +63,7 @@ const Wrapper = styled.section`
       font-weight: bold;
     }
 
-    .intro-data {
-      margin-left: 10%;
-      
-    }
+   
   }
 
   .hero-section-image {

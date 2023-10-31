@@ -18,6 +18,8 @@ import ProfileDetailForm from './components/ProfileDetailForm';
 import { useEffect } from 'react';
 import Cart from './components/Cart';
 import "react-toastify/dist/ReactToastify.css";
+import SingleStore from './components/SingleStore';
+import HeroSection from './components/HeroSection';
 
 const App = () => {
   // useEffect(() =>{
@@ -50,105 +52,34 @@ const App = () => {
     },
   };
 
-  const data = ['m1', 'm2', 'm3'];
-  const feedback = [
-    {
-      username: 'David',
-      content: 'Giat nhu cc',
-      stars: 5,
-      createDate: '22/08/2000'
-    },
-    {
-      username: 'David',
-      content: 'Giat nhu cc',
-      stars: 5,
-      createDate: '22/08/2000'
-    }
-  ]
-  const price = [
-    {
-      id: '1',
-      to: '5',
-      from: '6',
-      unit: 'kg',
-      price: 20000,
-    },
-
-    {
-      id: '2',
-      to: '5',
-      from: '6',
-      unit: 'kg',
-      price: 50000,
-    },
-
-
-    {
-      id: '3',
-      to: '5',
-      from: '6',
-      unit: 'kg',
-      price: 70000
-    },
-
-  ];
-
-  const store1 = {
-    id:1
-  };
-
-  const store2 = {
-    id:2
-  };
-
+ 
 
 
 
   return (
-    // <ThemeProvider theme={theme}>
-    //   <Router>
-    //     <GlobalStyle />
-
-    //     <Routes>
-    //       <Route path="/" element={<MainLayout filter={<FilterForm></FilterForm>} list ={<StoreList></StoreList>}/>}/>
-    //       {/* <Route path="/about" element={<About />} />
-    //       <Route path="/stores" element={<Stores />} />
-    //       <Route path="/products" element={<Products />} />
-    //       <Route path="/stores" element={<Stores />} />
-    //       <Route path="/contact" element={<Contact />} />
-    //       <Route path="/singlestore/:id" element={<SingleStore />} />
-    //       <Route path="/singleproduct/:id" element={<SingleProduct />} />
-    //       <Route path="/cart" element={<Cart />} />
-    //       <Route path="*" element={<ErrorPage />} />
-    //       <Route path='/user/:activepage' element={<UserProfile />} /> */}
-    //     </Routes>
-
-
-    //   </Router>
-
-
-    // </ThemeProvider >
-
-
-
 
     <ThemeProvider theme={theme}>
+
+
+      <GlobalStyle />
       <Router>
         <ToastContainer />
         <Routes>
-        <Route path="/" element={<MainLayout filter={<FilterForm></FilterForm>} list ={<StoreList></StoreList>}/>}/>
-          <Route path="/cart" element={<Cart />} /> 
-          <Route path="/standard" element={<StandardDetailForm id ={5} name='Giat say tong hop' store={store1} feedback={feedback} prices={price} isStandard={true}></StandardDetailForm> }/>
-          <Route path="/special" element={<SpecialDetailForm name='Giat ao so mi' id={4} store={store2}  price={30000} materials={data} feedback={feedback} ></SpecialDetailForm>} />
-          
-         
+          <Route path="/" element={<MainLayout filter={<FilterForm></FilterForm>} content={<StoreList></StoreList>}  section={<HeroSection></HeroSection>}/>} />
+          <Route path="/single-store/:id" element={<MainLayout  content={<SingleStore></SingleStore>}/>} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/standard" element={<StandardDetailForm></StandardDetailForm>} />
+          <Route path="/special" element={<SpecialDetailForm></SpecialDetailForm>} />
+
+
         </Routes>
       </Router>
-      <GlobalStyle />
 
-      
-      {/* <ProfileDetailForm></ProfileDetailForm> */} 
-     
+
+      {/* <SingleStore></SingleStore>
+
+       <ProfileDetailForm></ProfileDetailForm>  */}
+
 
     </ThemeProvider>
 

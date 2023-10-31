@@ -4,6 +4,8 @@ import clothReducer from "../action/features/clothes/clothSlice"
 import filterReducer from "../action/features/filter/filterSlice"
 import cartReducer from "../action/features/cart/cartSlice";
 import orderReducer from "../action/features/orders/orderSlice"
+import storeReducer from  "../action/features/store/storeSlice"
+import laundryReducer from  "../action/features/laundry/laundrySlice"
 export const store = configureStore({
     reducer: {
         material: materialReducer,
@@ -11,7 +13,8 @@ export const store = configureStore({
         filter: filterReducer,
         cart: cartReducer,
         order:orderReducer,
-       
+        store:storeReducer,
+        laundry:laundryReducer
     },
 
 });

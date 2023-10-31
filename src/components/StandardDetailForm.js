@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { addToCart } from "../action/features/cart/cartSlice";
 const StandardDetailForm = (props) => {
   // const { name, image } = myData;
-  let { id, name, prices, feedback, store, isStandard } = props;
+  const { id, name, details, feedback, store, isStandard, imageBanner } = props;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -71,7 +71,7 @@ const StandardDetailForm = (props) => {
 
 
   const data = [];
-  for (const element of prices) {
+  for (const element of details) {
     data.push({
       key: element.id,
 
@@ -103,7 +103,7 @@ const StandardDetailForm = (props) => {
               <div class="card-body">
                 <div class="row">
 
-                  <img src='https://yt3.ggpht.com/GcOkHzw536cWoDM237PXdEWFQuGsO6zp_qulDlsgcheo5TfhXqKG5Egfp8eLNR8dn1FeSwfy_A=w1060-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj' />
+                  <img src={imageBanner}  alt={name}/>
 
 
 

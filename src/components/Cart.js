@@ -98,7 +98,7 @@ const Cart = () => {
                 <div className="cart-empty">
                     <p>Giỏ hàng của bạn còn trống</p>
                     <div className="start-shopping">
-                        <Link to="/">
+                        <Link onClick={() => navigate(-1)}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"

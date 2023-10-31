@@ -2,12 +2,12 @@
 
 import React from "react";
 import styled from "styled-components";
-import Store from "./Store";
-import { Col, Divider, Row } from 'antd';
+import LaundryCard from "./LaundryCard";
+//import { Col, Divider, Row } from 'antd';
 
 
-const GridView = ({ data }) => {
-  // const { singleServiceStore} = useStoreContext();
+const GridViewLaundry = ({ data }) => {
+ 
 
   if (!Array.isArray(data) || data.length === 0) {
 
@@ -17,9 +17,7 @@ const GridView = ({ data }) => {
       </div>
     );
   }
-  //  console.log(
-  //   "~ file: grid.js", singleServiceStore
-  // );
+ 
 
   return (
 
@@ -27,7 +25,7 @@ const GridView = ({ data }) => {
     <Wrapper className="section">
       <div className="container grid grid-three-column">
         {data.map((curElem) => {
-          return <Store key={curElem.id} {...curElem} />;
+          return <LaundryCard key={curElem.id} {...curElem} />;
         })}
       </div>
     </Wrapper>
@@ -40,7 +38,7 @@ const GridView = ({ data }) => {
 };
 const Wrapper = styled.section`
   padding: 4rem 0;
-
+  
   .container {
     max-width: 120rem;
   }
@@ -128,4 +126,4 @@ const Wrapper = styled.section`
 `;
 
 
-export default GridView;
+export default GridViewLaundry;

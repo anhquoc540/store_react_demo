@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../action/features/cart/cartSlice";
 
-import { Card, Space, Tag, InputNumber, Button } from 'antd';
+import { Card, Space, Tag, Button } from 'antd';
 
 
 const SpecialDetailForm = (props) => {
@@ -17,22 +17,22 @@ const SpecialDetailForm = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    let { id, materials, name, store, price, feedback, image } = props;
+    let { id, materials, name, store, details, feedback, imageBanner, isStandard, cloth, description } = props;
 
     const [inputValues, setInputValue] = useState({
         id,
         name,
-        image,
-        price,
+        imageBanner,
+        price: details.price,
         storeId: store.id,
-        isStandard: false,
+        isStandard,
     });
 
 
     const handleAddToCart = (product) => {
 
         dispatch(addToCart(product));
-       // navigate('/cart');
+        // navigate('/cart');
     };
 
 
@@ -52,7 +52,7 @@ const SpecialDetailForm = (props) => {
 
 
 
-    price = price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+    details.price = details.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
 
 
     return (
@@ -69,7 +69,7 @@ const SpecialDetailForm = (props) => {
 
                                 <div class="col-lg-4 d-flex justify-content-center py-5">
                                     <figure>
-                                        <img src='https://pos.nvncdn.net/778773-105877/ps/20230713_WcskjVVYHE.jpeg' alt={name}/>
+                                        <img src='https://pos.nvncdn.net/778773-105877/ps/20230713_WcskjVVYHE.jpeg' alt={name} />
 
 
                                     </figure>
@@ -84,22 +84,14 @@ const SpecialDetailForm = (props) => {
                                             </Space>)
                                             }
 
+                                            <Tag key={cloth.id} color='blue'>{cloth.name}</Tag>
+
                                             <p className="h4 py-3 fw-bold">Mô tả: </p>
-                                            <p>Sed enim, faucibus litora velit vestibulum habitasse.
-                                                Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
-                                                sem tellus vestibulum porttitor.Sed enim, faucibus litora velit vestibulum habitasse.
-                                                Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
-                                                sem tellus vestibulum porttitor.Sed enim, faucibus litora velit vestibulum habitasse.
-                                                Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
-                                                sem tellus vestibulum porttitor.Sed enim, faucibus litora velit vestibulum habitasse.
-                                                Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
-                                                sem tellus vestibulum porttitor.  Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
-                                                sem tellus vestibulum porttitor.Sed enim, faucibus litora velit vestibulum habitasse.
-                                                Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
+                                            <p>{description}
                                             </p>
 
                                             <br />
-                                            <p className="mx-2 display-1 fw-bold" style={{ color: 'green' }}>Giá: {price}</p>
+                                            <p className="mx-2 display-1 fw-bold" style={{ color: 'green' }}>Giá: {details.price}</p>
 
 
                                             <Button type="primary" htmlType="submit" size='large' className="my-4 col-12" onClick={() => handleAddToCart(inputValues)}>
@@ -126,7 +118,7 @@ const SpecialDetailForm = (props) => {
 
 
 
-                        <div class="card mb-4" style={{ background: '#00A9FF', borderRadius: '10px' }}>
+                        {/* <div class="card mb-4" style={{ background: '#00A9FF', borderRadius: '10px' }}>
                             <div class="card-body py-5">
                                 <h3 class="h3 fw-bold" style={{ color: 'white' }} >Đánh giá từ khách hàng  : </h3>
 
@@ -150,7 +142,7 @@ const SpecialDetailForm = (props) => {
 
 
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
 

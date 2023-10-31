@@ -6,7 +6,7 @@ const Store = (curElem) => {
     //onst { price, from, to, unit } = details;
 
     return (
- <NavLink to={`/singleproduct/${id}`}>
+ <NavLink to={`/single-store/${id}`}>
         <div className="card">
             <figure>
                 <img src={image} alt={name} />
@@ -21,7 +21,7 @@ const Store = (curElem) => {
                     <br/>
                     <p className="h3" style={{color:'blue'}}>SĐT : {phone} </p>  
                     </div>
-                   
+                    
 
                 </div>
             </div>
