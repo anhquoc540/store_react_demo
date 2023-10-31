@@ -25,8 +25,7 @@ const cartSlice = createSlice({
             )
 
 
-            console.log(sameStore)
-            console.log(state.cartItems.length)
+       
 
             if (sameStore < 0 && state.cartItems.length > 0) {
                 toast.error("Vui lòng chọn dịch vụ có cùng cửa hàng", {
@@ -43,7 +42,7 @@ const cartSlice = createSlice({
                         cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
                         
                     }; 
-                    toast.success(`Số lượng của dịch vụ ${state.cartItems[existingIndex].name} đã được cập nhật trong 
+                    toast.success(`Số lượng của dịch vụ  ${state.cartItems[existingIndex].name}  đã được cập nhật trong 
                     giỏ hàng` , {
                         position: "bottom-left",
                     });
@@ -51,14 +50,14 @@ const cartSlice = createSlice({
                 } else if (!action.payload.isStandard) {
                     let tempProductItem = { ...action.payload, cartQuantity: 1 };
                     state.cartItems.push(tempProductItem);
-                    toast.success("Product added to cart", {
+                    toast.success("Dịch vụ đã được đặt", {
                         position: "bottom-left",
                     });
                 }
 
                 else if (existingIndex >= 0 && state.cartItems[existingIndex].isStandard) {
 
-                    toast.success("Dịch vụ đã được đặt", {
+                    toast.error("Dịch vụ đã tồn tại trong giỏ hàng", {
                         position: "bottom-left",
                     });
                 }
@@ -146,7 +145,7 @@ const cartSlice = createSlice({
         clearCart(state, action) {
             state.cartItems = [];
             localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-            toast.error("Cart cleared", { position: "bottom-left" });
+            toast.error("Giỏ hàng đã trống", { position: "bottom-left" });
         },
     },
 });

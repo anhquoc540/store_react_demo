@@ -1,42 +1,68 @@
 //import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 //import { Button } from "../style/Button";
-import { Cloudinary } from "@cloudinary/url-gen";
+
 import { AiFillStar } from 'react-icons/ai';
-import { RxReset } from 'react-icons/rx';
-import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { addToCart } from "../action/features/cart/cartSlice";
 
 import { Card, Space, Tag, Button } from 'antd';
+import { getService } from "../action/features/laundry/laundrySlice";
+
+import { resetState } from "../action/features/store/storeSlice";
 
 
-const SpecialDetailForm = (props) => {
+const SpecialDetailForm = () => {
+    const { id } = useParams();
+
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    useEffect(() => {
+        dispatch(resetState);
 
-    let { id, materials, name, store, details, feedback, imageBanner, isStandard, cloth, description } = props;
+        dispatch(getService(id));
+
+    }, [id, dispatch]);
+
+
+
+
+    const singleService = useSelector((state) => state.laundry.singleService);
+    const { name, imageBanner, details, cloth, materials, store, isStandard, description, feedbacks } = singleService;
+
+
+
+
+
+
+
+
 
     const [inputValues, setInputValue] = useState({
         id,
         name,
         imageBanner,
-        price: details.price,
-        storeId: store.id,
+        price: "",
+        storeId: store?.id,
         isStandard,
     });
 
 
-    const handleAddToCart = (product) => {
 
+
+
+    const handleAddToCart = (product) => {
+        product.price = details[0].price
         dispatch(addToCart(product));
-        // navigate('/cart');
+
+       
     };
 
 
-    // const { name, image } = myData;
+
 
     function starRating(params) {
         const stars = [];
@@ -49,10 +75,10 @@ const SpecialDetailForm = (props) => {
 
 
 
+    function generateCurrency(params) {
+        return params.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+    }
 
-
-
-    details.price = details.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
 
 
     return (
@@ -75,24 +101,25 @@ const SpecialDetailForm = (props) => {
                                     </figure>
                                 </div>
 
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 py-5">
                                     <div className="card mb-4">
                                         <div className="card-body px-5">
                                             <h2 className="fw-bolder">{name}</h2>
-                                            {materials.map(item => <Space size={[0, 8]} wrap>
-                                                <Tag key={item.id} color='blue'>{item}</Tag>
+                                            {materials?.map(item => <Space size={[0, 8]} wrap>
+                                                <Tag key={item.id} color='blue'>{item.name}</Tag>
                                             </Space>)
                                             }
 
-                                            <Tag key={cloth.id} color='blue'>{cloth.name}</Tag>
+                                            <Tag key={cloth?.id} color='blue'>{cloth?.name}</Tag>
 
                                             <p className="h4 py-3 fw-bold">Mô tả: </p>
                                             <p>{description}
                                             </p>
 
                                             <br />
-                                            <p className="mx-2 display-1 fw-bold" style={{ color: 'green' }}>Giá: {details.price}</p>
-
+                                            {details?.map(item =>
+                                                <p className="mx-2 display-1 fw-bold" style={{ color: 'green' }}>Giá: {generateCurrency(item.price)}/{item.unit}</p>
+                                            )}
 
                                             <Button type="primary" htmlType="submit" size='large' className="my-4 col-12" onClick={() => handleAddToCart(inputValues)}>
                                                 Thêm vào giỏ hàng
@@ -118,31 +145,33 @@ const SpecialDetailForm = (props) => {
 
 
 
-                        {/* <div class="card mb-4" style={{ background: '#00A9FF', borderRadius: '10px' }}>
+                        <div class="card mb-4" style={{ background: '#00A9FF', borderRadius: '10px' }}>
                             <div class="card-body py-5">
                                 <h3 class="h3 fw-bold" style={{ color: 'white' }} >Đánh giá từ khách hàng  : </h3>
+                                {feedbacks === null ? (<Card><p className="text-center" style={{ opacity: '60%' }}>Chưa có đánh giá nào</p></Card>) : (
+                                    feedbacks?.map(item =>
+                                        <Card
+                                            key={item.id}
+                                            style={{ marginTop: 16 }}
+                                            title={item.username}
+                                            type="inner"
+                                            bordered={false}
+                                            extra={item.createDate}
 
-                                {feedback.map(item =>
-                                    <Card
-                                        key={item.id}
-                                        style={{ marginTop: 16 }}
-                                        title={item.username}
-                                        type="inner"
-                                        bordered={false}
-                                        extra={item.createDate}
-
-                                    >
-                                        {starRating(item.stars)}
+                                        >
+                                            {starRating(item.stars)}
 
 
-                                        <p className="my-2">{item.content}</p>
-                                    </Card>
-                                )
-                                }
+                                            <p className="my-2">{item.content}</p>
+                                        </Card>
+                                    )
+
+                                )}
+
 
 
                             </div>
-                        </div> */}
+                        </div>
                     </div>
 
 

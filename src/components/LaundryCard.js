@@ -1,53 +1,57 @@
+import { Background, color } from "@cloudinary/url-gen/qualifiers/background";
 import { Button } from "antd";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { getService } from "../action/features/laundry/laundrySlice";
+import { useDispatch } from "react-redux";
 
 const LaundryCard = (curElem) => {
     const { id, name, details, imageBanner, isStandard } = curElem;
-    const data = {
-
-    }
-
+   
     function generateCurrency(params) {
         return params.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
-      }
-
+    }
+    const dispatch = useDispatch();
     
+    const handleSubmit = (id) => {
+        dispatch(getService(id));
+    };
 
-   
+
 
     return (
-        //<NavLink to={`/single-service/${id}`}>
-        <div className="card">
-            <figure>
-                <img src={imageBanner} alt={name} />
+        <NavLink to={`/single-service/${id}`}>
+            <div className="card">
+                <figure>
+                    <img src={imageBanner} alt={name} />
 
-            </figure>
+                </figure>
 
-            <div className="card-data">
-            <h3>Dịch vụ {name}</h3>
-                <div className="card-data-flex float-end">
-                   
-                    <div className="card-data">
-                        {!isStandard ? (<>
-                            
-                             
-                                <div className="display-6">{generateCurrency(details[0].price)} /  {details[0].unit}</div>
-                       
-                        </>) : (<><Button>
 
-                            Xem chi tiết giá dịch vụ
-                        </Button></>)}
+                <div className="card-data">
+                    <h3>Dịch vụ {name}</h3>
+                    <div className="card-data-flex">
+
+
+
+                    
+
+                        <div className="display-6 fw-bold col-8" style={{color:'green'}}>{generateCurrency(details[0].price)} /  {details[0].unit}</div>
+
+
+                        <Button className="col-4" style={{background:'#00A9FF', color:'white'}} onClick={handleSubmit(id)}>
+                                Chi tiết
+                        </Button>
+
+
+
 
 
 
                     </div>
-
-
                 </div>
             </div>
-        </div>
-        //</NavLink>
+        </NavLink>
     );
 };
 export default LaundryCard;

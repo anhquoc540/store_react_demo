@@ -46,12 +46,12 @@ const SingleStore = () => {
     const data = [
         {
             key: 1,
-            label: 'Dịch vụ giặt sấy',
+            label: 'Giặt sấy tiêu chuẩn',
             children: <StandardDetailForm key={standardLaundries.id} {...standardLaundries} />
         },
         {
             key: 2,
-            label: 'Dịch vụ giặt hắp',
+            label: 'Giặt các loại quần áo đặc biệt',
             children: <GridViewLaundry data={specialLaundries}></GridViewLaundry>
         }
 

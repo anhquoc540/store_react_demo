@@ -151,8 +151,9 @@ const FilterForm = () => {
                     onFinish={handleSubmit}
                     labelCol={{ lg: 12 }}
                     labelWrap
-                    style={{ maxWidth: 600, backgroundColor:'white' }}
+                    style={{ backgroundColor:'white', borderRadius:'10px' }}
                     className="py-3"
+                    
 
                 >   <Form.Item className="px-3 h6" >
                          <p className="display-6">Theo giặt hấp:</p>

@@ -66,8 +66,9 @@ const App = () => {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<MainLayout filter={<FilterForm></FilterForm>} content={<StoreList></StoreList>}  section={<HeroSection></HeroSection>}/>} />
-          <Route path="/single-store/:id" element={<MainLayout  content={<SingleStore></SingleStore>}/>} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/single-store/:id" element={<MainLayout  content={<SingleStore></SingleStore>}/>} /> 
+          <Route path="/single-service/:id" element={<MainLayout content={<SpecialDetailForm></SpecialDetailForm>}/>} />
+          <Route path="/cart" element={<MainLayout  content={<Cart />}/>} />
           <Route path="/standard" element={<StandardDetailForm></StandardDetailForm>} />
           <Route path="/special" element={<SpecialDetailForm></SpecialDetailForm>} />
 

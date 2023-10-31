@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Link } from "react-router-dom";
+import SingleSelect from "./SingleSelect";
 
 const Cart = () => {
     const cart = useSelector((state) => state.cart);
@@ -166,7 +167,14 @@ const Cart = () => {
                                 <span>Tổng: </span>
                                 <span className="amount">{generateCurrency(cart.cartTotalAmount)}</span>
                             </div>
-                            <p>Taxes and shipping calculated at checkout</p>
+                            <div className="subtotal py-4">
+                                <span>Thời gian hoàn thành: </span>
+                                <div>
+                                    <SingleSelect></SingleSelect>
+                                </div>
+
+                            </div>
+
                             <button onClick={handleOrder}>Đặt dịch vụ</button>
                             <div className="continue-shopping">
                                 <Link onClick={() => navigate(-1)}>

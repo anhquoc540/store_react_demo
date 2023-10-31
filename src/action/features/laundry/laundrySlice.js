@@ -44,6 +44,7 @@ const initialState = {
   laundries: [],
   specialLaundries: [],
   standardLaundries: [],
+  singleService:"",
   isError: false,
   isLoading: false,
   isSuccess: false,
