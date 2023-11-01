@@ -10,6 +10,7 @@ import {
 import { createOrder } from "../action/features/orders/orderSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Form } from "antd";
 
 import { Link } from "react-router-dom";
 import SingleSelect from "./SingleSelect";
@@ -23,7 +24,7 @@ const Cart = () => {
         total: "",
         createDate: "",
         storeId: "",
-
+        timeId: ""
     }
 
 
@@ -59,6 +60,11 @@ const Cart = () => {
     };
 
 
+    const handleTimeInput = (e) => {
+        setInputValues({ ...inputValues, timeId: e });
+    }
+
+
     const handleOrder = () => {
         for (let i = 0; i < cart.cartItems.length; i++) {
             inputValues.items.push({
@@ -86,8 +92,8 @@ const Cart = () => {
         toast.success("Đặt dịch vụ thành công", {
             position: "top-center",
         });
-        handleSubmitOrder(inputValues);
-
+        //handleSubmitOrder(inputValues);
+        console.log(inputValues);
     }
 
 
@@ -170,7 +176,14 @@ const Cart = () => {
                             <div className="subtotal py-4">
                                 <span>Thời gian hoàn thành: </span>
                                 <div>
-                                    <SingleSelect></SingleSelect>
+                                    <Form.Item
+                                        name={"timeId"}
+                                        noStyle
+                                        rules={[{ required: true, message: 'Vui lòng chọn giá trị !!!' }]}
+                                    >
+                                            <SingleSelect onChange={handleTimeInput} value={inputValues.timeId}></SingleSelect>
+                                    </Form.Item>
+                                
                                 </div>
 
                             </div>

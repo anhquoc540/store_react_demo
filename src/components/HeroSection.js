@@ -44,7 +44,7 @@ const Wrapper = styled.section`
     min-width: 50rem;
     padding:auto;
     margin-left: 10%;
-    height: 350px;
+    height: 40rem;
    
   }
 
