@@ -10,25 +10,56 @@ import {
 import { createOrder } from "../action/features/orders/orderSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Form } from "antd";
+import { Form, Button, Select, Checkbox } from "antd";
 
 import { Link } from "react-router-dom";
-import SingleSelect from "./SingleSelect";
+
 
 const Cart = () => {
     const cart = useSelector((state) => state.cart);
 
 
+
     const [inputValues, setInputValues] = useState({
         items: [],
-        total: "",
+        total: 0,
         createDate: "",
         storeId: "",
         timeId: ""
+    })
+
+
+    const [componentDisabled, setComponentDisabled] = useState(true);
+
+
+
+
+    const time = [
+        {
+            id: 1,
+            name: 'Nhanh',
+            price: 30000,
+
+        },
+        {
+            id: 2,
+            name: 'Sieu toc',
+            price: 40000,
+
+        }
+    ]
+    const data = []
+    for (let i = 0; i < time.length; i++) {
+        data.push({
+            label: time[i].name,
+            value: JSON.stringify({ id: time[i].id, price: time[i].price })
+
+
+        });
+
+
     }
 
-
-    )
 
 
 
@@ -41,6 +72,7 @@ const Cart = () => {
     }
     useEffect(() => {
         dispatch(getTotals());
+     
     }, [cart, dispatch]);
 
     const handleAddToCart = (product) => {
@@ -61,7 +93,26 @@ const Cart = () => {
 
 
     const handleTimeInput = (e) => {
-        setInputValues({ ...inputValues, timeId: e });
+        console.log(e)
+        if (e !== undefined) {
+            const value = JSON.parse(e);
+          
+
+            setInputValues({ ...inputValues, timeId: value.id, total:+ value.price });
+        
+        }
+    }
+
+    console.log(componentDisabled)
+
+    const handleCheckbox = (e) => {
+        setComponentDisabled(e.target.checked);
+        if (e.target.checked){
+            setInputValues({ ...inputValues, timeId: '', total:0});
+        }
+
+
+
     }
 
 
@@ -75,7 +126,7 @@ const Cart = () => {
 
             });
         }
-        inputValues.total = cart.cartTotalAmount;
+        inputValues.total += cart.cartTotalAmount;
         inputValues.storeId = cart.storeId;
         const currentDate = new Date();
         const year = currentDate.getFullYear();
@@ -171,24 +222,51 @@ const Cart = () => {
                         <div className="cart-checkout">
                             <div className="subtotal">
                                 <span>Tổng: </span>
-                                <span className="amount">{generateCurrency(cart.cartTotalAmount)}</span>
+                                <span className="amount">{generateCurrency(cart.cartTotalAmount + inputValues.total)}</span>
                             </div>
-                            <div className="subtotal py-4">
-                                <span>Thời gian hoàn thành: </span>
-                                <div>
-                                    <Form.Item
-                                        name={"timeId"}
-                                        noStyle
-                                        rules={[{ required: true, message: 'Vui lòng chọn giá trị !!!' }]}
+                            <Form name="complex-form" onFinish={handleOrder} >
+                                <div className="subtotal py-4">
+                                    <Checkbox
+                                        checked={componentDisabled}
+                                        // onChange={(e) => { setComponentDisabled(e.target.checked);
+                                        
+                                        // }}
+                                        onChange={handleCheckbox}
                                     >
-                                            <SingleSelect onChange={handleTimeInput} value={inputValues.timeId}></SingleSelect>
-                                    </Form.Item>
-                                
+                                        Form disabled
+                                    </Checkbox>
+
+
+                                    <div>
+                                        <Form disabled={componentDisabled}>
+
+                                            <Form.Item
+                                                label="Thời gian hoàn thành:"
+                                                name={"timeId"}
+                                                noStyle
+                                                rules={[{ required: true, message: 'Vui lòng chọn giá trị !!!' }]}
+
+                                            >
+                                                <Select onChange={handleTimeInput} options={data} value={inputValues.timeId}>
+
+                                                </Select>
+                                            </Form.Item>
+
+                                        </Form>
+
+
+                                    </div>
+
                                 </div>
+                                <Form.Item label=" " colon={false}>
+                                    <Button type="primary" htmlType="submit">
+                                        Đặt dịch vụ
+                                    </Button>
+                                </Form.Item>
 
-                            </div>
 
-                            <button onClick={handleOrder}>Đặt dịch vụ</button>
+
+                            </Form>
                             <div className="continue-shopping">
                                 <Link onClick={() => navigate(-1)}>
                                     <svg
