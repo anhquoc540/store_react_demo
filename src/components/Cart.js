@@ -122,7 +122,7 @@ const Cart = () => {
 
                 id: cart.cartItems[i].id,
                 quantity: cart.cartItems[i].cartQuantity,
-                price: cart.cartItems[i].price > 0 ? cart.cartItems[i].price : "",
+                price: cart.cartItems[i].price > 0 ? cart.cartItems[i].price : 0,
 
             });
         }
@@ -143,7 +143,7 @@ const Cart = () => {
         toast.success("Đặt dịch vụ thành công", {
             position: "top-center",
         });
-        //handleSubmitOrder(inputValues);
+        handleSubmitOrder(inputValues);
         console.log(inputValues);
     }
 

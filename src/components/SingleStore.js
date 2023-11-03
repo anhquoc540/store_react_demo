@@ -24,24 +24,9 @@ const SingleStore = () => {
 
     const singleStore = useSelector((state) => state.store.singleStore);
     const specialLaundries = useSelector((state) => state.laundry.specialLaundries);
+    const standardLaundries =useSelector((state) => state.laundry.standardLaundries);
     //const standardLaundries = useSelector((state) => state.laundry.standardLaundries);
-    const standardLaundries = {
-        id: 1,
-        name:"Giặt sấy tiêu chuẩn",
-        details: [{
-            id: 1,
-            from: 2,
-            to: 3,
-            unit: 'kg',
-            price: 30000
-        }],
-        feedback: [],
-        store: {
-            id: 1,
-            name: 'aa'
-        },
-        isStandard: true,
-    }
+    
 
     const data = [
         {

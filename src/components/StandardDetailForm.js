@@ -5,22 +5,25 @@ import styled from "styled-components";
 import { AiFillStar } from 'react-icons/ai';
 import React, { useState } from 'react';
 import { Table, Card, Button } from 'antd';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { addToCart } from "../action/features/cart/cartSlice";
-const StandardDetailForm = (props) => {
+const StandardDetailForm = () => {
   // const { name, image } = myData;
-  const { id, name, details, feedback, store, isStandard, imageBanner } = props;
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const standardLaundries =useSelector((state) => state.laundry.standardLaundries);
+
+  const {id, name,description ,imageBanner,isStandard, store, details, feedbacks} = standardLaundries;
 
   const [inputValues, setInputValue] = useState({
     id,
     name,
     isStandard,
-    storeId: store.id,
+    storeId: store?.id,
   
 
 
@@ -71,18 +74,19 @@ const StandardDetailForm = (props) => {
 
 
   const data = [];
-  for (const element of details) {
+ 
+  for (let i = 0; i < details?.length; i++) {
     data.push({
-      key: element.id,
 
-      to: element.to,
-      from: element.from,
-      price: generateCurrency(element.price),
-      unit: element.unit,
-    })
+      key: details[i].id,
 
-  }
+      to: details[i].to,
+      from: details[i].from,
+      price: generateCurrency(details[i].price),
+      unit: details[i].unit,
 
+    });
+}
   const handleAddToCart = (product) => {
 
     dispatch(addToCart(product));
@@ -132,7 +136,7 @@ const StandardDetailForm = (props) => {
             <div class="card mb-4" style={{ background: '#00A9FF', borderRadius: '10px' }}>
               <div class="card-body py-5">
                 <h3 class="h3 fw-bold" style={{ color: 'white' }} >Đánh giá từ khách hàng  : </h3>
-                {feedback.map(item =>
+                {feedbacks?.map(item =>
                   <Card
                     key={item.id}
                     style={{ marginTop: 16 }}
@@ -161,17 +165,7 @@ const StandardDetailForm = (props) => {
                 <h2 class="fw-bolder">{name}</h2>
                 <p> </p>
                 <p class="h4 fw-bold">Mô tả: </p>
-                <p>Sed enim, faucibus litora velit vestibulum habitasse.
-                  Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
-                  sem tellus vestibulum porttitor.Sed enim, faucibus litora velit vestibulum habitasse.
-                  Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
-                  sem tellus vestibulum porttitor.Sed enim, faucibus litora velit vestibulum habitasse.
-                  Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
-                  sem tellus vestibulum porttitor.Sed enim, faucibus litora velit vestibulum habitasse.
-                  Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
-                  sem tellus vestibulum porttitor.  Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
-                  sem tellus vestibulum porttitor.Sed enim, faucibus litora velit vestibulum habitasse.
-                  Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi,
+                <p>{description}
                 </p>
                 <Button type="primary" htmlType="submit" size='large' className="my-4 col-12" onClick={() => handleAddToCart(inputValues)}>
                   Thêm vào giỏ hàng
