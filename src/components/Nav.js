@@ -1,5 +1,5 @@
-import React, { useState,useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
@@ -14,6 +14,7 @@ import { getTotals } from "../action/features/cart/cartSlice";
 const Nav = () => {
   const [menuIcon, setMenuIcon] = useState();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
@@ -188,7 +189,7 @@ const Nav = () => {
             </NavLink>
           </li>
 
-          <li>
+          <li style={{color:'white'}}>
             {/* <Dropdown>
               <Dropdown.Toggle variant="" id="dropdown-basic" style={{fontSize: '22px'}}>
                 
@@ -201,6 +202,10 @@ const Nav = () => {
                 <Dropdown.Item href="#">Logout</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown> */}
+            {user === null ? (<><Link>Đăng nhập</Link> / <Link>Đăng ký</Link>
+            </>) : (<a>user1</a>)}
+
+
           </li>
 
         </ul>

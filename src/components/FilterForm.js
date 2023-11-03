@@ -149,9 +149,9 @@ const FilterForm = () => {
                 <Form
                     layout="vertical"
                     onFinish={handleSubmit}
-                    labelCol={{ lg: 12 }}
+                    labelCol={{ lg: 16 }}
                     labelWrap
-                    style={{ backgroundColor:'white', borderRadius:'10px' }}
+                  
                     className="py-3"
                     
 

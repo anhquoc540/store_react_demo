@@ -110,7 +110,7 @@ const SpecialDetailForm = () => {
                                             </Space>)
                                             }
 
-                                            <Tag key={cloth?.id} color='blue'>{cloth?.name}</Tag>
+                                            <Tag key={cloth?.id} color='red'>{cloth?.name}</Tag>
 
                                             <p className="h4 py-3 fw-bold">Mô tả: </p>
                                             <p>{description}
