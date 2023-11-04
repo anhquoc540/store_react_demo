@@ -14,19 +14,16 @@ import StoreList from './components/StoreList';
 import DetailForm from './components/StandardDetailForm';
 import SpecialDetailForm from './components/SpecialDetailForm';
 import StandardDetailForm from './components/StandardDetailForm';
-import ProfileDetailForm from './components/ProfileDetailForm';
 import { useEffect } from 'react';
 import Cart from './components/Cart';
 import "react-toastify/dist/ReactToastify.css";
 import SingleStore from './components/SingleStore';
 import HeroSection from './components/HeroSection';
+import ProfileLayout from './components/layout/ProfileLayout';
+import Profile from './components/Profile';
+import History from './components/History';
 
 const App = () => {
-  // useEffect(() =>{
-  //   navigator.geolocation.getCurrentPosition((positon) => 
-  //   )
-  // },[]
-  // )
   const theme = {
     colors: {
       heading: "rgb(24 24 29)",
@@ -61,9 +58,9 @@ const App = () => {
     <ThemeProvider theme={theme}>
 
 
-      <GlobalStyle />
       <Router>
         <ToastContainer />
+        <GlobalStyle />
         <Routes>
           <Route path="/" element={<MainLayout filter={<FilterForm></FilterForm>} content={<StoreList></StoreList>}  section={<HeroSection></HeroSection>}/>} />
           <Route path="/single-store/:id" element={<MainLayout  content={<SingleStore></SingleStore>}/>} /> 
@@ -71,12 +68,15 @@ const App = () => {
           <Route path="/cart" element={<MainLayout  content={<Cart />}/>} />
           <Route path="/standard" element={<StandardDetailForm></StandardDetailForm>} />
           <Route path="/special" element={<SpecialDetailForm></SpecialDetailForm>} />
-
+          <Route path="/profilelayout" element={<ProfileLayout />} >
+            <Route path="/profilelayout/profile" element={<Profile />} />
+            <Route path="/profilelayout/history" element={<History />} />
+          </Route>
 
         </Routes>
       </Router>
 
-
+    //
       {/* <SingleStore></SingleStore>
 
        <ProfileDetailForm></ProfileDetailForm>  */}

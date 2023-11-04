@@ -190,24 +190,12 @@ const Nav = () => {
           </li>
 
           <li style={{color:'white'}}>
-            {/* <Dropdown>
-              <Dropdown.Toggle variant="" id="dropdown-basic" style={{fontSize: '22px'}}>
-                
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px'}}>
-                <Dropdown.Item href="/login">Login</Dropdown.Item>
-                <Dropdown.Item href="/signup">Signup</Dropdown.Item>
-                <Dropdown.Item href="/user/accountsettings">Profile</Dropdown.Item>
-                <Dropdown.Item href="#">Logout</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown> */}
+           
             {user === null ? (<><Link>Đăng nhập</Link> / <Link>Đăng ký</Link>
             </>) : (<a>user1</a>)}
-
-
+           
           </li>
-
+<NavLink to="/profilelayout"><div>hello</div> </NavLink>
         </ul>
 
         {/* two button for open and close of menu */}
