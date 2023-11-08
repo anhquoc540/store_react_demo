@@ -1,21 +1,13 @@
 import React from 'react';
 import { Layout, Affix } from 'antd';
-
 import styled from "styled-components";
-import HeroSection from '../HeroSection';
-
-
 import Header from '../Header';
 
 const {  Footer, Sider, Content } = Layout;
 
 const MainLayout = (children) => {
 
-    
-   
     const { filter, content, section } = children
-
-
 
     return (
 
@@ -31,22 +23,8 @@ const MainLayout = (children) => {
             <Content hasSider style={{padding:'20px'}}>
 
                 <Layout style={{ minHeight: '100vh', position: 'relative' }} hasSider>
-
-
-                   
-
                         {filter}
-
-
-                  
-
-
-
-
-
                     <Content>
-
-
 
                         < Wrapper >
                             {section}
@@ -60,12 +38,10 @@ const MainLayout = (children) => {
 
                         </Wrapper>
 
-
-
                     </Content>
                 </Layout>
             </Content>
-            <Footer style={{ textAlign: 'center', background: '#1874fc', color: 'white', position: 'relative', width: "100%", bottom: '0' }}>Ant Design ©2023 Created by Ant UED</Footer>
+            <Footer style={{ textAlign: 'center', background: '#1874fc', color: 'white', width: "100%", bottom: '10',paddingLeft: '15%' }}>Ant Design ©2023 Created by Ant UED</Footer>
         </Layout>
 
     );

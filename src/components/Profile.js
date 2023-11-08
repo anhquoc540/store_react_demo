@@ -1,11 +1,13 @@
 //import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-//import { Button } from "../style/Button";
-
+import * as Yup from 'yup';
+import { useFormik } from "formik";
 import { FaLock } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { UploadOutlined } from '@ant-design/icons';
+import axios from "axios";
 
 
 import { Card, Space, Input, Form, Button, InputNumber, message, Upload } from 'antd';
@@ -13,12 +15,59 @@ import ModalForm from "./Form/ModalForm";
 import UploadImage from "./Form/UploadImage";
 
 
-const ProfileDetailForm = (props) => {
-
+export default function ProfileDetailForm() {
+    const staff = useParams();
     const [open, setOpen] = useState(false);
     const [defaultName, setDefaultName] = useState('Anh Quoc');
 
+    const [APIData, setAPIData] = useState([]);
+    const getUsersUrl = `https://6530c5486c756603295f0271.mockapi.io/api/v1/staffs/${staff.id}`;
+    const putUserUrl = `https://6530c5486c756603295f0271.mockapi.io/api/v1/staffs/${staff.id}`;
+    useEffect(() => {
+        axios.get(getUsersUrl).then(
+            response => {
+                
+                return response.data;
+            })
+            .then(data => { setAPIData(data) })
+            .catch(error => console.log(error.message));
 
+    }, [getUsersUrl])
+    
+
+    const formik = useFormik({
+
+        enableReinitialize:true,
+        
+        initialValues: APIData,
+
+        onSubmit: (values) => {
+            values.createdAt = new Date(values.createdAt);
+          
+            fetch(putUserUrl, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(values),
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {setOpen(true);})
+              .catch(error => {console.log(error.message);});
+          },
+          validationSchema: Yup.object({
+            name: Yup.string().required("Required.").min(3, "Must be more 2 characters"),
+            address: Yup.string().required("Required.").typeError("Please enter a address"),
+            numberP: Yup.number().integer().required("Required.").typeError("Please enter a valid number"),
+            
+            
+        }),
+    });
 
     const layout = {
         labelCol: {
@@ -52,7 +101,6 @@ const ProfileDetailForm = (props) => {
         setOpen(false);
     };
 
-
     return (
 
         <Wrapper>
@@ -62,9 +110,6 @@ const ProfileDetailForm = (props) => {
                 <div className="card">
                     <div className="card-body p-5">
                         <div class="row">
-
-
-
 
                             <div className="col-sm-2 p-5">
 
@@ -76,14 +121,15 @@ const ProfileDetailForm = (props) => {
                                     <Form
                                         {...layout}
                                         name="nest-messages"
-                                        onFinish={onFinish}
-                                        
+                                        onSubmit={formik.handleSubmit}                                        
                                         validateMessages={validateMessages}
                                        
                                     >
                                         <Form.Item
                                             name={['user', 'name']}
                                             label="Họ và tên:"
+                                            values={formik.values.name}
+                                            onChange={formik.handleChange}
                                             rules={[
                                                 {
                                                     required: true,
@@ -94,20 +140,18 @@ const ProfileDetailForm = (props) => {
                                             <Input className="col-6" />
                                         </Form.Item>
 
-
                                         <Form.Item
 
                                             label="Email"
-
-
                                         >
                                             Email
                                         </Form.Item>
 
-                                        {/*Phone------------------------------------------------------------------------------------------------------------*/}
                                         <Form.Item
                                             name="phone"
                                             label="Số điện thoại"
+                                            values={formik.values.numberP}
+                                            onChange={formik.handleChange}
                                             rules={[
                                                 {
                                                     required: true,
@@ -116,25 +160,24 @@ const ProfileDetailForm = (props) => {
                                             ]}
                                         >
                                             <Input
-                                                addonBefore={+84}
+                                                addonBefore={ +84}
                                                 maxLength={10}
                                                 className="col-6"
                                             />
                                         </Form.Item>
 
-                                        {/*Address------------------------------------------------------------------------------------------------------------*/}
                                         <Form.Item
                                             name="address"
                                             label="Địa chỉ :"
+                                            values={formik.values.address}
+                                            onChange={formik.handleChange}
                                             rules={[
                                                 {
                                                     required: true,
-                                                   
                                                 },
                                             ]}
                                         >
                                             <Input
-                                                
                                                 className="col-6"
                                             />
                                         </Form.Item>
@@ -158,7 +201,6 @@ const ProfileDetailForm = (props) => {
                                             />
                                         </Form.Item>
 
-                                        {/*Button------------------------------------------------------------------------------------------------------------*/}
                                         <Form.Item label=" " colon={false} >
                                             <Button type="primary" htmlType="submit" size="large">
                                                 Lưu thông tin
@@ -166,31 +208,16 @@ const ProfileDetailForm = (props) => {
 
                                         </Form.Item>
 
-
-
-
-
                                     </Form>
-
-
-
 
                                 </div>
 
                             </div>
 
-
-
                         </div>
                     </div>
-            
-
-
             </div>
         </Wrapper >
-
-
-
 
     );
 };
@@ -204,4 +231,3 @@ img {
   }
 `;
 
-export default ProfileDetailForm;

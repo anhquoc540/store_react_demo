@@ -112,39 +112,13 @@ const FilterForm = () => {
     }
 
 
-
-
-
     return (
         <>
-            {/*
-            <form onSubmit={handleSubmit}>
-                <div className=" row px-1 py-2">
-
-                    <MultipleSelect name="materials" options={data1} onChange={handleMaterialInput} value={inputValues.materials} ></MultipleSelect>
-
-                </div>
-
-                <div className="row px-1">
-
-
-                    <SingleSelect name='clothId' options={data2} onChange={handleClothInput} value={inputValues.clothId}></SingleSelect>
-
-
-                </div>
-                <div className="row px-5 ">
-                    <button
-                        className="btn btn-success border-0 rounded-3 my-5 float-end"
-                        type="submit"
-                    >
-                        Filter
-                    </button>
-                </div>
-            </form> */}
+        
             <Affix offsetTop={100} onChange={(affixed) => console.log(affixed)}>
-                <h4 className="px-3 py-1">
+                <h2 className="px-3 py-1">
                     Tìm kiếm cửa hàng :
-                </h4>
+                </h2>
               <br/>
                 <Form
                     layout="vertical"
@@ -156,7 +130,7 @@ const FilterForm = () => {
                     
 
                 >   <Form.Item className="px-3 h6" >
-                         <p className="display-6">Theo giặt hấp:</p>
+                         <h3>Theo giặt hấp:</h3>
                         <Form.Item label="Chất liệu vải" style={{opacity:'65%'}}>
 
                             <Form.Item
@@ -182,7 +156,7 @@ const FilterForm = () => {
 
 
                     <Form.Item className="px-3" >
-                        <p className="display-6">Theo quận:</p>
+                        <h3>Theo quận:</h3>
                         <Form.Item
                             name={'district'}
                             noStyle
@@ -190,7 +164,6 @@ const FilterForm = () => {
                             <SingleSelect name='district' options={districts} onChange={handleDistrictInput} value={inputValues.district}></SingleSelect>
                         </Form.Item>
                     </Form.Item>
-
 
                     <Button type="primary" htmlType="submit" className="my-5 col-sm-10 mx-4">
                         Tìm kiếm
@@ -200,23 +173,8 @@ const FilterForm = () => {
 
             </Affix>
 
-
-
         </>
-
-
-
-
-
-
-
-
-
-
     );
-
-
-
 
 }
 

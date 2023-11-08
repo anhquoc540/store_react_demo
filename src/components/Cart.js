@@ -28,11 +28,7 @@ const Cart = () => {
         timeId: ""
     })
 
-
     const [componentDisabled, setComponentDisabled] = useState(true);
-
-
-
 
     const time = [
         {
@@ -53,14 +49,8 @@ const Cart = () => {
         data.push({
             label: time[i].name,
             value: JSON.stringify({ id: time[i].id, price: time[i].price })
-
-
         });
-
-
     }
-
-
 
 
     const dispatch = useDispatch();

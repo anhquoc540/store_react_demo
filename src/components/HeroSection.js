@@ -19,7 +19,7 @@ const HeroSection = () => {
             
               <img src="https://res.cloudinary.com/df6mibrwv/image/upload/v1698172847/xeasuevjyadfgzuj25jx.png" className="img-logo-section" />
               <h1 className="text-center">Nothing but the best</h1>
-
+        
             {/* <NavLink to={`/stores`}>
               <Button>show now</Button>
             </NavLink> */}
@@ -40,11 +40,10 @@ const Wrapper = styled.section`
   padding: 0;
 
   .img-logo-section {
-    
-    min-width: 50rem;
-    padding:auto;
     margin-left: 10%;
-    height: 40rem;
+    margin-top: 10%;
+    width: 180px;
+    height: auto;
    
   }
 
@@ -52,9 +51,14 @@ const Wrapper = styled.section`
     min-width: 80%;
     height: auto;
     border-radius: 1rem;
+    height: 300px;
+    width: 700px;
   }
 
-  .hero-section-data {
+ .text-center{
+  margin-left:2%;
+  margin-bottom:5%;
+ }
 
     
 
@@ -64,7 +68,7 @@ const Wrapper = styled.section`
     }
 
    
-  }
+  
 
   .hero-section-image {
     width: 90%;

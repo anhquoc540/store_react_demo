@@ -9,8 +9,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getTotals } from "../action/features/cart/cartSlice";
 
 
-
-
 const Nav = () => {
   const [menuIcon, setMenuIcon] = useState();
   const dispatch = useDispatch();
@@ -66,12 +64,13 @@ const Nav = () => {
 
       .cart-trolley {
         position: relative;
-        font-size: 3.2rem;
+        font-size: 1.8rem;
       }
 
       .cart-total--item {
-        width: 2.4rem;
-        height: 2.4rem;
+        font-size: 1.2rem;
+        width: 1.8rem;
+        height: 1.8rem;
         position: absolute;
         background-color: #000;
         color: #000;
@@ -161,9 +160,9 @@ const Nav = () => {
         }
 
         .cart-total--item {
-          width: 4.2rem;
-          height: 4.2rem;
-          font-size: 2rem;
+          width: 1rem;
+          height: 1rem;
+          font-size: 1rem;
         }
       }
 
@@ -190,22 +189,10 @@ const Nav = () => {
           </li>
 
           <li style={{color:'white'}}>
-            {/* <Dropdown>
-              <Dropdown.Toggle variant="" id="dropdown-basic" style={{fontSize: '22px'}}>
-                
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px'}}>
-                <Dropdown.Item href="/login">Login</Dropdown.Item>
-                <Dropdown.Item href="/signup">Signup</Dropdown.Item>
-                <Dropdown.Item href="/user/accountsettings">Profile</Dropdown.Item>
-                <Dropdown.Item href="#">Logout</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown> */}
+           <NavLink to="/profilelayout" style={{fontSize:"22px", color:"#fff"}}>
             {user === null ? (<><Link>Đăng nhập</Link> / <Link>Đăng ký</Link>
             </>) : (<a>user1</a>)}
-
-
+            </NavLink>
           </li>
 
         </ul>
