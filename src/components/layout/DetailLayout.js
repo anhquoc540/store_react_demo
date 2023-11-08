@@ -34,23 +34,11 @@ const MainLayout = (children) => {
 
                 <Layout style={{ minHeight: '100vh', position: 'relative' }} hasSider>
 
-
-                   
-
-
-
-
-
                     <Content>
 
-
-
                         < Wrapper >
-                         
 
                         </Wrapper>
-
-
 
                     </Content>
                 </Layout>

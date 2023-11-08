@@ -16,13 +16,13 @@ import UploadImage from "./Form/UploadImage";
 
 
 export default function ProfileDetailForm() {
-    const staff = useParams();
+    const user = useParams();
     const [open, setOpen] = useState(false);
     const [defaultName, setDefaultName] = useState('Anh Quoc');
 
     const [APIData, setAPIData] = useState([]);
-    const getUsersUrl = `https://6530c5486c756603295f0271.mockapi.io/api/v1/staffs/${staff.id}`;
-    const putUserUrl = `https://6530c5486c756603295f0271.mockapi.io/api/v1/staffs/${staff.id}`;
+    const getUsersUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile`;
+    const putUserUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile/${user.id}`;
     useEffect(() => {
         axios.get(getUsersUrl).then(
             response => {
