@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import axios from 'axios';
-import { config } from "../axios/auth-header";
+// import { config } from "../axios/auth-header";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
-const URL = "https://magpie-aware-lark.ngrok-free.app/api/v1/base/order/all";
+const URL = "https://magpie-aware-lark.ngrok-free.app/api/v1/user/order/all";
 
 
 const columns = [
@@ -40,17 +41,32 @@ const columns = [
 ];
 
 const HistoryOrders = () => {
-    const [state, setState] = useState([]);
+  const { userInfoDTO } = useSelector((state) => state.auth);
+  const [state, setState] = useState([]);
 
-  useEffect(() => {
-    getHistoryOrders();
-  }, []);
+  
 
   const getHistoryOrders = async (id) => {
-    const res = await axios.get(`${URL}`,config);
+    const res = await axios.get(`${URL}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('access_token'))}`,
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        'ngrok-skip-browser-warning': '69420'
+    
+      },
+    });
     if (res.status === 200) {
       setState(res.data);
     }
+  }
+
+  useEffect(() => {
+    getHistoryOrders(userInfoDTO.id);
+  }, []);
+
+  if (!state) {
+    <div>...loading</div>
   }
   console.log(state);
 
@@ -79,9 +95,9 @@ const HistoryOrders = () => {
   }
   console.log(data1);
   return (
-    
+
     <div>
-      
+
       <h3 className="mb-4 title">Lịch Sử Đơn Hàng</h3>
 
       <div>

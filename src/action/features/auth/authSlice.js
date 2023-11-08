@@ -49,14 +49,14 @@ export const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       localStorage.removeItem('userInfoDTO') 
-      localStorage.removeItem('access_token') 
-      state.userInfoDTO= null;
       state.access_token = null;
+      localStorage.setItem('access_token', JSON.stringify(state.access_token)) 
+      state.userInfoDTO= null;
+      
       state.isError = false;
       state.isLoading = false;
       state.isSuccess=false;
       
-   
 
     },
   },
