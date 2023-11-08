@@ -7,16 +7,17 @@ import Dropdown from "react-bootstrap/Dropdown";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector, useDispatch } from "react-redux";
 import { getTotals } from "../action/features/cart/cartSlice";
-
+import { logout } from "../action/features/auth/authSlice";
 
 
 
 const Nav = () => {
+  const {userInfoDTO} = useSelector((state) => state.auth);
   const [menuIcon, setMenuIcon] = useState();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart);
-
+  
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
@@ -174,6 +175,7 @@ const Nav = () => {
       }
     }
   `;
+  console.log(localStorage.getItem('access_token'))
 
   return (
     <Nav>
@@ -190,22 +192,40 @@ const Nav = () => {
           </li>
 
           <li style={{color:'white'}}>
-            {/* <Dropdown>
+            {/* {userInfoDTO === null ? (<><Link>Đăng nhập</Link> / <Link>Đăng ký</Link>
+            </>) : (<a></a>)} */}
+            {userInfoDTO === null ? (<Dropdown>
               <Dropdown.Toggle variant="" id="dropdown-basic" style={{fontSize: '22px'}}>
                 
               </Dropdown.Toggle>
 
               <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px'}}>
-                <Dropdown.Item href="/login">Login</Dropdown.Item>
-                <Dropdown.Item href="/signup">Signup</Dropdown.Item>
-                <Dropdown.Item href="/user/accountsettings">Profile</Dropdown.Item>
-                <Dropdown.Item href="#">Logout</Dropdown.Item>
+                <Dropdown.Item href="/USER">Đăng ký</Dropdown.Item>
+                {/* <Dropdown.Item href="/user/accountsettings">Profile</Dropdown.Item> */}
+                <Dropdown.Item  href="/login">Đăng nhập</Dropdown.Item>
+                {/* <Dropdown.Item  href="/">Logout</Dropdown.Item> */}
+                
+                
               </Dropdown.Menu>
-            </Dropdown> */}
-            {user === null ? (<><Link>Đăng nhập</Link> / <Link>Đăng ký</Link>
-            </>) : (<a>user1</a>)}
+           
+           
+            </Dropdown>) : (<div className="d-flex gap-3 align-items-center dropdown">
+              <a>{userInfoDTO.fullName}</a>
+              <Dropdown>
+              <Dropdown.Toggle variant="" id="dropdown-basic" style={{fontSize: '22px'}}>
+                
+              </Dropdown.Toggle>
 
-
+              <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px'}}>
+                {/* <Dropdown.Item href="/USER">Signup</Dropdown.Item> */}
+                <Dropdown.Item href="/user/accountsettings">Hồ sơ</Dropdown.Item> 
+                {/* <Dropdown.Item  href="/login">Login</Dropdown.Item> */}
+                <Dropdown.Item  href="/" onClick={() => dispatch(logout())}>Đăng xuất</Dropdown.Item> 
+                
+                
+              </Dropdown.Menu>
+            </Dropdown></div>)}
+                 
           </li>
 
         </ul>

@@ -15,11 +15,13 @@ import DetailForm from './components/StandardDetailForm';
 import SpecialDetailForm from './components/SpecialDetailForm';
 import StandardDetailForm from './components/StandardDetailForm';
 import ProfileDetailForm from './components/ProfileDetailForm';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Cart from './components/Cart';
 import "react-toastify/dist/ReactToastify.css";
 import SingleStore from './components/SingleStore';
 import HeroSection from './components/HeroSection';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 
 const App = () => {
   // useEffect(() =>{
@@ -27,7 +29,7 @@ const App = () => {
   //   )
   // },[]
   // )
-  const theme = {
+const theme = {
     colors: {
       heading: "rgb(24 24 29)",
       text: "rgba(29 ,29, 29, .8)",
@@ -65,7 +67,10 @@ const App = () => {
       <Router>
         <ToastContainer />
         <Routes>
-          <Route path="/" element={<MainLayout filter={<FilterForm></FilterForm>} content={<StoreList></StoreList>}  section={<HeroSection></HeroSection>}/>} />
+          <Route path="/" element={<MainLayout filter={<FilterForm></FilterForm>} content={<StoreList></StoreList>}  section={<HeroSection></HeroSection>}/>} /> 
+          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/USER' element={<SignUp/>}></Route>
+          <Route path='login/signup' element={<SignUp/>}/>
           <Route path="/single-store/:id" element={<MainLayout  content={<SingleStore></SingleStore>}/>} /> 
           <Route path="/single-service/:id" element={<MainLayout content={<SpecialDetailForm></SpecialDetailForm>}/>} />
           <Route path="/cart" element={<MainLayout  content={<Cart />}/>} />

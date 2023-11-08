@@ -24,7 +24,6 @@ const MainLayout = (children) => {
             <Affix offsetTop={-1} onChange={(affixed) => console.log(affixed)}>
                 <Header style={{ display: 'flex', alignItems: 'center' }}>
                     <div className="demo-logo" />
-
                 </Header>
             </Affix>
 

@@ -13,7 +13,9 @@ store.dispatch(getTotals);
 root.render(
 
     <Provider store={store}>
+      
       <App />
+      
     </Provider>
 
 

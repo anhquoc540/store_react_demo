@@ -118,17 +118,13 @@ ${"" /* resuable code section  */}
       text-transform: capitalize;
     }
 
-     .intro-data {
-      margin-bottom: 0;
-      text-transform: uppercase;
-      color: black;
-    }
+     
 
    .caption {
       position: absolute;
       top: 15%;
       right: 10%;
-      text-transform: uppercase;
+      
       background-color: ${({ theme }) => theme.colors.bg};
       color: ${({ theme }) => theme.colors.helper};
       padding: 0.8rem 2rem;
@@ -141,7 +137,7 @@ input, textarea{
     color: ${({ theme }) => theme.colors.black};
     padding: 1.6rem 2.4rem;
     border: 1px solid ${({ theme }) => theme.colors.border};
-    text-transform: uppercase;
+    
    box-shadow: ${({ theme }) => theme.colors.shadowSupport};
 }
     input[type="submit"]{
@@ -152,7 +148,7 @@ input, textarea{
     padding: 1.4rem 2.2rem;
     border-style: solid;
     border-width: .1rem;
-    text-transform: uppercase;
+    
     font-size: 1.8rem;
     cursor: pointer;
     }
@@ -190,7 +186,7 @@ input, textarea{
 .cart-container .titles h3 {
   font-size: 14px;
   font-weight: 400;
-  text-transform: uppercase;
+  
 }
 .cart-item,
 .cart-container .titles {
