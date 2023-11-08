@@ -1,74 +1,66 @@
 //import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import * as Yup from 'yup';
-import { useFormik } from "formik";
-import { FaLock } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 
-import React, { useState, useEffect} from 'react';
-import { UploadOutlined } from '@ant-design/icons';
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from "axios"
 
-
-import { Card, Space, Input, Form, Button, InputNumber, message, Upload } from 'antd';
-import ModalForm from "./Form/ModalForm";
+import { Input, Form, Button, Select } from 'antd';
 import UploadImage from "./Form/UploadImage";
+import { config } from "../axios/auth-header";
 
+const initialState = {
+    id: '',
+    email: '',
+    phone: '',
+    fullName: '',
+    address: '',
+    image: '',
+    status: '',
+    role: '',
+
+}
 
 export default function ProfileDetailForm() {
+
+
+    const [form] = Form.useForm();
+    const { Option } = Select;
     const user = useParams();
     const [open, setOpen] = useState(false);
-    const [defaultName, setDefaultName] = useState('Anh Quoc');
-
-    const [APIData, setAPIData] = useState([]);
-    const getUsersUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile`;
     const putUserUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile/${user.id}`;
+    const [state, setState] = useState(initialState);
+    const { id, fullName, email, phone, address, image, status, role } = state;
+    //const [APIData, setAPIData] = useState([]);
+    const getUsersUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/base/profile/2`;
+    const getProfile = async () => {
+        const res = await axios.get(getUsersUrl, config);
+        if (res.status === 200) {
+            setState(res.data)
+        }
+
+
+    }
     useEffect(() => {
-        axios.get(getUsersUrl).then(
-            response => {
-                
-                return response.data;
-            })
-            .then(data => { setAPIData(data) })
-            .catch(error => console.log(error.message));
+        // await axios.get(getUsersUrl, config).then(
+        //     response => {
 
-    }, [getUsersUrl])
-    
-
-    const formik = useFormik({
-
-        enableReinitialize:true,
+        //         setState(response.data)
+        //     })
+        //     // .then(data => { setAPIData(data) })
+        //     .catch(error => console.log(error.message));
+        getProfile();
+        form.setFieldsValue({
+            fullName : fullName,
+            phone: phone,
+            address: address,
+        }) 
         
-        initialValues: APIData,
 
-        onSubmit: (values) => {
-            values.createdAt = new Date(values.createdAt);
-          
-            fetch(putUserUrl, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(values),
-            })
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error('Network response was not ok');
-                }
-                return response.json();
-              })
-              .then(data => {setOpen(true);})
-              .catch(error => {console.log(error.message);});
-          },
-          validationSchema: Yup.object({
-            name: Yup.string().required("Required.").min(3, "Must be more 2 characters"),
-            address: Yup.string().required("Required.").typeError("Please enter a address"),
-            numberP: Yup.number().integer().required("Required.").typeError("Please enter a valid number"),
-            
-            
-        }),
-    });
+    },[]);
 
+
+    console.log('Dữ liệu từ API:', state)
     const layout = {
         labelCol: {
             span: 3,
@@ -78,35 +70,47 @@ export default function ProfileDetailForm() {
         },
     };
 
+    const prefixSelector = (
+        <Form.Item name="prefix" noStyle>
+            <Select
+                style={{
+                    width: 70,
+                }}
+            >
+                <Option value="84">+84</Option>
+                <Option value="87">+87</Option>
+            </Select>
+        </Form.Item>
+    );
     const validateMessages = {
         required: '${label} đang trống, Vui lòng nhập thông tin ! ',
         types: {
-          
+
             number: '${label} is not a valid number!',
-            
+
         },
         number: {
             range: '${label} must be between ${min} and ${max}',
         },
     };
 
-
     const onFinish = (values) => {
         console.log(values);
     };
 
-   
-    const onCreate = (values) => {
-        console.log('Received values of form: ', values);
-        setOpen(false);
-    };
+    // const onCreate = (values) => {
+    //     console.log('Received values of form: ', values);
+    //     setOpen(false);
+    // };
+    const handleInputChange = (event) => {
+        let { name, value } = event.target;
+        setState((state) => ({ ...state, [name]: value }));
+      }
 
     return (
-
         <Wrapper>
-            
             <div class="container">
-            <h1>Thông tin cá nhân</h1>
+                <h1>Thông tin cá nhân</h1>
                 <div className="card">
                     <div className="card-body p-5">
                         <div class="row">
@@ -117,105 +121,84 @@ export default function ProfileDetailForm() {
 
                             </div>
                             <div className="col-sm-10">
-                              
-                                    <Form
-                                        {...layout}
-                                        name="nest-messages"
-                                        onSubmit={formik.handleSubmit}                                        
-                                        validateMessages={validateMessages}
-                                       
+
+                                <Form
+                                    form={form}
+                                    {...layout}
+                                    name="nest-messages"
+                                    onFinish={onFinish}
+                                    style={{
+                                        maxWidth: 600,
+                                    }}
+                                    // validateMessages={validateMessages}
+                                >
+                                    <Form.Item
+                                        name="fullName"
+                                        label="Name"
+                                        rules={[
+                                            {
+                                                required: true,
+                                            },
+                                        ]}
+
                                     >
-                                        <Form.Item
-                                            name={['user', 'name']}
-                                            label="Họ và tên:"
-                                            values={formik.values.name}
-                                            onChange={formik.handleChange}
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                },
-                                            ]}
+                                        <Input type="text" name='fullName' defaultValue={fullName} onChange={handleInputChange}/>
+                                    </Form.Item>
+                                    <Form.Item
+                                        name="address"
+                                        label="Address"
+                                        rules={[
+                                            {
+                                                required: true,
+                                            },
+                                        ]}
+                                    >
+                                        <Input type="text" name='address' defaultValue={address} onChange={handleInputChange}/>
+                                    </Form.Item>
+                                    <Form.Item
 
-                                        >
-                                            <Input className="col-6" />
-                                        </Form.Item>
+                                        label="Email"
+                                    >
+                                        {state.email}
+                                    </Form.Item>
+                                    <Form.Item
+                                        name="phone"
+                                        label="Phone"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input your phone number!',
+                                            },
+                                        ]}
+                                    >
+                                        <Input
+                                            type="text" name='phone' 
+                                            defaultValue={phone}
+                                            onChange={handleInputChange}
+                                            addonBefore={prefixSelector}
+                                            style={{
+                                                width: '100%',
+                                            }}
+                                        />
+                                    </Form.Item>
 
-                                        <Form.Item
-
-                                            label="Email"
-                                        >
-                                            Email
-                                        </Form.Item>
-
-                                        <Form.Item
-                                            name="phone"
-                                            label="Số điện thoại"
-                                            values={formik.values.numberP}
-                                            onChange={formik.handleChange}
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Vui lòng nhập số điện thoại!',
-                                                },
-                                            ]}
-                                        >
-                                            <Input
-                                                addonBefore={ +84}
-                                                maxLength={10}
-                                                className="col-6"
-                                            />
-                                        </Form.Item>
-
-                                        <Form.Item
-                                            name="address"
-                                            label="Địa chỉ :"
-                                            values={formik.values.address}
-                                            onChange={formik.handleChange}
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                },
-                                            ]}
-                                        >
-                                            <Input
-                                                className="col-6"
-                                            />
-                                        </Form.Item>
-
-
-                                        <Form.Item label="Bảo mật : " colon={false} >
-                                            <Button
-                                                type="primary"
-                                                onClick={() => {
-                                                    setOpen(true);
-                                                }}
-                                            >
-                                                <FaLock className="justify-content"></FaLock> <span className="px-4"> Cập nhật mật khẩu </span>
-                                            </Button>
-                                            <ModalForm
-                                                open={open}
-                                                onCreate={onCreate}
-                                                onCancel={() => {
-                                                    setOpen(false);
-                                                }}
-                                            />
-                                        </Form.Item>
-
-                                        <Form.Item label=" " colon={false} >
-                                            <Button type="primary" htmlType="submit" size="large">
-                                                Lưu thông tin
-                                            </Button>
-
-                                        </Form.Item>
-
-                                    </Form>
-
-                                </div>
-
+                                    <Form.Item
+                                        wrapperCol={{
+                                            ...layout.wrapperCol,
+                                            offset: 8,
+                                        }}
+                                    >
+                                        <Button type="primary" htmlType="submit">
+                                            Lưu Thông Tin
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
                             </div>
 
                         </div>
+
                     </div>
+                </div>
             </div>
         </Wrapper >
 
