@@ -11,16 +11,10 @@ const {  Footer, Sider, Content } = Layout;
 
 const MainLayout = (children) => {
 
-    
-   
     const { filter, content, section } = children
 
-
-
     return (
-
         <Layout>
-
             <Affix offsetTop={-1} onChange={(affixed) => console.log(affixed)}>
                 <Header style={{ display: 'flex', alignItems: 'center' }}>
                     <div className="demo-logo" />
@@ -30,37 +24,17 @@ const MainLayout = (children) => {
             <Content hasSider style={{padding:'20px'}}>
 
                 <Layout style={{ minHeight: '100vh', position: 'relative' }} hasSider>
-
-
-                   
-
                         {filter}
-
-
-                  
-
-
-
-
-
-                    <Content>
-
-
-
+       <Content>
                         < Wrapper >
                             {section}
-
                             <div className="container">
                                 <section>
                                     {content}
 
                                 </section>
                             </div>
-
                         </Wrapper>
-
-
-
                     </Content>
                 </Layout>
             </Content>

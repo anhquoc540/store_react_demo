@@ -218,7 +218,7 @@ const Nav = () => {
 
               <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px'}}>
                 {/* <Dropdown.Item href="/USER">Signup</Dropdown.Item> */}
-                <Dropdown.Item href="/user/accountsettings">Hồ sơ</Dropdown.Item> 
+                <Dropdown.Item href="/profilelayout/profile">Hồ sơ</Dropdown.Item> 
                 {/* <Dropdown.Item  href="/login">Login</Dropdown.Item> */}
                 <Dropdown.Item  href="/" onClick={() => dispatch(logout())}>Đăng xuất</Dropdown.Item> 
                 

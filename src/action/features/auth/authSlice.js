@@ -30,7 +30,7 @@ export const login = createAsyncThunk(
   }
 );
 export const signup = createAsyncThunk(
-  "auth/register",
+  "userInfoDTO/register",
   async (userData, thunkAPI) => {
     try {
       return await authService.register(userData);

@@ -6,15 +6,14 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "styled-components";
 import { ToastContainer } from "react-toastify";
 import { GlobalStyle } from './style/GlobalStyle';
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from './components/layout/MainLayout';
 import FilterForm from './components/FilterForm';
 import StoreList from './components/StoreList';
 import DetailForm from './components/StandardDetailForm';
 import SpecialDetailForm from './components/SpecialDetailForm';
 import StandardDetailForm from './components/StandardDetailForm';
-import ProfileDetailForm from './components/ProfileDetailForm';
+// import ProfileDetailForm from './components/ProfileDetailForm';
 import { useEffect, useState } from 'react';
 import Cart from './components/Cart';
 import "react-toastify/dist/ReactToastify.css";
@@ -22,7 +21,9 @@ import SingleStore from './components/SingleStore';
 import HeroSection from './components/HeroSection';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
-
+import History from './components/History';
+import Profile from './components/Profile';
+import ProfileLayout from './components/layout/ProfileLayout'
 const App = () => {
   // useEffect(() =>{
   //   navigator.geolocation.getCurrentPosition((positon) => 
@@ -62,10 +63,10 @@ const theme = {
 
     <ThemeProvider theme={theme}>
 
-
-      <GlobalStyle />
-      <Router>
+      <BrowserRouter>
+      
         <ToastContainer />
+        <GlobalStyle />
         <Routes>
           <Route path="/" element={<MainLayout filter={<FilterForm></FilterForm>} content={<StoreList></StoreList>}  section={<HeroSection></HeroSection>}/>} /> 
           <Route path='/login' element={<Login/>}></Route>
@@ -76,12 +77,15 @@ const theme = {
           <Route path="/cart" element={<MainLayout  content={<Cart />}/>} />
           <Route path="/standard" element={<StandardDetailForm></StandardDetailForm>} />
           <Route path="/special" element={<SpecialDetailForm></SpecialDetailForm>} />
-
+          <Route path="/profilelayout" element={<ProfileLayout />} >
+            <Route path="/profilelayout/profile" element={<Profile />} />
+            <Route path="/profilelayout/history" element={<History />} />
+          </Route>
 
         </Routes>
-      </Router>
+      </BrowserRouter>
 
-
+    //
       {/* <SingleStore></SingleStore>
 
        <ProfileDetailForm></ProfileDetailForm>  */}
