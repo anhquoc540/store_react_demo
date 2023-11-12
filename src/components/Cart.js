@@ -28,11 +28,7 @@ const Cart = () => {
         timeId: ""
     })
 
-
     const [componentDisabled, setComponentDisabled] = useState(true);
-
-
-
 
     const time = [
         {
@@ -54,13 +50,9 @@ const Cart = () => {
             label: time[i].name,
             value: JSON.stringify({ id: time[i].id, price: time[i].price })
 
-
         });
 
-
     }
-
-
 
 
     const dispatch = useDispatch();
@@ -111,10 +103,7 @@ const Cart = () => {
             setInputValues({ ...inputValues, timeId: '', total:0});
         }
 
-
-
     }
-
 
     const handleOrder = () => {
         for (let i = 0; i < cart.cartItems.length; i++) {

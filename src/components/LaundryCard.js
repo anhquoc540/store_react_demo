@@ -17,8 +17,6 @@ const LaundryCard = (curElem) => {
         dispatch(getService(id));
     };
 
-
-
     return (
         <NavLink to={`/single-service/${id}`}>
             <div className="card">
@@ -27,26 +25,16 @@ const LaundryCard = (curElem) => {
 
                 </figure>
 
-
                 <div className="card-data">
                     <h3>Dịch vụ {name}</h3>
                     <div className="card-data-flex">
-
-
-
                     
-
                         <div className="display-6 fw-bold col-8" style={{color:'green'}}>{generateCurrency(details[0].price)} /  {details[0].unit}</div>
 
 
                         <Button className="col-4" style={{background:'#00A9FF', color:'white'}} onClick={handleSubmit(id)}>
                                 Chi tiết
                         </Button>
-
-
-
-
-
 
                     </div>
                 </div>

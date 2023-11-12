@@ -24,6 +24,9 @@ import SignUp from './components/SignUp';
 import History from './components/History';
 import Profile from './components/Profile';
 import ProfileLayout from './components/layout/ProfileLayout'
+import AboutUs from './components/AboutUs';
+import QuyTrinh from './components/QuyTrinh';
+import Contact from './components/Contact';
 const App = () => {
   // useEffect(() =>{
   //   navigator.geolocation.getCurrentPosition((positon) => 
@@ -70,6 +73,9 @@ const theme = {
         <Routes>
           <Route path="/" element={<MainLayout filter={<FilterForm></FilterForm>} content={<StoreList></StoreList>}  section={<HeroSection></HeroSection>}/>} /> 
           <Route path='/login' element={<Login/>}></Route>
+          <Route path='/About' element={<AboutUs/>}></Route>
+          <Route path='/Quy' element={<QuyTrinh/>}></Route>
+          <Route path='/contact' element={<Contact/>}></Route>
           <Route path='/USER' element={<SignUp/>}></Route>
           <Route path='login/signup' element={<SignUp/>}/>
           <Route path="/single-store/:id" element={<MainLayout  content={<SingleStore></SingleStore>}/>} /> 
@@ -84,12 +90,6 @@ const theme = {
 
         </Routes>
       </BrowserRouter>
-
-    //
-      {/* <SingleStore></SingleStore>
-
-       <ProfileDetailForm></ProfileDetailForm>  */}
-
 
     </ThemeProvider>
 

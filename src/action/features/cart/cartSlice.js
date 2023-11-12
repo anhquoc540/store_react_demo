@@ -18,15 +18,10 @@ const cartSlice = createSlice({
 
         addToCart(state, action) {
 
-
-
             const sameStore = state.cartItems.findIndex(
                 (item) => item.storeId === action.payload.storeId
             )
-
-
        
-
             if (sameStore < 0 && state.cartItems.length > 0) {
                 toast.error("Vui lòng chọn dịch vụ có cùng cửa hàng", {
                     position: "bottom-left",

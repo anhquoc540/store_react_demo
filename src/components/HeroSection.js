@@ -18,7 +18,6 @@ const HeroSection = () => {
           <div className="hero-section-data">
             
               <img src="https://res.cloudinary.com/df6mibrwv/image/upload/v1698172847/xeasuevjyadfgzuj25jx.png" className="img-logo-section" />
-              <h1 className="text-center">Nothing but the best</h1>
 
             {/* <NavLink to={`/stores`}>
               <Button>show now</Button>

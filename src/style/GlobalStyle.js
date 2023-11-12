@@ -49,22 +49,22 @@ body::-webkit-scrollbar-thumb {
 
 h1 {
   color: ${({ theme }) => theme.colors.heading};
-   font-size: 3rem;
+   font-size: 4rem;
   font-weight: 900;
  }
 
   h2 {
     color: ${({ theme }) => theme.colors.heading};
-   font-size: 4.4rem;
+   font-size: 3.4rem;
    font-weight: 300;
    white-space: normal;
   
   }
 
-// h3 {
-//   font-size: 2.2rem;
-//   font-weight: 400;
-// }
+ h3 {
+   font-size: 2.2rem;
+   font-weight: 400;
+ }
 
 p, button {
   color: ${({ theme }) => theme.colors.text};
@@ -91,7 +91,6 @@ ${"" /* resuable code section  */}
 
 .grid {
   display: grid;
-  gap: 9rem;
 }
 
 .grid-two-column {
@@ -104,7 +103,9 @@ ${"" /* resuable code section  */}
 }
 
 .grid-four-column{
-   grid-template-columns: 1fr 1.2fr .5fr .8fr ;
+   grid-template-columns: 1fr 1fr 1fr 1fr ;
+   grid-column-gap: 50px;
+
 }
 
 .grid-five-column{

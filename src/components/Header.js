@@ -12,6 +12,10 @@ const Header = () => {
                          
 
             </NavLink>
+            <NavLink to="/" style={{color:'white', fontSize:'24px'}}> Trang chủ</NavLink>
+            <NavLink to="/About" style={{color:'white', fontSize:'24px'}}> Giới thiệu</NavLink>
+            <NavLink to="/Quy" style={{color:'white', fontSize:'24px'}}> Quy trình</NavLink>
+            <NavLink to="/contact" style={{color:'white', fontSize:'24px'}}> Contact</NavLink>
 
             <Nav />
         </MainHeader>
