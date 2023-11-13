@@ -3,15 +3,14 @@ import { NavLink } from "react-router-dom";
 
 const Store = (curElem) => {
     const { id, name, address, phone, image, district } = curElem;
-    //onst { price, from, to, unit } = details;
 
     return (
  <NavLink to={`/single-store/${id}`}>
         <div className="card">
-            <figure>
-                <img src={image} alt={name} />
+        <figure>
+    <img src="https://ik.imagekit.io/tvlk/blog/2021/09/du-lich-anh-8-1024x576.jpg?tr=dpr-2,w-675" alt="Ảnh du lịch Anh Quốc" style={{height:'auto',width:'auto'}}/>
+</figure>
 
-            </figure>
 
             <div className="card-data">
                 <div className="card-data-flex">

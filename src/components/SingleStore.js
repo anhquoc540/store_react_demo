@@ -42,9 +42,6 @@ const SingleStore = () => {
 
     ]
 
-
-
-
     return (
         <>
         <Wrapper>
@@ -62,7 +59,8 @@ const SingleStore = () => {
                             </div>
                             <div class="col-12 col-lg-8 text-center">
 
-                                <img class="img-fluid" loading="lazy" src="https://res.cloudinary.com/df6mibrwv/image/upload/v1698075672/ifcbbfxfbngpkprwr1j8.png" style={{ WebkitMaskImage: 'url(./assets/img/hero-img-blob-1.svg);', maskImage: "url(./assets/img/hero-img-blob-1.svg);" }} />
+                            <img class="img-fluid" loading="lazy" src="https://res.cloudinary.com/df6mibrwv/image/upload/v1698075672/ifcbbfxfbngpkprwr1j8.png" style={{height:'495px', width:'883px'}} />
+
                             </div>
                         </div>
                     </div>
@@ -79,8 +77,6 @@ const SingleStore = () => {
                             type="card"
                             size='large'
                             items={data}
-
-
                         />
 
 
@@ -93,16 +89,7 @@ const SingleStore = () => {
 
         </>
 
-
-
-
-
-
-
     );
-
-
-
 
 };
 const Wrapper = styled.section`
@@ -113,8 +100,5 @@ const Wrapper = styled.section`
 }
 
 `;
-
-
-
 
 export default SingleStore;

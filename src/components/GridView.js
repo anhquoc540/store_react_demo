@@ -7,7 +7,6 @@ import { Col, Divider, Row } from 'antd';
 
 
 const GridView = ({ data }) => {
-  // const { singleServiceStore} = useStoreContext();
 
   if (!Array.isArray(data) || data.length === 0) {
 
@@ -17,12 +16,8 @@ const GridView = ({ data }) => {
       </div>
     );
   }
-  //  console.log(
-  //   "~ file: grid.js", singleServiceStore
-  // );
 
   return (
-
    
     <Wrapper className="section">
       <div className="container grid grid-three-column">
@@ -31,9 +26,6 @@ const GridView = ({ data }) => {
         })}
       </div>
     </Wrapper>
-
-
-
 
   );
 
@@ -44,7 +36,9 @@ const Wrapper = styled.section`
   .container {
     max-width: 120rem;
   }
-
+  .grid-three-column{
+    
+  }
   figure {
     width: auto;
     display: flex;

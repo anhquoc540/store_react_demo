@@ -91,7 +91,7 @@ ${"" /* resuable code section  */}
 
 .grid {
   display: grid;
-  gap: 9rem;
+  gap: 15px;
 }
 
 .grid-two-column {
@@ -104,7 +104,7 @@ ${"" /* resuable code section  */}
 }
 
 .grid-four-column{
-   grid-template-columns: 1fr 1.2fr .5fr .8fr ;
+   grid-template-columns: 1fr 1fr 1fr 1fr ;
 }
 
 .grid-five-column{
@@ -181,7 +181,7 @@ input, textarea{
 }
 .cart-container h2 {
   font-weight: 400;
-  font-size: 30px;
+  font-size: 35px;
   text-align: center;
 }
 .cart-container .titles {

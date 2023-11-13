@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import Header from './Header';
 import { Layout, Affix } from 'antd';
-
+import Footer from "./Footer";
 
 const AboutUs = () => {
-    const {  Footer } = Layout;
 
     return (
         <Wrapper>
@@ -54,8 +53,7 @@ const AboutUs = () => {
 
         </div>
         </div>
-        <Footer style={{ textAlign: 'center', background: '#1874fc', color: 'white', width: "100%", bottom: '10',paddingLeft: '12%', marginTop: '10%' }}>Ant Design ©2023 Created by Ant UED</Footer>
-
+        <Footer/>
         </Wrapper>
     )
 };
@@ -63,8 +61,8 @@ const AboutUs = () => {
 export default AboutUs;
 const Wrapper = styled.section`
 .img-style1 {
-    width: 190%;
-    height: 90%;
+    width: 150%;
+    height: 100%;
     justify-content: center;
     padding-top:30px;
     padding-right:60px;
@@ -77,6 +75,16 @@ const Wrapper = styled.section`
 }
 .h2-fix{
     padding-top: 30px;
+    font-size:45px;
     color: rgb(98 84 243);
+}
+h4{
+    font-size:25px;
+    width:330px;
+    margin-right: 20px;
+}
+.container{
+    margin: auto !important;
+    margin-bottom:30px !important;
 }
 `;

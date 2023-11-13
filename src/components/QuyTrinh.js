@@ -3,10 +3,9 @@ import Header from './Header';
 import { MdLaptopMac } from 'react-icons/md';
 import { FaMoneyBillWave, FaTshirt, FaMotorcycle  } from 'react-icons/fa';
 import { Layout } from 'antd';
-
+import Footer from "./Footer";
 
 const QuyTrinh = () => {
-    const {  Footer } = Layout;
 
     return (
         <Wrapper>
@@ -50,7 +49,7 @@ const QuyTrinh = () => {
             <div className="icon">
                 <FaMoneyBillWave />
                 </div>
-                <h2 className="h2-fix">Giao Đồ & Thanh Toán</h2>
+                <h1 className="h2-fix">Giao Đồ & Thanh Toán</h1>
                 <h4>
                     Những món đồ sạch thơm của bạn sẽ 
                     được giao lại tận nơi - 8AM-9PM 
@@ -62,9 +61,9 @@ const QuyTrinh = () => {
 
         
         </div>
-        <Footer style={{ textAlign: 'center', background: '#1874fc', color: 'white', width: "100%", bottom: '10', marginTop: '10%' }}>Ant Design ©2023 Created by Ant UED</Footer>
-
+        <Footer/>
         </Wrapper>
+
     )
 };
 
@@ -78,6 +77,11 @@ const Wrapper = styled.section`
     padding-right:60px;
     margin-left: -100px;
   }
+  .container {
+    padding-left:30px;
+    margin:auto !important;
+    margin-bottom:50px !important;
+  }
 .about-data1{
     width:300px;
     padding-top: 100px;
@@ -90,6 +94,8 @@ const Wrapper = styled.section`
 }
 .h2-fix{
     padding-top: 30px;
-
+}
+.container{
+    margin:30px;
 }
 `;

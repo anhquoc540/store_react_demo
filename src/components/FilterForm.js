@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Divider, Select } from 'antd';
 import { getClothes, resetState } from "../action/features/clothes/clothSlice";
 import { getFilter } from "../action/features/filter/filterSlice";
-
+import styled from "styled-components";
 
 import SingleSelect from "./SingleSelect";
 
@@ -21,15 +21,11 @@ import { color } from "@cloudinary/url-gen/qualifiers/background";
 
 
 const FilterForm = () => {
-
-
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(resetState);
         dispatch(getMaterials());
         dispatch(getClothes());
-
-
 
     }, []);
 
@@ -113,12 +109,11 @@ const FilterForm = () => {
 
 
     return (
-        <>
-        
-            <Affix offsetTop={100} onChange={(affixed) => console.log(affixed)}>
-                <h2 className="px-3 py-1">
+        <Wrapper>
+            <Affix offsetTop={60} onChange={(affixed) => console.log(affixed)}>
+                <h1 className="px-3 py-1" style={{fontSize:'40px'}}>
                     Tìm kiếm cửa hàng :
-                </h2>
+                </h1>
               <br/>
                 <Form
                     layout="vertical"
@@ -130,8 +125,8 @@ const FilterForm = () => {
                     
 
                 >   <Form.Item className="px-3 h6" >
-                         <h3>Theo giặt hấp:</h3>
-                        <Form.Item label="Chất liệu vải" style={{opacity:'65%'}}>
+                         <h1>Theo giặt hấp:</h1>
+                        <Form.Item label="Chất liệu vải" style={{opacity: 0.75, fontSize: '20px'}}>
 
                             <Form.Item
                                 name={'materials'}
@@ -144,7 +139,7 @@ const FilterForm = () => {
 
 
                         </Form.Item>
-                        <Form.Item label="Loại quần áo"  style={{opacity:'65%'}}>
+                        <Form.Item label="Loại quần áo"  style={{opacity: 0.75, fontSize: '20px'}}>
                             <Form.Item
                                 name={'clothId'}
                                 noStyle
@@ -156,7 +151,7 @@ const FilterForm = () => {
 
 
                     <Form.Item className="px-3" >
-                        <h3>Theo quận:</h3>
+                        <h1>Theo quận:</h1>
                         <Form.Item
                             name={'district'}
                             noStyle
@@ -172,10 +167,15 @@ const FilterForm = () => {
                 </Form>
 
             </Affix>
-
-        </>
+        </Wrapper>
+        
     );
 
 }
 
 export default FilterForm;
+const Wrapper = styled.section`
+.my-5{
+    hight: 45px !important;
+}
+`

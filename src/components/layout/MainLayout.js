@@ -2,8 +2,8 @@ import React from 'react';
 import { Layout, Affix } from 'antd';
 import styled from "styled-components";
 import Header from '../Header';
-
-const {  Footer, Sider, Content } = Layout;
+import Footer from '../Footer';
+const {   Sider, Content } = Layout;
 
 const MainLayout = (children) => {
 
@@ -40,8 +40,8 @@ const MainLayout = (children) => {
 
                     </Content>
                 </Layout>
+                <Footer/>
             </Content>
-            <Footer style={{ textAlign: 'center', background: '#1874fc', color: 'white', width: "100%", bottom: '10',paddingLeft: '15%' }}>Ant Design ©2023 Created by Ant UED</Footer>
         </Layout>
 
     );

@@ -61,10 +61,13 @@ const Nav = () => {
 
     .cart-trolley--link {
       position: relative;
+      
 
       .cart-trolley {
         position: relative;
-        font-size: 1.8rem;
+        font-size: 5.2rem;
+        height:20px;
+        width:20px;
       }
 
       .cart-total--item {
@@ -155,8 +158,9 @@ const Nav = () => {
         position: relative;
 
         .cart-trolley {
-          position: relative;
           font-size: 5.2rem;
+          height:20px;
+          width:20px;
         }
 
         .cart-total--item {
@@ -178,8 +182,6 @@ const Nav = () => {
     <Nav>
       <div className={menuIcon ? "navbar active" : "navbar"}>
         <ul className="navbar-lists">
-
-
 
           <li>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">

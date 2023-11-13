@@ -1,117 +1,83 @@
-//import { NavLink } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
-import { Button } from "../style/Button";
-import { Cloudinary } from "@cloudinary/url-gen";
-import { AdvancedImage } from "@cloudinary/react";
-import { scale } from "@cloudinary/url-gen/actions/resize";
-import { ignoreInitialAspectRatio } from "@cloudinary/url-gen/qualifiers/aspectRatio";
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 const HeroSection = () => {
- 
-  const cld = new Cloudinary({ cloud: { cloudName: 'df6mibrwv' } });
-
-
+const carouselImages = [
+  {
+    img: "1.jpg",
+    id: 1,
+  },
+  {
+    img: "2.jpg",
+    id: 2,
+  },
+  {
+    img: "3.jpg",
+    id: 3,
+  },
+  {
+    img: "4.jpg",
+    id: 4,
+  },
+  {
+    img: "5.jpg",
+    id: 5,
+  },
+];
   return (
     <Wrapper>
-      <div className="container mx-6" style={{ background: 'white', padding: '10px', borderRadius: '1rem' }}>
-        <div className="grid grid-two-column">
-          <div className="hero-section-data">
-            
-              <img src="https://res.cloudinary.com/df6mibrwv/image/upload/v1698172847/xeasuevjyadfgzuj25jx.png" className="img-logo-section" />
-              <h1 className="text-center">Nothing but the best</h1>
-        
-            {/* <NavLink to={`/stores`}>
-              <Button>show now</Button>
-            </NavLink> */}
+   <Swiper
+      modules={[Navigation, Pagination, Autoplay, EffectFade]}
+      effect={"fade"}
+      slidesPerView={1}
+      loop={true}
+      navigation={{ clickable: true }}
+      pagination={{ clickable: true }}
+      onSwiper={() => {}}
+      autoplay={{
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      }}
+      onSlideChange={(swiper) => {}}
+    >
+      {carouselImages.map((img, i) => (
+        <SwiperSlide key={img.id}>
+          <div className="container">
+            <img
+              src={require(`../../public/images/${img.img}`)}
+              alt=""
+            />
           </div>
-          {/* our homepage image  */}
-          <div className="hero-section-image">
-            <figure>
-              <img src="https://res.cloudinary.com/df6mibrwv/image/upload/v1698121213/e36txqj4nysoqbop852a.jpg" />
-            </figure>
-          </div>
-        </div>
-      </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
     </Wrapper>
   );
-};
-
+      }
+export default HeroSection;
 const Wrapper = styled.section`
-  padding: 0;
+.swiper-pagination-bullet-active {
+  background-color: c.$Accent7 !important;
+}
 
-  .img-logo-section {
-    margin-left: 10%;
-    margin-top: 10%;
-    width: 180px;
-    height: auto;
-   
-  }
+.swiper-button-next,
+.swiper-button-prev  {
+   color: c.$Accent7 ;
+
+}
+.container {
 
   img {
-    min-width: 80%;
-    height: auto;
-    border-radius: 1rem;
-    height: 300px;
-    width: 700px;
+    width: 1300px !important;     
+    height: 500px !important;
   }
-
- .text-center{
-  margin-left:2%;
-  margin-bottom:5%;
- }
-
-    
-
-    h1 {
-      text-transform: capitalize;
-      font-weight: bold;
-    }
-
-   
-  
-
-  .hero-section-image {
-    width: 90%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-  }
-  figure {
-    position: relative;
-
-    &::after {
-      content: "";
-      width: 60%;
-      height: 80%;
-      background-color: rgba(81, 56, 238, 0.4);
-      position: absolute;
-      left: 50%;
-      top: -5rem;
-      z-index: -1;
-    }
-  }
-  .img-style {
-    width: 100%;
-    height: auto;
-  }
-
-  @media (max-width: ${({ theme }) => theme.media.mobile}) {
-    .grid {
-      gap: 10rem;
-    }
-
-    figure::after {
-      content: "";
-      width: 50%;
-      height: 100%;
-      left: 0;
-      top: 10%;
-      /* bottom: 10%; */
-      background-color: rgba(81, 56, 238, 0.4);
-    }
-  }
-`;
-
-export default HeroSection;
+}
+`

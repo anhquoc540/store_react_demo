@@ -24,12 +24,14 @@ import Profile from './components/Profile';
 import History from './components/History';
 import AboutUs from './components/AboutUs';
 import Quytrinh from './components/QuyTrinh';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
 
 
-      {/* <GlobalStyle /> */}
+      <GlobalStyle />
       <Router>
         <ToastContainer />
         <Routes>
@@ -38,6 +40,7 @@ const App = () => {
           <Route path="/single-service/:id" element={<MainLayout content={<SpecialDetailForm/>} />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/quytrinh" element={<Quytrinh />} />
+          <Route path="/contact" element={<Contact />} />
 
           <Route path="/profilelayout" element={<ProfileLayout />} >
             <Route path="/profilelayout/profile" element={<Profile />} />
