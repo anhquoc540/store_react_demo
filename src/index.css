@@ -45,7 +45,7 @@ body {
   display: none;
 }
 .logo {
-  background-color: #27A4f2;
+  background-color: #27a4f2;
   margin: 0;
   height: 64px;
 }
@@ -77,11 +77,11 @@ main::-webkit-scrollbar {
   font-size: 12px;
 }
 .icon {
-  font-size: 50px; 
+  font-size: 50px;
 }
 
 .label {
-  font-size: 24px; 
+  font-size: 24px;
 }
 /* .largeText {
   font-size: 18px;
@@ -90,16 +90,15 @@ main::-webkit-scrollbar {
 } */
 
 .largeText {
-  font-size: 20px; 
+  font-size: 20px;
 }
 
-
 .dataTables_filter {
-  font-size: 50px; 
+  font-size: 50px;
 }
 
 .dataTables_length {
-  font-size: 18px; 
+  font-size: 18px;
 }
 .grid {
   display: grid;
@@ -113,20 +112,63 @@ main::-webkit-scrollbar {
   grid-template-columns: repeat(3, 1fr);
 }
 
-.grid-four-column{
+.grid-four-column {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 20px;
 }
 
-.grid-five-column{
+.grid-five-column {
   grid-template-columns: repeat(5, 1fr);
 }
 
-.text-center{
+.text-center {
   font-size: 1.8rem;
 }
 
-.icon{
+.icon {
   font-size: 80px;
   padding-left: 35%;
+}
+
+* {
+  box-sizing: border-box;
+}
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh !important;
+  }
+}
+
+.h-100 {
+  height: auto !important;
+}
+
+.h-custom {
+  min-height: 100vh !important;
+}
+
+.border-color-custom {
+  border-color: #f37a27 !important;
+}
+
+.MDBCard {
+  width: 120%; /* Adjust this value to set the width */
+  height: auto; /* Adjust this value to set the height */
+  margin-left: -50px;
+  margin-top: -35px;
+}
+
+.back-button {
+  display: inline-block;
+  border-radius: 5px;
+  margin-top: -20px;
+}
+.back-button:hover {
+  background-color: black;
+  color: aliceblue;
+}
+.back-button:active {
+  background-color: black;
+  color: beige;
+  border-color: whitesmokes;
 }

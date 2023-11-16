@@ -1,68 +1,77 @@
-
-import './App.css';
+import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
 
 import { ThemeProvider } from "styled-components";
 import { ToastContainer } from "react-toastify";
-import { GlobalStyle } from './style/GlobalStyle';
+import { GlobalStyle } from "./style/GlobalStyle";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from './components/Login';
-import SignUp from './components/SignUp';
-import MainLayout from './components/layout/MainLayout';
-import FilterForm from './components/FilterForm';
-import StoreList from './components/StoreList';
-import DetailForm from './components/StandardDetailForm';
-import SpecialDetailForm from './components/SpecialDetailForm';
-import StandardDetailForm from './components/StandardDetailForm';
-import { useEffect } from 'react';
-import Cart from './components/Cart';
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+import MainLayout from "./components/layout/MainLayout";
+import FilterForm from "./components/FilterForm";
+import StoreList from "./components/StoreList";
+import DetailForm from "./components/StandardDetailForm";
+import SpecialDetailForm from "./components/SpecialDetailForm";
+import StandardDetailForm from "./components/StandardDetailForm";
+import { useEffect } from "react";
+import Cart from "./components/Cart";
 import "react-toastify/dist/ReactToastify.css";
-import SingleStore from './components/SingleStore';
-import HeroSection from './components/HeroSection';
-import ProfileLayout from './components/layout/ProfileLayout';
-import Profile from './components/Profile';
-import History from './components/History';
-import AboutUs from './components/AboutUs';
-import Quytrinh from './components/QuyTrinh';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import SingleStore from "./components/SingleStore";
+import HeroSection from "./components/HeroSection";
+import ProfileLayout from "./components/layout/ProfileLayout";
+import Profile from "./components/Profile";
+import History from "./components/History";
+import AboutUs from "./components/AboutUs";
+import Quytrinh from "./components/QuyTrinh";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import OrderDetails from "./components/OrderDetail";
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-
-
       <GlobalStyle />
       <Router>
         <ToastContainer />
         <Routes>
-          <Route path="/" element={<MainLayout filter={<FilterForm/>} content={<StoreList/>} section={<HeroSection/>} />} />
+          <Route
+            path="/"
+            element={
+              <MainLayout
+                filter={<FilterForm />}
+                content={<StoreList />}
+                section={<HeroSection />}
+              />
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/USER" element={<SignUp />} />
-          <Route path="/single-store/:id" element={<MainLayout content={<SingleStore/>} />} />
-          <Route path="/single-service/:id" element={<MainLayout content={<SpecialDetailForm/>} />} />
+          <Route
+            path="/single-store/:id"
+            element={<MainLayout content={<SingleStore />} />}
+          />
+          <Route
+            path="/single-service/:id"
+            element={<MainLayout content={<SpecialDetailForm />} />}
+          />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/quytrinh" element={<Quytrinh />} />
           <Route path="/contact" element={<Contact />} />
 
-          <Route path="/profilelayout" element={<ProfileLayout />} >
+          <Route path="/profilelayout" element={<ProfileLayout />}>
             <Route path="/profilelayout/profile" element={<Profile />} />
             <Route path="/profilelayout/history" element={<History />} />
+            <Route path="history/:id" element={<OrderDetails />} />
           </Route>
 
           <Route path="/cart" element={<MainLayout content={<Cart />} />} />
-          <Route path="/standard" element={<StandardDetailForm/>} />
-          <Route path="/special" element={<SpecialDetailForm/>} />
-
+          <Route path="/standard" element={<StandardDetailForm />} />
+          <Route path="/special" element={<SpecialDetailForm />} />
         </Routes>
       </Router>
-
     </ThemeProvider>
-
   );
 };
-
 
 const theme = {
   colors: {
@@ -88,7 +97,5 @@ const theme = {
     tab: "998px",
   },
 };
-
-
 
 export default App;

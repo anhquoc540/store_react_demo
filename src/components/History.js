@@ -1,32 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
-import axios from 'axios';
-import { config } from "../axios/auth-header";
+import axios from "axios";
+// import { config } from "../axios/auth-header";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
-const URL = "https://magpie-aware-lark.ngrok-free.app/api/v1/base/order/all";
-
+const URL = "https://magpie-aware-lark.ngrok-free.app/api/v1/user/order/all";
 
 const columns = [
   {
-    title: "ID",
+    title: "NO",
     dataIndex: "key",
   },
   {
-    title: "Date",
+    title: "Ngày đặt",
     dataIndex: "date",
-    sorter: (a, b) => a.name.length - b.title.name,
+    sorter: (a, b) => new Date(a.orderDate) - new Date(b.orderDate),
   },
   {
-    title: "Store Name",
+    title: "Tên cửa hàng",
     dataIndex: "name",
-    sorter: (a, b) => a.name.length - b.title.name,
+    sorter: (a, b) => a.store?.name - b.store?.name,
   },
   {
-    title: "Status",
+    title: "Trạng thái",
     dataIndex: "status",
-
   },
   {
     title: "Tổng Giá",
@@ -34,26 +33,44 @@ const columns = [
     sorter: (a, b) => a.total - b.total,
   },
   {
-    title: "Action",
+    title: "Thao tác",
     dataIndex: "action",
   },
 ];
+const statusMap = {
+  0: "Đã huỷ",
+  1: "Chờ xác nhận",
+  2: "Chờ lấy hàng",
+  3: "Vận chuyển đến cửa hàng",
+  4: "Xử lý bởi cửa hàng",
+  5: "Đơn sẵn sàng vận chuyển",
+  6: "Đơn đang được giao",
+  7: "Đơn đã hoàn thành",
+};
 
 const HistoryOrders = () => {
-    const [state, setState] = useState([]);
+  const { userInfoDTO } = useSelector((state) => state.auth);
+  const [state, setState] = useState([]);
 
-  useEffect(() => {
-    getHistoryOrders();
-  }, []);
-
-  const getHistoryOrders = async () => {
-    const res = await axios.get(`${URL}`,config);
+  const getHistoryOrders = async (id) => {
+    const res = await axios.get(`${URL}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem("access_token")
+        )}`,
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "ngrok-skip-browser-warning": "69420",
+      },
+    });
     if (res.status === 200) {
       setState(res.data);
     }
-  }
-  console.log(state);
+  };
 
+  useEffect(() => {
+    getHistoryOrders(userInfoDTO.id);
+  }, []);
 
   const data1 = [];
 
@@ -62,27 +79,22 @@ const HistoryOrders = () => {
       key: state[i].id,
       date: state[i].orderDate,
       name: state[i].store.name,
-      status: state[i].status,
+      status: statusMap[state[i].status],
       total: state[i].total,
 
       action: (
         <>
-          <Link to={`update/${state[i].id}`} className=" fs-3 text-danger">
+          <Link to={`${state[i].id}`} className=" fs-3 text-danger">
             <BiEdit />
           </Link>
-          {/* <Link onClick={() => handleDelete(productState[i].id)} className="ms-3 fs-3 text-danger">
-            <AiFillDelete />
-          </Link> */}
         </>
       ),
     });
   }
   console.log(data1);
   return (
-    
     <div>
-      
-      <h1 className="mb-4 title">Lịch Sử Đơn Hàng</h1>
+      <h3 className="mb-4 title">Lịch Sử Đơn Hàng</h3>
 
       <div>
         <Table columns={columns} dataSource={data1} />
