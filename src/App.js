@@ -8,6 +8,8 @@ import { ToastContainer } from "react-toastify";
 import { GlobalStyle } from './style/GlobalStyle';
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 import MainLayout from './components/layout/MainLayout';
 import FilterForm from './components/FilterForm';
 import StoreList from './components/StoreList';
@@ -36,6 +38,8 @@ const App = () => {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<MainLayout filter={<FilterForm/>} content={<StoreList/>} section={<HeroSection/>} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/USER" element={<SignUp />} />
           <Route path="/single-store/:id" element={<MainLayout content={<SingleStore/>} />} />
           <Route path="/single-service/:id" element={<MainLayout content={<SpecialDetailForm/>} />} />
           <Route path="/about" element={<AboutUs />} />

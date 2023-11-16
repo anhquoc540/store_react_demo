@@ -1,48 +1,42 @@
 import React from 'react';
 import { Layout, Affix } from 'antd';
+import FilterForm from '../FilterForm';
+import StoreList from '../StoreList';
 import styled from "styled-components";
+import HeroSection from '../HeroSection';
+
+
 import Header from '../Header';
-import Footer from '../Footer';
-const {   Sider, Content } = Layout;
+
+const { Footer, Sider, Content } = Layout;
 
 const MainLayout = (children) => {
 
     const { filter, content, section } = children
 
     return (
-
-        <Layout>
-
-            <Affix offsetTop={-1} onChange={(affixed) => console.log(affixed)}>
+        <Wrapper>
+            <Affix offsetTop={1} onChange={(affixed) => console.log(affixed)}>
                 <Header style={{ display: 'flex', alignItems: 'center' }}>
                     <div className="demo-logo" />
-
                 </Header>
             </Affix>
 
-            <Content hasSider style={{padding:'20px'}}>
+            <Content >
 
-                <Layout style={{ minHeight: '100vh', position: 'relative' }} hasSider>
-                        {filter}
+                <Layout style={{ minHeight: '20h' }} hasSider>
+                    <FilterForm />
                     <Content>
-
-                        < Wrapper >
-                            {section}
-
-                            <div className="container">
-                                <section>
-                                    {content}
-
-                                </section>
-                            </div>
-
-                        </Wrapper>
-
+                        <HeroSection />
+                        <StoreList />
                     </Content>
                 </Layout>
-                <Footer/>
             </Content>
-        </Layout>
+            <Footer style={{ textAlign: 'center', background: '#1874fc', color: 'white', position: "-moz-initial", width: '100%', bottom: 0 }}>
+  Ant Design ©2023 Created by Ant UED
+</Footer>
+
+        </Wrapper>
 
     );
 
@@ -63,4 +57,3 @@ const Wrapper = styled.section`
 `;
 
 export default MainLayout;
-

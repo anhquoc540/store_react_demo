@@ -7,14 +7,16 @@ import Dropdown from "react-bootstrap/Dropdown";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector, useDispatch } from "react-redux";
 import { getTotals } from "../action/features/cart/cartSlice";
+import { logout } from "../action/features/auth/authSlice";
 
 
 const Nav = () => {
+  const {userInfoDTO} = useSelector((state) => state.auth);
   const [menuIcon, setMenuIcon] = useState();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart);
-
+  
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
@@ -80,7 +82,7 @@ const Nav = () => {
         border-radius: 50%;
         display: grid;
         place-items: center;
-        top: -20%;
+        top: -28%;
         left: 70%;
         background-color: ${({ theme }) => theme.colors.helper};
       }
@@ -167,6 +169,7 @@ const Nav = () => {
           width: 1rem;
           height: 1rem;
           font-size: 1rem;
+
         }
       }
 
@@ -181,23 +184,62 @@ const Nav = () => {
   return (
     <Nav>
       <div className={menuIcon ? "navbar active" : "navbar"}>
-        <ul className="navbar-lists">
+        <div className="navbar-lists">
 
-          <li>
+          <div style={{ color: 'white', fontSize: '35px' }}>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">
               <FiShoppingCart className="cart-trolley" />
               <span className="cart-total--item"> {cart.cartTotalQuantity} </span>
             </NavLink>
-          </li>
+          </div>
+         
+          <div style={{ color: 'white', fontSize: '25px', width:'' }}>
+            
+              {/* {user === null ? (<><Link>Đăng nhập</Link> / <Link>Đăng ký</Link>
+              </>) : (<a>user1</a>)}
+               */}
+               <li style={{color:'white'}}>
+            {/* {userInfoDTO === null ? (<><Link>Đăng nhập</Link> / <Link>Đăng ký</Link>
+            </>) : (<a></a>)} */}
+            {userInfoDTO === null ? (<Dropdown>
+              <Dropdown.Toggle variant="" id="dropdown-basic" style={{fontSize: '22px'}}>
+                
+              </Dropdown.Toggle>
 
-          <li style={{color:'white'}}>
-           <NavLink to="/profilelayout" style={{fontSize:"22px", color:"#fff"}}>
-            {user === null ? (<><Link>Đăng nhập</Link> / <Link>Đăng ký</Link>
-            </>) : (<a>user1</a>)}
-            </NavLink>
-          </li>
+              <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px'}}>
+                <Dropdown.Item href="/USER">Đăng ký</Dropdown.Item>
+                {/* <Dropdown.Item href="/user/accountsettings">Profile</Dropdown.Item> */}
+                <Dropdown.Item  href="/login">Đăng nhập</Dropdown.Item>
+                {/* <Dropdown.Item  href="/">Logout</Dropdown.Item> */}
+                
+                
+              </Dropdown.Menu>
+           
+           
+            </Dropdown>) : (<div className="d-flex gap-3 align-items-center dropdown">
+              {/* <a>{userInfoDTO.fullName}</a> */}
+              <Dropdown>
+              <Dropdown.Toggle variant="" id="dropdown-basic" style={{fontSize: '22px'}}>
+                
+              </Dropdown.Toggle>
 
-        </ul>
+              <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px'}}>
+                {/* <Dropdown.Item href="/USER">Signup</Dropdown.Item> */}
+                <Dropdown.Item href="/profilelayout/profile">Hồ sơ</Dropdown.Item> 
+                <Dropdown.Item href="/profilelayout/history">Lịch sử</Dropdown.Item> 
+
+                {/* <Dropdown.Item  href="/login">Login</Dropdown.Item> */}
+                <Dropdown.Item  href="/" onClick={() => dispatch(logout())} >Đăng xuất</Dropdown.Item> 
+                
+                
+              </Dropdown.Menu>
+            </Dropdown></div>)}
+                 
+          </li>
+          
+          </div>
+
+        </div>
 
         {/* two button for open and close of menu */}
         <div className="mobile-navbar-btn">

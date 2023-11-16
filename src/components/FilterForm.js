@@ -110,8 +110,8 @@ const FilterForm = () => {
 
     return (
         <Wrapper>
-            <Affix offsetTop={60} onChange={(affixed) => console.log(affixed)}>
-                <h1 className="px-3 py-1" style={{fontSize:'40px'}}>
+            <Affix offsetTop={100} onChange={(affixed) => console.log(affixed)}>
+                <h1 className="px-3 py-1" style={{fontSize:'30px'}}>
                     Tìm kiếm cửa hàng :
                 </h1>
               <br/>

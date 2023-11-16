@@ -19,7 +19,7 @@ const StoreList = () => {
     const stores = useSelector((state) => state.store.stores);
     return (
         <>
-            <h3 style={{ marginLeft: '1rem' }} className="py-5">Danh sách cửa hàng: </h3>
+            <h2 style={{ marginLeft: '1rem' }} className="py-5">Danh sách cửa hàng: </h2>
             <br />
             {filters.length > 0 ? (<GridView data={filters} />) : (<GridView data={stores} />)}
         </>
