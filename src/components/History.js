@@ -10,13 +10,25 @@ const URL = "https://magpie-aware-lark.ngrok-free.app/api/v1/user/order/all";
 
 const columns = [
   {
-    title: "NO",
-    dataIndex: "key",
+    title: "Mã đơn hàng",
+    dataIndex: "orderCode",
   },
   {
     title: "Ngày đặt",
     dataIndex: "date",
-    sorter: (a, b) => new Date(a.orderDate) - new Date(b.orderDate),
+    sorter: (a, b) => {
+      const dateA = Date.parse(
+        a.date.split(" ")[0].split("-").reverse().join("-") +
+          "T" +
+          a.date.split(" ")[1]
+      );
+      const dateB = Date.parse(
+        b.date.split(" ")[0].split("-").reverse().join("-") +
+          "T" +
+          b.date.split(" ")[1]
+      );
+      return dateA - dateB;
+    },
   },
   {
     title: "Tên cửa hàng",
@@ -30,7 +42,8 @@ const columns = [
   {
     title: "Tổng Giá",
     dataIndex: "total",
-    sorter: (a, b) => a.total - b.total,
+
+    render: (text, record) => record.formattedTotal,
   },
   {
     title: "Thao tác",
@@ -51,36 +64,52 @@ const statusMap = {
 const HistoryOrders = () => {
   const { userInfoDTO } = useSelector((state) => state.auth);
   const [state, setState] = useState([]);
+  const [error, setError] = useState("");
 
   const getHistoryOrders = async (id) => {
-    const res = await axios.get(`${URL}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(
-          localStorage.getItem("access_token")
-        )}`,
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-      },
-    });
-    if (res.status === 200) {
-      setState(res.data);
-    }
+    const res = await axios
+      .get(`${URL}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("access_token")
+          )}`,
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "ngrok-skip-browser-warning": "69420",
+        },
+      })
+      .then((res) => {
+        setState(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error.toJSON().message);
+      });
   };
 
   useEffect(() => {
-    getHistoryOrders(userInfoDTO.id);
+    const interval = setInterval(() => {
+      getHistoryOrders(userInfoDTO.id);
+    }, 1000);
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(interval);
   }, []);
 
   const data1 = [];
 
   for (let i = 0; i < state.length; i++) {
+    // Format the total value as needed
+    let formattedTotal =
+      new Intl.NumberFormat("en-US").format(state[i].total) + " VND";
+
     data1.push({
-      key: state[i].id,
+      orderCode: state[i].orderCode,
       date: state[i].orderDate,
       name: state[i].store.name,
       status: statusMap[state[i].status],
       total: state[i].total,
+      formattedTotal: formattedTotal, // Add the formatted total value
 
       action: (
         <>
@@ -91,15 +120,33 @@ const HistoryOrders = () => {
       ),
     });
   }
+
   console.log(data1);
   return (
-    <div>
-      <h3 className="mb-4 title">Lịch Sử Đơn Hàng</h3>
+    <>
+      {error.length > 0 ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: " center",
+            height: " 50vh",
+          }}
+        >
+          <h2 style={{ color: "#6c757d", fontFamily: "Arial, sans-serif" }}>
+            Không tìm thấy bất kỳ đơn hàng nào
+          </h2>
+        </div>
+      ) : (
+        <div>
+          <h3 className="mb-4 title">Lịch Sử Đơn Hàng</h3>
 
-      <div>
-        <Table columns={columns} dataSource={data1} />
-      </div>
-    </div>
+          <div>
+            <Table columns={columns} dataSource={data1.reverse()} />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -27,6 +27,7 @@ import Quytrinh from "./components/QuyTrinh";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import OrderDetails from "./components/OrderDetail";
+import DetailLayout from "./components/layout/DetailLayout";
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -44,19 +45,20 @@ const App = () => {
               />
             }
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/USER" element={<SignUp />} />
           <Route
             path="/single-store/:id"
-            element={<MainLayout content={<SingleStore />} />}
+            element={<DetailLayout content={<SingleStore />} />}
           />
           <Route
             path="/single-service/:id"
-            element={<MainLayout content={<SpecialDetailForm />} />}
+            element={<DetailLayout content={<SpecialDetailForm />} />}
           />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/quytrinh" element={<Quytrinh />} />
           <Route path="/contact" element={<Contact />} />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/USER" element={<SignUp />} />
 
           <Route path="/profilelayout" element={<ProfileLayout />}>
             <Route path="/profilelayout/profile" element={<Profile />} />
@@ -64,7 +66,7 @@ const App = () => {
             <Route path="history/:id" element={<OrderDetails />} />
           </Route>
 
-          <Route path="/cart" element={<MainLayout content={<Cart />} />} />
+          <Route path="/cart" element={<DetailLayout content={<Cart />} />} />
           <Route path="/standard" element={<StandardDetailForm />} />
           <Route path="/special" element={<SpecialDetailForm />} />
         </Routes>
