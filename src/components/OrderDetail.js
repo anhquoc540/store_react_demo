@@ -21,25 +21,31 @@ export default function OrderDetails() {
   const [item, setItem] = useState([]);
   const [error, setError] = useState("");
   React.useEffect(() => {
-    axios
-      .get(`https://magpie-aware-lark.ngrok-free.app/api/v1/user/order/${id}`, {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(
-            localStorage.getItem("access_token")
-          )}`,
-          Accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "ngrok-skip-browser-warning": "69420",
-        },
-      })
-      .then((response) => {
-        setOrder(response.data);
-        setItem(response.data.items);
-      })
-      .catch((error) => {
-        console.error(error);
-        setError(error.toJSON().message);
-      });
+    const interval = setInterval(() => {
+      axios
+        .get(
+          `https://magpie-aware-lark.ngrok-free.app/api/v1/user/order/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(
+                localStorage.getItem("access_token")
+              )}`,
+              Accept: "application/json",
+              "Access-Control-Allow-Origin": "*",
+              "ngrok-skip-browser-warning": "69420",
+            },
+          }
+        )
+        .then((response) => {
+          setOrder(response.data);
+          setItem(response.data.items);
+        })
+        .catch((error) => {
+          console.error(error);
+          setError(error.toJSON().message);
+        });
+    }, 1000);
+    return () => clearInterval(interval);
   }, []);
   console.log(error);
   const handleButtonClick = async () => {
@@ -91,6 +97,7 @@ export default function OrderDetails() {
   }
   let pendingStatus = statusMap[order.status];
   let navigate = useNavigate();
+  console.log(order);
   return (
     <>
       {error.length > 0 ? (
@@ -121,6 +128,14 @@ export default function OrderDetails() {
                         <p className="small text-muted mb-1">Tên cửa hàng</p>
                         <p>{order.store?.name}</p>
                       </MDBCol>
+                      <MDBCol className="mb-3">
+                        <p className="small text-muted mb-1">Thanh toán</p>
+                        {order?.isPaid === 1 ? (
+                          <p>Hoàn thành</p>
+                        ) : (
+                          <p>Chưa hoàn thành</p>
+                        )}
+                      </MDBCol>
                     </MDBRow>
                     <MDBRow>
                       <MDBCol className="mb-3">
@@ -137,14 +152,53 @@ export default function OrderDetails() {
                       className="mx-n5 px-5 py-4"
                       style={{ backgroundColor: "#f2f2f2" }}
                     >
+                      <MDBRow>
+                        <MDBCol md="4" lg="4">
+                          <p>Tên dịch vụ</p>
+                        </MDBCol>
+                        <MDBCol md="2" lg="2">
+                          <p>Số lượng</p>
+                        </MDBCol>
+
+                        <MDBCol md="2" lg="2">
+                          <p>Cân nặng</p>
+                        </MDBCol>
+                        <MDBCol md="2" lg="2">
+                          <p>Giá tiền</p>
+                        </MDBCol>
+                        {/* {order?.isPaid === 1 ? ( */}
+                        <MDBCol md="2" lg="2">
+                          <p>Đánh giá</p>
+                        </MDBCol>
+                        {/* ) : null} */}
+                      </MDBRow>
                       {item.map((item, index) => (
                         <MDBRow>
-                          <MDBCol md="8" lg="9">
+                          <MDBCol md="4" lg="4">
                             <p>{item.laundryService.name}</p>
                           </MDBCol>
-                          <MDBCol md="4" lg="3">
+                          <MDBCol md="2" lg="2">
+                            <p>{item.quantity}</p>
+                          </MDBCol>
+                          {item.laundryService.isStandard === true ? (
+                            <MDBCol md="2" lg="2">
+                              <p>{item.weight}kg</p>
+                            </MDBCol>
+                          ) : (
+                            <MDBCol md="2" lg="2"></MDBCol>
+                          )}
+                          <MDBCol md="2" lg="2">
                             <p>{item.total.toLocaleString()}₫</p>
                           </MDBCol>
+                          {/* {order?.isPaid === 1 ? ( */}
+                          <MDBCol md="2" lg="2">
+                            <Link
+                              to={`/profilelayout/feedback/${item.laundryService.id}`}
+                            >
+                              Đánh giá
+                            </Link>
+                          </MDBCol>
+                          {/* ) : null} */}
                         </MDBRow>
                       ))}
                     </div>
@@ -184,7 +238,7 @@ export default function OrderDetails() {
                         Huỷ đơn hàng
                       </Button>
                     )}
-                    {order.status === 5 && order.isPaid === 0 && (
+                    {order.status > 4 && order.isPaid === 0 && (
                       <Button type="primary" size="large">
                         Thanh toán
                       </Button>

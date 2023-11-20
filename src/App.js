@@ -28,49 +28,54 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import OrderDetails from "./components/OrderDetail";
 import DetailLayout from "./components/layout/DetailLayout";
+import FeedbackForm from "./components/FeedbackForm";
+import { FeedbackProvider } from "./components/context/FeedbackContext";
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Router>
-        <ToastContainer />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <MainLayout
-                filter={<FilterForm />}
-                content={<StoreList />}
-                section={<HeroSection />}
-              />
-            }
-          />
-          <Route
-            path="/single-store/:id"
-            element={<DetailLayout content={<SingleStore />} />}
-          />
-          <Route
-            path="/single-service/:id"
-            element={<DetailLayout content={<SpecialDetailForm />} />}
-          />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/quytrinh" element={<Quytrinh />} />
-          <Route path="/contact" element={<Contact />} />
+      <FeedbackProvider>
+        <Router>
+          <ToastContainer />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <MainLayout
+                  filter={<FilterForm />}
+                  content={<StoreList />}
+                  section={<HeroSection />}
+                />
+              }
+            />
+            <Route
+              path="/single-store/:id"
+              element={<DetailLayout content={<SingleStore />} />}
+            />
+            <Route
+              path="/single-service/:id"
+              element={<DetailLayout content={<SpecialDetailForm />} />}
+            />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/quytrinh" element={<Quytrinh />} />
+            <Route path="/contact" element={<Contact />} />
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/USER" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/USER" element={<SignUp />} />
 
-          <Route path="/profilelayout" element={<ProfileLayout />}>
-            <Route path="/profilelayout/profile" element={<Profile />} />
-            <Route path="/profilelayout/history" element={<History />} />
-            <Route path="history/:id" element={<OrderDetails />} />
-          </Route>
+            <Route path="/profilelayout" element={<ProfileLayout />}>
+              <Route path="/profilelayout/profile" element={<Profile />} />
+              <Route path="/profilelayout/history" element={<History />} />
+              <Route path="history/:id" element={<OrderDetails />} />
+              <Route path="feedback/:id" element={<FeedbackForm />} />
+            </Route>
 
-          <Route path="/cart" element={<DetailLayout content={<Cart />} />} />
-          <Route path="/standard" element={<StandardDetailForm />} />
-          <Route path="/special" element={<SpecialDetailForm />} />
-        </Routes>
-      </Router>
+            <Route path="/cart" element={<DetailLayout content={<Cart />} />} />
+            <Route path="/standard" element={<StandardDetailForm />} />
+            <Route path="/special" element={<SpecialDetailForm />} />
+          </Routes>
+        </Router>
+      </FeedbackProvider>
     </ThemeProvider>
   );
 };
