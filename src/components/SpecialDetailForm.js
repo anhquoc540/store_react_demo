@@ -3,7 +3,7 @@ import styled from "styled-components";
 //import { Button } from "../style/Button";
 
 import { AiFillStar } from 'react-icons/ai';
-
+import { NavLink } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -95,7 +95,7 @@ const SpecialDetailForm = () => {
 
                                 <div class="col-lg-4 d-flex justify-content-center py-5">
                                     <figure>
-                                        <img src='https://pos.nvncdn.net/778773-105877/ps/20230713_WcskjVVYHE.jpeg' alt={name} />
+                                        <img src='https://pos.nvncdn.net/778773-105877/ps/20230713_WcskjVVYHE.jpeg' alt={name} style={{height:'auto', width:'auto'}}/>
 
 
                                     </figure>
@@ -167,7 +167,9 @@ const SpecialDetailForm = () => {
                                     )
 
                                 )}
-
+                                <NavLink to="/feed">
+                                    <button style={{margin:'30px'}}>Feedback</button>
+                                </NavLink>
 
 
                             </div>

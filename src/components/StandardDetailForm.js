@@ -1,11 +1,10 @@
 import styled from "styled-components";
-
 import { AiFillStar } from "react-icons/ai";
 import React, { useState } from "react";
 import { Table, Card, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { NavLink } from 'react-router-dom';
 import { addToCart } from "../action/features/cart/cartSlice";
 const StandardDetailForm = () => {
   // const { name, image } = myData;
@@ -137,6 +136,9 @@ const StandardDetailForm = () => {
                       <p className="my-2">{item.content}</p>
                     </Card>
                   ))}
+                   <NavLink to="/feed">
+                                    <button style={{margin:'30px'}}>Feedback</button>
+                                </NavLink>
                 </div>
               </div>
             </div>

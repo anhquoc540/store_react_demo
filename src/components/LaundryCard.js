@@ -24,7 +24,7 @@ const LaundryCard = (curElem) => {
     <NavLink to={`/single-service/${id}`}>
       <div className="card">
         <figure>
-          <img src={imageBanner} alt={name} />
+          <img src={imageBanner} alt={name} style={{width:'auto', height:'auto'}} />
         </figure>
 
         <div className="card-data">

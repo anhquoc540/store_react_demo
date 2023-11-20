@@ -15,8 +15,8 @@ import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
 import Nav from "./Nav";
 
-const pages = ["Trang chủ", "Giới thiệu", "Quy trình"];
-const pagePaths = ["/", "/about", "/quytrinh"];
+const pages = ["Trang chủ", "Giới thiệu", "Quy trình", "Feedback"];
+const pagePaths = ["/", "/about", "/quytrinh", "/feed"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

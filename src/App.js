@@ -28,6 +28,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import OrderDetails from "./components/OrderDetail";
 import DetailLayout from "./components/layout/DetailLayout";
+import Feedback from "./components/Contact";
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -56,7 +57,7 @@ const App = () => {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/quytrinh" element={<Quytrinh />} />
           <Route path="/contact" element={<Contact />} />
-
+          <Route path="/feed" element={<Feedback />} />
           <Route path="/login" element={<Login />} />
           <Route path="/USER" element={<SignUp />} />
 

@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../action/features/auth/authSlice"
+import styled from "styled-components";
 
 let loginschema = yup.object().shape({
   email: yup
@@ -39,22 +40,25 @@ const Login = () => {
     }
   }, [user, isError, isSuccess, isLoading]);
   return (
+    <Wrapper>
     <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
       <br />
       <br />
       <br />
       <br />
       <br />
-      <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
-        <h3 className="text-center title">Login</h3>
-        <p className="text-center">Login to your account to continue.</p>
+      <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4 fix">
+        <h1 className="text-center title fix">Login</h1>
+        <p className="text-center fix">Login to your account to continue.</p>
         <div className="error text-center">
           {message.message == "Rejected" ? "You are not an User" : ""}
         </div>
         <form action="" onSubmit={formik.handleSubmit}>
+          <p>Email Address :</p>
           <CustomInput
+          className="fix1"
             type="text"
-            label="Email Address"
+            
             id="email"
             name="email"
             onChng={formik.handleChange("email")}
@@ -64,9 +68,10 @@ const Login = () => {
           <div className="error mt-2">
             {formik.touched.email && formik.errors.email}
           </div>
+          <p>Password :</p>
           <CustomInput
+          className="fix1"
             type="password"
-            label="Password"
             id="pass"
             name="password"
             onChng={formik.handleChange("password")}
@@ -83,7 +88,7 @@ const Login = () => {
           </div>
          
           <button
-            className="border-0 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5"
+            className="border-0 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5 fix1"
             style={{ background: "#ffd333" }}
             type="submit"
             
@@ -99,8 +104,20 @@ const Login = () => {
           </div>
         </form>
       </div>
-    </div>
+    </div></Wrapper>
   );
 };
 
 export default Login;
+const Wrapper = styled.section`
+.fix1{
+  font-size:2.2rem !important;
+  height:40px ! important;
+}
+.fix{
+  font-size:2.2rem !important;
+}
+label{
+  opacity: 0.5;
+}
+`
