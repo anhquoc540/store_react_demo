@@ -15,8 +15,8 @@ import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
 import Nav from "./Nav";
 
-const pages = ["Trang chủ", "Giới thiệu", "Quy trình", "Feedback"];
-const pagePaths = ["/", "/about", "/quytrinh", "/feed"];
+const pages = ["Trang chủ", "Giới thiệu", "Quy trình"];
+const pagePaths = ["/", "/about", "/quytrinh"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -53,7 +53,6 @@ function ResponsiveAppBar() {
             variant="h3"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },

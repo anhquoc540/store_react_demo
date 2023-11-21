@@ -68,14 +68,14 @@ const Nav = () => {
       .cart-trolley {
         position: relative;
         font-size: 5.2rem;
-        height:20px;
-        width:20px;
+        height:38px;
+        width:38px;
       }
 
       .cart-total--item {
-        font-size: 1.2rem;
-        width: 1.8rem;
-        height: 1.8rem;
+        font-size: 2rem;
+        width: 2.6rem;
+        height: 2.6rem;
         position: absolute;
         background-color: #000;
         color: #000;
@@ -166,9 +166,9 @@ const Nav = () => {
         }
 
         .cart-total--item {
-          width: 1rem;
-          height: 1rem;
-          font-size: 1rem;
+          width: 3rem;
+          height: 3rem;
+          font-size: 2rem;
 
         }
       }

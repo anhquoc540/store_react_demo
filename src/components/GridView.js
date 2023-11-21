@@ -75,7 +75,7 @@ const Wrapper = styled.section`
   .card {
     background-color: ${({ theme }) => theme.colors.bg};
     border-radius: 1rem;
-    width: 32rem;
+    width: 35rem;
     height: 32rem;
 
     .card-data {

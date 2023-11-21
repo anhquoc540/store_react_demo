@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Card, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 import { addToCart } from "../action/features/cart/cartSlice";
+import { motion, AnimatePresence } from 'framer-motion'
+import FeedbackItem from './FeedbackItem'
+import { useContext } from 'react';
+import axios from 'axios';
+import FeedbackContext from './context/FeedbackContext'
 const StandardDetailForm = () => {
   // const { name, image } = myData;
 
@@ -14,6 +19,28 @@ const StandardDetailForm = () => {
   const standardLaundries = useSelector(
     (state) => state.laundry.standardLaundries
   );
+  const [feedback, setFeedback] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        `https://magpie-aware-lark.ngrok-free.app/api/v1/base/laundry/feedback/${id}`,
+        {
+          headers: {
+
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "ngrok-skip-browser-warning": "69420",
+          },
+        }
+      )
+      .then((response) => {
+        setFeedback(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
 
   const {
     id,
@@ -23,7 +50,6 @@ const StandardDetailForm = () => {
     isStandard,
     store,
     details,
-    feedbacks,
   } = standardLaundries;
 
   const [inputValues, setInputValue] = useState({
@@ -87,7 +113,9 @@ const StandardDetailForm = () => {
     dispatch(addToCart(product));
     //navigate('/cart');
   };
-
+  let average = feedback.reduce((acc, cur) => {
+    return acc + cur.star
+  }, 0) / feedback.length
   return (
     <Wrapper>
       {standardLaundries.details?.length > 0 ? (
@@ -118,27 +146,40 @@ const StandardDetailForm = () => {
                 class="card mb-4"
                 style={{ background: "#00A9FF", borderRadius: "10px" }}
               >
-                <div class="card-body py-5">
-                  <h3 class="h3 fw-bold" style={{ color: "white" }}>
-                    Đánh giá từ khách hàng :{" "}
-                  </h3>
-                  {feedbacks?.map((item) => (
-                    <Card
-                      key={item.id}
-                      style={{ marginTop: 16 }}
-                      title={item.username}
-                      type="inner"
-                      bordered={false}
-                      extra={item.createDate}
-                    >
-                      {starRating(item.stars)}
+                <div class="card mb-4" style={{ background: '#00A9FF', borderRadius: '10px' }}>
+                  <div class="card-body py-5">
+                    <h2 class="" style={{ color: 'white' }}>
+                      Đánh giá từ khách hàng :{' '}
+                    </h2>
 
-                      <p className="my-2">{item.content}</p>
-                    </Card>
-                  ))}
-                   <NavLink to="/feed">
-                                    <button style={{margin:'30px'}}>Feedback</button>
-                                </NavLink>
+                    <div className='feedback-stats'>
+                      <h3>{feedback.length} Reviews</h3>
+                      <h3>Average Rating : {isNaN(average) ? 0 : average}</h3>
+                    </div>
+                    <AnimatePresence>
+                      {feedback === null ? (
+                        <Card>
+                          <p
+                            className="text-center"
+                            style={{ opacity: '60%' }}
+                          >
+                            Chưa có đánh giá nào
+                          </p>
+                        </Card>
+                      ) : (
+                        feedback?.map((item) => (
+                          <motion.div
+                            key={item.id}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                          >
+                            <FeedbackItem key={item.id} Item={item} />
+                          </motion.div>
+                        ))
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
               </div>
             </div>

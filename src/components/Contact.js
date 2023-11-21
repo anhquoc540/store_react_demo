@@ -6,6 +6,7 @@ import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 import axios from 'axios';
+
 const labels = {
   0.5: 'Useless',
   1: 'Useless+',
@@ -19,7 +20,7 @@ const labels = {
   5: 'Excellent+',
 };
 function getLabelText(value) {
-  return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+  return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 }
 const Contact = () => {
   const [value, setValue] = React.useState(2);
@@ -43,11 +44,12 @@ const Contact = () => {
       }
     };
 
+
   const Wrapper = styled.section`
     text-align: center;
-    .common-heading{
-        margin: 6rem;
-        font-size:4rem;
+    .common-heading {
+      margin: 6rem;
+      font-size: 4rem;
     }
     .fix2{
       height:30px !important;
@@ -60,28 +62,40 @@ const Contact = () => {
     }
     input, textarea{
         max-width: 50rem;
-
-        color: ${({ theme }) => theme.colors.black};
-        padding: 1.6rem 2.4rem;
-        border: 1px solid ${({ theme }) => theme.colors.border};
-        text-transform: uppercase;
-       box-shadow: ${({ theme }) => theme.colors.shadowSupport};
+    .fix2 {
+      height: 30px !important;
+      width: 300px !important;
+      font-size: 30px !important;
     }
-        input[type="submit"]{
-        max-width: 10rem;
-        margin-top: 2rem;
-        background-color: ${({ theme }) => theme.colors.btn};
-        color: ${({ theme }) => theme.colors.white};
-        padding: 1.4rem 2.2rem;
-        border-style: solid;
-        border-width: .1rem;
-        text-transform: uppercase;
-        font-size: 1.5rem;
-        cursor: pointer;
-        }
+    .customStarIcon {
+      font-size: 4rem !important;
+      opacity: 0.55;
+    }
+    input,
+    textarea {
+      max-width: 50rem;
+
+      color: ${({ theme }) => theme.colors.black};
+      padding: 1.6rem 2.4rem;
+      border: 1px solid ${({ theme }) => theme.colors.border};
+      text-transform: uppercase;
+      box-shadow: ${({ theme }) => theme.colors.shadowSupport};
+    }
+    input[type="submit"] {
+      max-width: 10rem;
+      margin-top: 2rem;
+      background-color: ${({ theme }) => theme.colors.btn};
+      color: ${({ theme }) => theme.colors.white};
+      padding: 1.4rem 2.2rem;
+      border-style: solid;
+      border-width: 0.1rem;
+      text-transform: uppercase;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
     .container {
       margin-top: 6rem;
-        font-size:18px;
+      font-size: 18px;
 
       .contact-form {
         max-width: 50rem;
@@ -115,12 +129,14 @@ const Contact = () => {
 
       <div className="container" style={{marginBottom:'50px'}}>
       
+      
         <div className="contact-form">
           <form
             action="https://formspree.io/f/xeqdgwnq"
             method="POST"
             className="contact-inputs"
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+          >
             <input
               type="text"
               placeholder="username"
@@ -143,7 +159,8 @@ const Contact = () => {
               rows="10"
               required
               autoComplete="off"
-              placeholder="Enter you message"></textarea>
+              placeholder="Enter you message"
+            ></textarea>
 
 <Box 
       sx={{
@@ -170,13 +187,38 @@ const Contact = () => {
         <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
       )}
     </Box>
+            <Box
+              sx={{
+                width: 200,
+                display: "flex",
+                alignItems: "center",
+              }}
+              className="fix2"
+            >
+              <Rating
+                className="customStarIcon"
+                name="hover-feedback"
+                value={value}
+                precision={0.5}
+                getLabelText={getLabelText}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+                onChangeActive={(event, newHover) => {
+                  setHover(newHover);
+                }}
+                emptyIcon={<StarIcon fontSize="inherit" />}
+              />
+              {value !== null && (
+                <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+              )}
+            </Box>
             <input type="submit" value="send" />
           </form>
         </div>
       </div>
-
     </Wrapper>
   );
 };
 
-export default Contact;
+export default Contact

@@ -64,7 +64,8 @@ const Login = () => {
             onChng={formik.handleChange("email")}
             onBlr={formik.handleBlur("email")}
             val={formik.values.email}
-          />
+            style={{ fontSize: '26px', padding: '0px !important' }}
+            />
           <div className="error mt-2">
             {formik.touched.email && formik.errors.email}
           </div>
@@ -111,8 +112,8 @@ const Login = () => {
 export default Login;
 const Wrapper = styled.section`
 .fix1{
-  font-size:2.2rem !important;
-  height:40px ! important;
+  font-size: 2.2rem !important;
+  height: 40px !important;
 }
 .fix{
   font-size:2.2rem !important;
