@@ -101,7 +101,7 @@ const HistoryOrders = () => {
   for (let i = 0; i < state.length; i++) {
     // Format the total value as needed
     let formattedTotal =
-      new Intl.NumberFormat("en-US").format(state[i].total) + " VND";
+      new Intl.NumberFormat("en-US").format(state[i].total) + "usd";
 
     data1.push({
       orderCode: state[i].orderCode,

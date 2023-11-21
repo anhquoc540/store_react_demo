@@ -12,8 +12,7 @@ import { message } from "antd";
 import React, { useContext } from 'react';
 
 function FeedbackForm() {
-  const [item, setItem] = useState([]);
-
+  const { feedback } = useContext(FeedbackContext);
   let { id } = useParams();
   id = Number(id);
   const { addFeedback } = useContext(FeedbackContext);
@@ -23,14 +22,14 @@ function FeedbackForm() {
   const [rating, setRating] = useState(null);
 
   const getLaundryServiceName = (id) => {
-    for (let i = 0; i < item.length; i++) {
-      if (item[i].laundryService.id === id) {
-        return item[i].laundryService.name;
+    for (let i = 0; i < feedback.length; i++) {
+      if (feedback[i].laundryService?.id === id) {
+        return feedback[i].laundryService.name;
       }
     }
     return null;
   };
-
+  const ServiceName = getLaundryServiceName(id);
   const handleTextChange = (e) => {
     if (text === "") {
       SetBtnDisabled(true);
@@ -52,7 +51,6 @@ function FeedbackForm() {
     setRating(rating);
     console.log(rating);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim().length > 10) {
@@ -61,8 +59,16 @@ function FeedbackForm() {
         star: rating,
         serviceId: id,
       };
+      const newFeedbackState = {
+        content: text,
+        star: rating,
+        serviceId: id,
+        laundryService: {
+          name: ServiceName,
+        },
+      };
       {
-        addFeedback(newFeedback);
+        addFeedback(newFeedbackState);
         axios
           .post(
             "https://magpie-aware-lark.ngrok-free.app/api/v1/user/feedback/create",
@@ -120,7 +126,7 @@ function FeedbackForm() {
       <div className="feedback-form">
         <Card>
           <form onSubmit={handleSubmit}>
-            <h2>Bạn nghĩ thế nào về dịch vụ này?</h2>
+            <h2>Bạn nghĩ thế nào về dịch vụ {ServiceName}?</h2>
             <RatingSelect select={changeRating} />
             <div className="input-group">
               <input

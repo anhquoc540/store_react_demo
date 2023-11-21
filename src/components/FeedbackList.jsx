@@ -5,8 +5,32 @@ import { useEffect } from "react";
 import axios from "axios";
 import FeedbackContext from "./context/FeedbackContext";
 function FeedbackList() {
-  const { feedback, setFeedback } = useContext(FeedbackContext);
-
+  const [feedback, setFeedback] = useState([]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      axios
+        .get(
+          "https://magpie-aware-lark.ngrok-free.app/api/v1/user/feedback/all",
+          {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(
+                localStorage.getItem("access_token")
+              )}`,
+              Accept: "application/json",
+              "Access-Control-Allow-Origin": "*",
+              "ngrok-skip-browser-warning": "69420",
+            },
+          }
+        )
+        .then((response) => {
+          setFeedback(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
   if (!feedback || feedback.length === 0) {
     return <p>Chưa có đánh giá nào </p>;
   }
@@ -26,15 +50,6 @@ function FeedbackList() {
       </AnimatePresence>
     </div>
   );
-
-  // return (
-  //     <div className='feedback-List'>
-  //         {feedback.map((item) => (
-  //             <FeedbackItem key={item.id} Item={item} deleteHandler = {deleteHandler}/>
-  //         ))}
-
-  //     </div>
-  // )
 }
 
 export default FeedbackList;
