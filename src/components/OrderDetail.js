@@ -45,8 +45,9 @@ export default function OrderDetails() {
   };
 
   useEffect(() => {
-    const interval = setInterval(fetchData, 1000);
-    return () => clearInterval(interval);
+    // const interval = setInterval(fetchData, 300000);
+    // return () => clearInterval(interval);
+    fetchData();
   }, []);
 
   console.log(error);
@@ -98,8 +99,28 @@ export default function OrderDetails() {
     statusArray.push({ children: "Đơn đã huỷ" });
   }
   let pendingStatus = statusMap[order.status];
-  let navigate = useNavigate();
-  console.log(order);
+  const handlepayment = async () => {
+    try {
+      const response = await axios.post(
+        `https://magpie-aware-lark.ngrok-free.app/api/v1/base/checkout/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("access_token")
+            )}`,
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "ngrok-skip-browser-warning": "69420",
+          },
+        }
+      );
+      console.log(response.data);
+      window.location.href = response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       {error.length > 0 ? (
@@ -200,7 +221,7 @@ export default function OrderDetails() {
                             <MDBCol md="2" lg="2"></MDBCol>
                           )}
                           <MDBCol md="2" lg="2">
-                            <p>{item.total.toLocaleString()}₫</p>
+                            <p>{item.total.toLocaleString()}usd</p>
                           </MDBCol>
                           {order.status === 7 ? (
                             <MDBCol md="2" lg="2">
@@ -254,7 +275,11 @@ export default function OrderDetails() {
                       </Popconfirm>
                     )}
                     {order.status > 4 && order.isPaid === 0 && (
-                      <Button type="primary" size="large">
+                      <Button
+                        onClick={handlepayment}
+                        type="primary"
+                        size="large"
+                      >
                         Thanh toán
                       </Button>
                     )}
