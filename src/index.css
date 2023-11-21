@@ -248,6 +248,16 @@ main::-webkit-scrollbar {
   margin: 20px 0;
   position: relative;
 }
+.num-display {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}
+
+.feedback-form .title-display {
+  position: absolute;
+  top: 10px;
+}
 
 .feedback-form .card.reverse {
   background-color: rgba(0, 0, 0, 0.4);
@@ -306,5 +316,16 @@ main::-webkit-scrollbar {
 .feedback-form * {
   box-sizing: border-box;
   margin: 20;
-  padding: 0;
+}
+.close,
+.edit {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.feedback-form .text-display {
+  font-size: 15px;
 }

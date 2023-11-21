@@ -16,7 +16,7 @@ const checkEmail = async (email) => {
 };
 const getStore = async (id) => {
   const response = await axios.get(
-    `https://magpie-aware-lark.ngrok-free.app/api/v1/base/store/get/1`,
+    `https://magpie-aware-lark.ngrok-free.app/api/v1/base/store/get/${id}`,
     config
   );
 

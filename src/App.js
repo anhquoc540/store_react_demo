@@ -30,6 +30,7 @@ import OrderDetails from "./components/OrderDetail";
 import DetailLayout from "./components/layout/DetailLayout";
 import FeedbackForm from "./components/FeedbackForm";
 import { FeedbackProvider } from "./components/context/FeedbackContext";
+import FeedbackList from "./components/FeedbackList";
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -68,6 +69,7 @@ const App = () => {
               <Route path="/profilelayout/history" element={<History />} />
               <Route path="history/:id" element={<OrderDetails />} />
               <Route path="feedback/:id" element={<FeedbackForm />} />
+              <Route path="myFeedback" element={<FeedbackList />} />
             </Route>
 
             <Route path="/cart" element={<DetailLayout content={<Cart />} />} />

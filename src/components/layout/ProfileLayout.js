@@ -4,19 +4,17 @@ import {
   AiOutlineDashboard,
   AiOutlineShoppingCart,
   AiOutlineUser,
-  
 } from "react-icons/ai";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { IoIosNotifications } from "react-icons/io";
-import { FaClipboardList} from "react-icons/fa";
+import { FaClipboardList } from "react-icons/fa";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import '../../styles/dashboard.css';
-
+import "../../styles/dashboard.css";
 
 const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
@@ -29,11 +27,21 @@ const MainLayout = () => {
   return (
     <Layout /* onContextMenu={(e) => e.preventDefault()} */>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" >
+        <div className="logo">
           <h2 className="text-white fs-5 text-center py-3 mb-0">
-            <span className="sm-logo" style={{fontSize:"30px", color:"#fff"}}>DC</span>
+            <span
+              className="sm-logo"
+              style={{ fontSize: "30px", color: "#fff" }}
+            >
+              DC
+            </span>
             <NavLink to="/">
-            <span className="lg-logo" style={{fontSize:"35px", color:"#fff"}}>The laundry</span>
+              <span
+                className="lg-logo"
+                style={{ fontSize: "35px", color: "#fff" }}
+              >
+                The laundry
+              </span>
             </NavLink>
           </h2>
         </div>
@@ -50,15 +58,19 @@ const MainLayout = () => {
           items={[
             {
               key: "profile",
-              icon: <AiOutlineUser className="fs-4 " size={26}/>,
-              label: <span style={{ fontSize: 18 }}> Thông Tin Cá Nhân</span>
+              icon: <AiOutlineUser className="fs-4 " size={26} />,
+              label: <span style={{ fontSize: 18 }}> Thông Tin Cá Nhân</span>,
             },
             {
               key: "history",
               icon: <AiOutlineShoppingCart className="fs-4 " size={26} />,
-              label: <span style={{ fontSize: 18 }}>Lịch Sử Đơn Hàng</span>
+              label: <span style={{ fontSize: 18 }}>Lịch Sử Đơn Hàng</span>,
             },
-            
+            {
+              key: "myFeedback",
+              icon: <AiOutlineShoppingCart className="fs-4 " size={26} />,
+              label: <span style={{ fontSize: 18 }}>Đánh giá của tôi</span>,
+            },
           ]}
         />
       </Sider>
@@ -78,9 +90,15 @@ const MainLayout = () => {
             }
           )}
           <div className="d-flex gap-4 align-items-center">
-            <div className="position-relative"  >
-              <IoIosNotifications className="fs-4" style={{ width: '30px', height: '30px' }}/>
-              <span className="badge bg-warning rounded-circle p-1 position-absolute" style={{ width: '15px', height: '15px' }}>
+            <div className="position-relative">
+              <IoIosNotifications
+                className="fs-4"
+                style={{ width: "30px", height: "30px" }}
+              />
+              <span
+                className="badge bg-warning rounded-circle p-1 position-absolute"
+                style={{ width: "15px", height: "15px" }}
+              >
                 3
               </span>
             </div>
