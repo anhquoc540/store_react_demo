@@ -8,7 +8,7 @@ const Store = (curElem) => {
  <NavLink to={`/single-store/${id}`}>
         <div className="card">
         <figure>
-    <img src="https://ik.imagekit.io/tvlk/blog/2021/09/du-lich-anh-8-1024x576.jpg?tr=dpr-2,w-675" alt="Ảnh du lịch Anh Quốc" style={{height:'auto',width:'auto'}}/>
+    <img src={image} alt="Ảnh du lịch Anh Quốc" style={{height:'auto',width:'auto'}}/>
 </figure>
 
 

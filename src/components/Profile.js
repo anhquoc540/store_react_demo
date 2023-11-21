@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 import { Input, Form, Button, Select } from "antd";
@@ -28,27 +29,28 @@ export default function ProfileDetailForm() {
   const putUserUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile/${user.id}`;
   const [state, setState] = useState(initialState);
   const { id, fullName, email, phone, address, image, status, role } = state;
+  const { userInfoDTO } = useSelector((state) => state.auth);
   //const [APIData, setAPIData] = useState([]);
   const getUsersUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/base/profile/2`;
-  const getProfile = async () => {
-    const res = await axios.get(getUsersUrl, config);
-    if (res.status === 200) {
-      setState(res.data);
-    }
-  };
+  // const getProfile = async () => {
+  //   const res = await axios.get(getUsersUrl, config);
+  //   if (res.status === 200) {
+  //     setState(res.data);
+  //   }
+  // };
+
   useEffect(() => {
     // await axios.get(getUsersUrl, config).then(
     //     response => {
-
     //         setState(response.data)
     //     })
     //     // .then(data => { setAPIData(data) })
     //     .catch(error => console.log(error.message));
-    getProfile();
+    // getProfile();
     form.setFieldsValue({
-      fullName: fullName,
-      phone: phone,
-      address: address,
+      fullName: userInfoDTO.fullName,
+      phone: userInfoDTO.phone,
+      address: userInfoDTO.address,
     });
   }, []);
 
@@ -84,8 +86,26 @@ export default function ProfileDetailForm() {
     },
   };
 
-  const onFinish = (values) => {
-    console.log(values);
+  const onFinish = async (values) => {
+    try {
+      const response = await axios.put(
+        `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile/update/${user.id}`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("access_token")
+            )}`,
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "ngrok-skip-browser-warning": "69420",
+          },
+        }
+      );
+      console.log("Update successful", response.data);
+    } catch (error) {
+      console.error("Update failed", error);
+    }
   };
 
   // const onCreate = (values) => {
@@ -116,7 +136,6 @@ export default function ProfileDetailForm() {
                   style={{
                     maxWidth: 600,
                   }}
-                  // validateMessages={validateMessages}
                 >
                   <Form.Item
                     name="fullName"
@@ -129,8 +148,7 @@ export default function ProfileDetailForm() {
                   >
                     <Input
                       type="text"
-                      name="fullName"
-                      defaultValue={fullName}
+                      defaultValue={userInfoDTO.fullName}
                       onChange={handleInputChange}
                     />
                   </Form.Item>
@@ -145,12 +163,11 @@ export default function ProfileDetailForm() {
                   >
                     <Input
                       type="text"
-                      name="address"
-                      defaultValue={address}
+                      defaultValue={userInfoDTO.address}
                       onChange={handleInputChange}
                     />
                   </Form.Item>
-                  <Form.Item label="Email">{state.email}</Form.Item>
+                  <Form.Item label="Email">{userInfoDTO.email}</Form.Item>
                   <Form.Item
                     name="phone"
                     label="Phone"
@@ -164,7 +181,7 @@ export default function ProfileDetailForm() {
                     <Input
                       type="text"
                       name="phone"
-                      defaultValue={phone}
+                      defaultValue={userInfoDTO.phone}
                       onChange={handleInputChange}
                       addonBefore={prefixSelector}
                       style={{
@@ -196,7 +213,7 @@ export default function ProfileDetailForm() {
 const Wrapper = styled.section`
   padding: 10px;
   img {
-    max-width: 20rem;
+    width: 10rem;
     height: 20rem;
     border-radius: 1rem;
   }

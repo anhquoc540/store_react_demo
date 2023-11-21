@@ -2,7 +2,7 @@
 import styled from "styled-components";
 //import { Button } from "../style/Button";
 import { motion, AnimatePresence } from 'framer-motion'
-import FeedbackItem from './FeedbackItem'
+import FeedbackItem1 from './FeedbackItem1'
 import FeedbackContext from './context/FeedbackContext'
 import axios from 'axios';
 import { AiFillStar } from 'react-icons/ai';
@@ -154,11 +154,11 @@ const SpecialDetailForm = () => {
 
                                 <div
                                     class="card mb-4"
-                                    style={{ background: '#00A9FF', borderRadius: '10px' }}
+                                    style={{ background: '#DCDCDC', borderRadius: '10px' }}
                                 >
                                     <div class="card-body py-5">
-                                        <h2 class="" style={{ color: 'white' }}>
-                                            Đánh giá từ khách hàng :{' '}
+                                        <h2 class="" style={{fontWeight:'bolder' }}>
+                                            Đánh giá từ khách hàng{' '}
                                         </h2>
                                         <div className='feedback-stats'>
                                             <h3>{feedback.length} Reviews</h3>
@@ -184,7 +184,7 @@ const SpecialDetailForm = () => {
                                                         exit={{ opacity: 0 }}
                                                     >
 
-                                                        <FeedbackItem key={item.id} Item={item} />
+                                                        <FeedbackItem1 key={item.id} Item={item} />
                                                     </motion.div>
                                                 ))
                                             )}

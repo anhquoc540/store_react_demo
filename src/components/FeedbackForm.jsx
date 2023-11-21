@@ -5,46 +5,46 @@ import RatingSelect from "./RatingSelect";
 import styled from "styled-components";
 import { toast, ToastContainer } from 'react-toastify';
 //use of Context !!
-import { useContext } from "react";
 import FeedbackContext from "./context/FeedbackContext";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { message } from "antd";
+import React, { useContext } from 'react';
 
 function FeedbackForm() {
+  const [item, setItem] = useState([]);
+
   let { id } = useParams();
   id = Number(id);
-  const { userInfoDTO } = useSelector((state) => state.auth);
-  const { addFeedback, feedbackEdit, updateFeedback } =
-    useContext(FeedbackContext);
-  // -----------------------------------
+  const { addFeedback } = useContext(FeedbackContext);
   const [text, setText] = useState("");
   const [btnDisabled, SetBtnDisabled] = useState(true);
-  const [message, setMessage] = useState("");
-  const [rating, setRating] = useState(10);
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [rating, setRating] = useState(null);
 
-  // use Effect !!
-  useEffect(() => {
-    if (feedbackEdit.edit === true) {
-      SetBtnDisabled(false);
-      setText(feedbackEdit.item.text);
-      setRating(feedbackEdit.item.rating);
+  const getLaundryServiceName = (id) => {
+    for (let i = 0; i < item.length; i++) {
+      if (item[i].laundryService.id === id) {
+        return item[i].laundryService.name;
+      }
     }
-  }, [feedbackEdit]);
+    return null;
+  };
 
-  // functions!!
   const handleTextChange = (e) => {
     if (text === "") {
       SetBtnDisabled(true);
-      setMessage(null);
-    } else if (text !== "" && text.trim().length <= 10) {
-      setMessage("Text must be at least 10 character");
+      setFeedbackMessage("Hãy nhập đánh giá!");
+    } else if (rating === null) {
       SetBtnDisabled(true);
-    } else {
-      setMessage(null);
+      setFeedbackMessage("Hãy nhập sao");
+    } else if (text !== "" && text.trim().length <= 10) {
+      setFeedbackMessage("Đánh giá phải từ 10 ký tự trở lên!");
+      SetBtnDisabled(true);
+    } else if (rating !== null && text.trim().length > 10) {
+      setFeedbackMessage(null);
       SetBtnDisabled(false);
     }
-
     setText(e.target.value);
   };
 
@@ -61,9 +61,8 @@ function FeedbackForm() {
         star: rating,
         serviceId: id,
       };
-      if (feedbackEdit.edit === true) {
-        updateFeedback(feedbackEdit.item.id, newFeedback);
-      } else {
+      {
+        addFeedback(newFeedback);
         axios
           .post(
             "https://magpie-aware-lark.ngrok-free.app/api/v1/user/feedback/create",
@@ -81,6 +80,7 @@ function FeedbackForm() {
           )
           .then((response) => {
             console.log("Success:", response.data);
+            message.success("Đánh giá thành công");
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -92,31 +92,55 @@ function FeedbackForm() {
   };
 
   return (
-    <Wrapper>
+    // <Wrapper>
       
-    <div className="feedback-form">
-      <Card>
-        <form onSubmit={handleSubmit}>
-          <h2>How would you rate your service with us?</h2>
-          <RatingSelect select={changeRating} />
-          <div className="input-group">
-            <input
-              className="input"
-              type="text"
-              placeholder="write a review"
-              onChange={handleTextChange}
-              defaultValue={text}
-            />
-            <Button type="submit" isDisabled={btnDisabled}>
-              send
-            </Button>
-          </div>
-          {message && <div className="feedback-message">{message}</div>}
-        </form>
-      </Card>
-    </div>
+    // <div className="feedback-form">
+    //   <Card>
+    //     <form onSubmit={handleSubmit}>
+    //       <h2>How would you rate your service with us?</h2>
+    //       <RatingSelect select={changeRating} />
+    //       <div className="input-group">
+    //         <input
+    //           className="input"
+    //           type="text"
+    //           placeholder="write a review"
+    //           onChange={handleTextChange}
+    //           defaultValue={text}
+    //         />
+    //         <Button type="submit" isDisabled={btnDisabled}>
+    //           send
+    //         </Button>
+    //       </div>
+    //       {message && <div className="feedback-message">{message}</div>}
+    //     </form>
+    //   </Card>
+    // </div>
+    // </Wrapper>
+    <Wrapper>
+      <div className="feedback-form">
+        <Card>
+          <form onSubmit={handleSubmit}>
+            <h2>Bạn nghĩ thế nào về dịch vụ này?</h2>
+            <RatingSelect select={changeRating} />
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Hãy nhập đánh giá"
+                onChange={handleTextChange}
+                value={text}
+              />
+              <Button type="submit" isDisabled={btnDisabled}>
+                send
+              </Button>
+            </div>
+            {feedbackMessage && (
+              <div className="feedback-message">{feedbackMessage}</div>
+            )}
+          </form>
+        </Card>
+      </div>
     </Wrapper>
-  );
+  )
 }
 
 export default FeedbackForm;

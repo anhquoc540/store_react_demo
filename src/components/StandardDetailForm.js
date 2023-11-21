@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 import { addToCart } from "../action/features/cart/cartSlice";
 import { motion, AnimatePresence } from 'framer-motion'
-import FeedbackItem from './FeedbackItem'
+import FeedbackItem1 from './FeedbackItem1'
 import { useContext } from 'react';
 import axios from 'axios';
 import FeedbackContext from './context/FeedbackContext'
@@ -125,7 +125,7 @@ const StandardDetailForm = () => {
               <div class="card mb-4">
                 <div class="card-body">
                   <div class="row">
-                    <img src={imageBanner} alt={name} />
+                    <img src="https://th.bing.com/th/id/OIP.mP86NhZ1dEKSQiQyvZAM-wHaC_?rs=1&pid=ImgDetMain" alt={name} style={{width:'100%',height:'100%'}}/>
                   </div>
                 </div>
               </div>
@@ -142,14 +142,11 @@ const StandardDetailForm = () => {
                 pagination={false}
               ></Table>
 
-              <div
-                class="card mb-4"
-                style={{ background: "#00A9FF", borderRadius: "10px" }}
-              >
-                <div class="card mb-4" style={{ background: '#00A9FF', borderRadius: '10px' }}>
+              
+                <div class="card mb-4" style={{ background: '#DCDCDC', borderRadius: '10px',  }}>
                   <div class="card-body py-5">
-                    <h2 class="" style={{ color: 'white' }}>
-                      Đánh giá từ khách hàng :{' '}
+                    <h2 class="" style={{ color: 'black', fontWeight:'bolder  ' }}>
+                      Đánh giá từ khách hàng{' '}
                     </h2>
 
                     <div className='feedback-stats'>
@@ -174,12 +171,12 @@ const StandardDetailForm = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                           >
-                            <FeedbackItem key={item.id} Item={item} />
+                            <FeedbackItem1 key={item.id} Item={item} />
                           </motion.div>
                         ))
                       )}
                     </AnimatePresence>
-                  </div>
+                
                 </div>
               </div>
             </div>

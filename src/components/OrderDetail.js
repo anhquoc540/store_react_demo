@@ -12,7 +12,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { config } from "../axios/auth-header";
+import { useEffect } from "react";
+import { Popconfirm } from "antd";
 
 export default function OrderDetails() {
   let { id } = useParams();
@@ -20,33 +21,34 @@ export default function OrderDetails() {
   const [order, setOrder] = useState([]);
   const [item, setItem] = useState([]);
   const [error, setError] = useState("");
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      axios
-        .get(
-          `https://magpie-aware-lark.ngrok-free.app/api/v1/user/order/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${JSON.parse(
-                localStorage.getItem("access_token")
-              )}`,
-              Accept: "application/json",
-              "Access-Control-Allow-Origin": "*",
-              "ngrok-skip-browser-warning": "69420",
-            },
-          }
-        )
-        .then((response) => {
-          setOrder(response.data);
-          setItem(response.data.items);
-        })
-        .catch((error) => {
-          console.error(error);
-          setError(error.toJSON().message);
-        });
-    }, 1000);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `https://magpie-aware-lark.ngrok-free.app/api/v1/user/order/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("access_token")
+            )}`,
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "ngrok-skip-browser-warning": "69420",
+          },
+        }
+      );
+      setOrder(response.data);
+      setItem(response.data.items);
+    } catch (error) {
+      console.error(error);
+      setError(error.toJSON().message);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(fetchData, 1000);
     return () => clearInterval(interval);
   }, []);
+
   console.log(error);
   const handleButtonClick = async () => {
     try {
@@ -101,7 +103,18 @@ export default function OrderDetails() {
   return (
     <>
       {error.length > 0 ? (
-        <h2>Không thể truy cập</h2>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: " center",
+            height: " 50vh",
+          }}
+        >
+          <h2 style={{ color: "#6c757d", fontFamily: "Arial, sans-serif" }}>
+            Không thể truy cập
+          </h2>
+        </div>
       ) : (
         <section className="h-100 h-custom">
           <Link to={`/profilelayout/history`}>
@@ -159,18 +172,17 @@ export default function OrderDetails() {
                         <MDBCol md="2" lg="2">
                           <p>Số lượng</p>
                         </MDBCol>
-
                         <MDBCol md="2" lg="2">
                           <p>Cân nặng</p>
                         </MDBCol>
                         <MDBCol md="2" lg="2">
                           <p>Giá tiền</p>
                         </MDBCol>
-                        {/* {order?.isPaid === 1 ? ( */}
-                        <MDBCol md="2" lg="2">
-                          <p>Đánh giá</p>
-                        </MDBCol>
-                        {/* ) : null} */}
+                        {order.status === 7 ? (
+                          <MDBCol md="2" lg="2">
+                            <p>Đánh giá</p>
+                          </MDBCol>
+                        ) : null}
                       </MDBRow>
                       {item.map((item, index) => (
                         <MDBRow>
@@ -190,15 +202,15 @@ export default function OrderDetails() {
                           <MDBCol md="2" lg="2">
                             <p>{item.total.toLocaleString()}₫</p>
                           </MDBCol>
-                          {/* {order?.isPaid === 1 ? ( */}
-                          <MDBCol md="2" lg="2">
-                            <Link
-                              to={`/profilelayout/feedback/${item.laundryService.id}`}
-                            >
-                              Đánh giá
-                            </Link>
-                          </MDBCol>
-                          {/* ) : null} */}
+                          {order.status === 7 ? (
+                            <MDBCol md="2" lg="2">
+                              <Link
+                                to={`/profilelayout/feedback/${item.laundryService.id}`}
+                              >
+                                Đánh giá
+                              </Link>
+                            </MDBCol>
+                          ) : null}
                         </MDBRow>
                       ))}
                     </div>
@@ -230,13 +242,16 @@ export default function OrderDetails() {
                       />
                     </div>
                     {order.status === 1 && (
-                      <Button
-                        type="primary"
-                        onClick={handleButtonClick}
-                        size="large"
+                      <Popconfirm
+                        title="Bạn có muốn huỷ đơn hàng này?"
+                        onConfirm={handleButtonClick}
+                        okText="Có"
+                        cancelText="Không"
                       >
-                        Huỷ đơn hàng
-                      </Button>
+                        <Button type="primary" size="large">
+                          Huỷ đơn hàng
+                        </Button>
+                      </Popconfirm>
                     )}
                     {order.status > 4 && order.isPaid === 0 && (
                       <Button type="primary" size="large">
