@@ -2,13 +2,13 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const Store = (curElem) => {
-    const { id, name, address, phone, image, district } = curElem;
+    const { id, name, address, phone, district } = curElem;
 
     return (
  <NavLink to={`/single-store/${id}`}>
         <div className="card">
         <figure>
-    <img src={image} alt="Ảnh du lịch Anh Quốc" style={{height:'auto',width:'auto'}}/>
+    <img src="https://th.bing.com/th/id/OIP.AQBfoGu1jn4DQR4S2DM6MQHaD5?w=289&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Ảnh du lịch Anh Quốc" style={{height:'auto',width:'auto'}}/>
 </figure>
 
 

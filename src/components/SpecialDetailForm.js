@@ -102,7 +102,7 @@ const SpecialDetailForm = () => {
                                         <div class="col-lg-4 d-flex justify-content-center py-5">
                                             <figure>
                                                 <img
-                                                    src="https://pos.nvncdn.net/778773-105877/ps/20230713_WcskjVVYHE.jpeg"
+                                                    src={imageBanner}
                                                     alt={name}
                                                     style={{ height: '100%', width: '100%' }}
                                                 />

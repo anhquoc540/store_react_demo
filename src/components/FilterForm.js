@@ -24,31 +24,40 @@ const FilterForm = () => {
 
   const districts = [
     {
-      value: "Quan 1",
+      value: "Quận 1",
     },
     {
-      value: "Quan 2",
+      value: "Quận 2",
     },
     {
-      value: "Quan 3",
+      value: "Quận 3",
     },
     {
-      value: "Quan 4",
+      value: " Quận 4",
     },
     {
-      value: "Quan 5",
+      value: "Quận 5",
     },
     {
-      value: "Quan 6",
+      value: "Quận 6",
     },
     {
-      value: "Quan 7",
+      value: "Quận 7",
     },
     {
-      value: "Quan 8",
+      value: "Quận 8",
     },
     {
-      value: "Quan 9",
+      value: "Quận 9",
+    },
+    {
+      value: "Quận 10",
+    },
+    {
+      value: "Quận 11",
+    },
+    {
+      value: "Quận 12",
     },
   ];
 
