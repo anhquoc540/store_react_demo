@@ -35,7 +35,6 @@ const columns = [
   {
     title: "Tên cửa hàng",
     dataIndex: "name",
-    sorter: (a, b) => a.store?.name - b.store?.name,
   },
   {
     title: "Trạng thái",
