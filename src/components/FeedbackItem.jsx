@@ -18,15 +18,15 @@
 //                 <button1 onClick ={() => editFeedback(Item)} className="edit">
 //                     <FaEdit color='blue'/>
 //                 </button1> */}
-                
+
 //                 <div className="text-display">{Item.content}</div>
-                
+
 //             </Card>
 //         </>
-       
+
 //     )
 // }
- 
+
 // Card.defaultProps = {
 //     reverse :false,
 // }
@@ -42,7 +42,7 @@ import { Popconfirm, message } from "antd";
 
 function FeedbackItem({ Item }) {
   const { deleteFeedback } = useContext(FeedbackContext);
-  const confirm = (e) => {
+  const confirm = () => {
     message.success("Xoá đơn thành công");
     deleteFeedback(Item.id);
   };

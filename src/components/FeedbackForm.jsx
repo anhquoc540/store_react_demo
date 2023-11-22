@@ -3,13 +3,13 @@ import Card from "./shared/Card";
 import Button from "./shared/Button";
 import RatingSelect from "./RatingSelect";
 import styled from "styled-components";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 //use of Context !!
 import FeedbackContext from "./context/FeedbackContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { message } from "antd";
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 
 function FeedbackForm() {
   const { feedback } = useContext(FeedbackContext);
@@ -93,13 +93,12 @@ function FeedbackForm() {
           });
       }
       setText("");
-      
     }
   };
 
   return (
     // <Wrapper>
-      
+
     // <div className="feedback-form">
     //   <Card>
     //     <form onSubmit={handleSubmit}>
@@ -125,7 +124,7 @@ function FeedbackForm() {
     <Wrapper>
       <div className="feedback-form">
         <Card>
-          <form onSubmit={handleSubmit}>
+          <form style={{ paddingTop: "15px" }} onSubmit={handleSubmit}>
             <h2>Bạn nghĩ thế nào về dịch vụ {ServiceName}?</h2>
             <RatingSelect select={changeRating} />
             <div className="input-group">
@@ -146,23 +145,23 @@ function FeedbackForm() {
         </Card>
       </div>
     </Wrapper>
-  )
+  );
 }
 
 export default FeedbackForm;
 const Wrapper = styled.section`
-.input {
-  padding: 10px;
-  border-radius: 5px; 
-  flex: 1;
-  width: 500px;
-}
+  .input {
+    padding: 10px;
+    border-radius: 5px;
+    flex: 1;
+    width: 500px;
+  }
 
-Button {
-  font-size: 22px;
-  height: auto;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin-left: 10px; 
-}
-`
+  Button {
+    font-size: 22px;
+    height: auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 10px;
+  }
+`;

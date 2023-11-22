@@ -3,51 +3,71 @@ import React, { useContext, useState } from "react";
 import FeedbackItem from "./FeedbackItem";
 import { useEffect } from "react";
 import axios from "axios";
-import FeedbackContext from "./context/FeedbackContext";
+import { Spin } from "antd";
 function FeedbackList() {
   const [feedback, setFeedback] = useState([]);
+  const fetchFeedback = async () => {
+    try {
+      const response = await axios.get(
+        "https://magpie-aware-lark.ngrok-free.app/api/v1/user/feedback/all",
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("access_token")
+            )}`,
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "ngrok-skip-browser-warning": "69420",
+          },
+        }
+      );
+      setFeedback(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
+    fetchFeedback();
+
     const interval = setInterval(() => {
-      axios
-        .get(
-          "https://magpie-aware-lark.ngrok-free.app/api/v1/user/feedback/all",
-          {
-            headers: {
-              Authorization: `Bearer ${JSON.parse(
-                localStorage.getItem("access_token")
-              )}`,
-              Accept: "application/json",
-              "Access-Control-Allow-Origin": "*",
-              "ngrok-skip-browser-warning": "69420",
-            },
-          }
-        )
-        .then((response) => {
-          setFeedback(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }, 1000);
+      fetchFeedback();
+    }, 2000);
     return () => clearInterval(interval);
+  }, []);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchFeedback().finally(() => setLoading(false));
   }, []);
   if (!feedback || feedback.length === 0) {
     return <p>Chưa có đánh giá nào </p>;
   }
   return (
     <div className="feedback-List">
-      <AnimatePresence>
-        {feedback.map((item) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <FeedbackItem key={item.id} Item={item} />
-          </motion.div>
-        ))}
-      </AnimatePresence>
+      {loading ? (
+        <Spin
+          style={{ marginTop: "15px" }}
+          tip="Đang lấy dữ liệu..."
+          size="large"
+        >
+          <div className="content" />
+        </Spin>
+      ) : (
+        <AnimatePresence>
+          {feedback.map((item) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <FeedbackItem key={item.id} Item={item} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      )}
     </div>
   );
 }

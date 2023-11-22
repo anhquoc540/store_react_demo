@@ -5,6 +5,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import { Spin } from "antd";
+import { Tag } from "antd";
 
 const URL = "https://magpie-aware-lark.ngrok-free.app/api/v1/user/order/all";
 
@@ -61,6 +63,17 @@ const statusMap = {
   7: "Đơn đã hoàn thành",
 };
 
+const colorMap = {
+  0: "red",
+  1: "gold",
+  2: "lime",
+  3: "cyan",
+  4: "blue",
+  5: "geekblue",
+  6: "purple",
+  7: "green",
+};
+
 const HistoryOrders = () => {
   const { userInfoDTO } = useSelector((state) => state.auth);
   const [state, setState] = useState([]);
@@ -88,9 +101,12 @@ const HistoryOrders = () => {
   };
 
   useEffect(() => {
+    // Call the function once when the component mounts
+    getHistoryOrders(userInfoDTO.id);
+
     const interval = setInterval(() => {
       getHistoryOrders(userInfoDTO.id);
-    }, 1000);
+    }, 2000); // Changed to 2 seconds as per your requirement
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(interval);
@@ -107,7 +123,11 @@ const HistoryOrders = () => {
       orderCode: state[i].orderCode,
       date: state[i].orderDate,
       name: state[i].store.name,
-      status: statusMap[state[i].status],
+      status: (
+        <Tag color={colorMap[state[i].status]}>
+          {statusMap[state[i].status]}
+        </Tag>
+      ),
       total: state[i].total,
       formattedTotal: formattedTotal, // Add the formatted total value
 
@@ -137,6 +157,14 @@ const HistoryOrders = () => {
             Không tìm thấy bất kỳ đơn hàng nào
           </h2>
         </div>
+      ) : data1.length === 0 ? (
+        <Spin
+          style={{ marginTop: "15px" }}
+          tip="Đang lấy dữ liệu..."
+          size="large"
+        >
+          <div className="content" />
+        </Spin>
       ) : (
         <div>
           <h3 className="mb-4 title">Lịch Sử Đơn Hàng</h3>

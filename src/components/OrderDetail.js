@@ -14,6 +14,8 @@ import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Popconfirm } from "antd";
+import { Spin } from "antd";
+import { Tag } from "antd";
 
 export default function OrderDetails() {
   let { id } = useParams();
@@ -37,17 +39,51 @@ export default function OrderDetails() {
         }
       );
       setOrder(response.data);
-      setItem(response.data.items);
+      const sortedItems = response.data.items.sort((a, b) => a.id - b.id);
+      setItem(sortedItems);
     } catch (error) {
       console.error(error);
       setError(error.toJSON().message);
     }
   };
+  const navigator = useNavigate();
+  const payment = async (param1, param2) => {
+    try {
+      const response = await axios.get(
+        `https://magpie-aware-lark.ngrok-free.app/api/v1/base/confirm?paymentId=${param1}&PayerID=${param2}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "ngrok-skip-browser-warning": "69420",
+          },
+        }
+      );
+      if (response.data) navigator();
+      // setItem(response.data.items);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    // const interval = setInterval(fetchData, 300000);
-    // return () => clearInterval(interval);
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const param1 = urlSearchParams.get("paymentId");
+    const param2 = urlSearchParams.get("PayerID");
+    if ((param1 === null) & (param2 === null)) fetchData();
+    else payment(param1, param2);
+  }, []);
+
+  useEffect(() => {
+    // Call the function once when the component mounts
     fetchData();
+
+    const interval = setInterval(() => {
+      fetchData();
+    }, 1500); // Changed to 2 seconds as per your requirement
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(interval);
   }, []);
 
   console.log(error);
@@ -136,6 +172,14 @@ export default function OrderDetails() {
             Không thể truy cập
           </h2>
         </div>
+      ) : order.length === 0 ? (
+        <Spin
+          style={{ marginTop: "15px" }}
+          tip="Đang lấy dữ liệu..."
+          size="large"
+        >
+          <div className="content" />
+        </Spin>
       ) : (
         <section className="h-100 h-custom">
           <Link to={`/profilelayout/history`}>
@@ -152,8 +196,8 @@ export default function OrderDetails() {
                 <MDBCard className="border-3 border-color-custom MDBCard">
                   <MDBCardBody className="p-5">
                     <p
-                      className="lead fw-bold mb-5"
-                      style={{ color: "#f37a27" }}
+                      className="lead fw-bold mb-5 "
+                      style={{ color: "#f37a27", fontSize: "30px" }}
                     >
                       Purchase Receipt
                     </p>
@@ -165,9 +209,9 @@ export default function OrderDetails() {
                       <MDBCol className="mb-3">
                         <p className="small text-muted mb-1">Thanh toán</p>
                         {order?.isPaid === 1 ? (
-                          <p>Hoàn thành</p>
+                          <Tag color="green">Hoàn thành</Tag>
                         ) : (
-                          <p>Chưa hoàn thành</p>
+                          <Tag color="volcano">Chưa hoàn thành</Tag>
                         )}
                       </MDBCol>
                     </MDBRow>
@@ -188,24 +232,25 @@ export default function OrderDetails() {
                     >
                       <MDBRow>
                         <MDBCol md="4" lg="4">
-                          <p>Tên dịch vụ</p>
+                          <p style={{ fontWeight: "bold" }}>Tên dịch vụ</p>
                         </MDBCol>
                         <MDBCol md="2" lg="2">
-                          <p>Số lượng</p>
+                          <p style={{ fontWeight: "bold" }}>Số lượng</p>
                         </MDBCol>
                         <MDBCol md="2" lg="2">
-                          <p>Cân nặng</p>
+                          <p style={{ fontWeight: "bold" }}>Cân nặng</p>
                         </MDBCol>
                         <MDBCol md="2" lg="2">
-                          <p>Giá tiền</p>
+                          <p style={{ fontWeight: "bold" }}>Giá tiền</p>
                         </MDBCol>
                         {order.status === 7 ? (
                           <MDBCol md="2" lg="2">
-                            <p>Đánh giá</p>
+                            <p style={{ fontWeight: "bold" }}>Đánh giá</p>
                           </MDBCol>
                         ) : null}
                       </MDBRow>
-                      {item.map((item, index) => (
+
+                      {item?.map((item, index) => (
                         <MDBRow>
                           <MDBCol md="4" lg="4">
                             <p>{item.laundryService.name}</p>
@@ -221,7 +266,7 @@ export default function OrderDetails() {
                             <MDBCol md="2" lg="2"></MDBCol>
                           )}
                           <MDBCol md="2" lg="2">
-                            <p>{item.total.toLocaleString()}usd</p>
+                            <p>{item.total.toLocaleString()}$</p>
                           </MDBCol>
                           {order.status === 7 ? (
                             <MDBCol md="2" lg="2">
@@ -242,16 +287,20 @@ export default function OrderDetails() {
                       >
                         <p
                           className="lead fw-bold mb-0"
-                          style={{ color: "#f37a27" }}
+                          style={{
+                            color: "#f37a27",
+                            fontSize: "20px",
+                            marginLeft: "-65px",
+                          }}
                         >
-                          {order.total?.toLocaleString()}₫
+                          {order.total?.toLocaleString()}$
                         </p>
                       </MDBCol>
                     </MDBRow>
 
                     <p
                       className="lead fw-bold mb-4 pb-2"
-                      style={{ color: "#f37a27" }}
+                      style={{ color: "#f37a27", fontSize: "20px" }}
                     >
                       Theo dõi đơn hàng
                     </p>
