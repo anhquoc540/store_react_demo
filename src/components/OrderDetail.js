@@ -16,7 +16,7 @@ import { useEffect } from "react";
 import { Popconfirm } from "antd";
 import { Spin } from "antd";
 import { Tag } from "antd";
-
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 export default function OrderDetails() {
   let { id } = useParams();
   id = Number(id);
@@ -155,6 +155,7 @@ export default function OrderDetails() {
     } catch (error) {
       console.error(error);
     }
+    
   };
 
   return (
@@ -324,13 +325,15 @@ export default function OrderDetails() {
                       </Popconfirm>
                     )}
                     {order.status > 4 && order.isPaid === 0 && (
-                      <Button
+                      <PayPalScriptProvider>
+                      <PayPalButtons
                         onClick={handlepayment}
                         type="primary"
                         size="large"
                       >
                         Thanh toán
-                      </Button>
+                      </PayPalButtons>
+                      </PayPalScriptProvider>
                     )}
                   </MDBCardBody>
                 </MDBCard>

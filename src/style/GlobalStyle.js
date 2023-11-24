@@ -138,6 +138,9 @@ input, textarea{
     max-width: 1000rem;
     color: ${({ theme }) => theme.colors.black};
     padding: 1.6rem 2.4rem;
+    padding-bottom:0 !important;
+    padding-top: 0 !important;
+    font-size: 2rem !important;
     border: 1px solid ${({ theme }) => theme.colors.border};
    box-shadow: ${({ theme }) => theme.colors.shadowSupport};
 }
@@ -147,9 +150,10 @@ input, textarea{
     background-color: ${({ theme }) => theme.colors.btn};
     color: ${({ theme }) => theme.colors.white};
     padding: 1.4rem 2.2rem;
+    
     border-style: solid;
     border-width: .1rem;
-    font-size: 1.8rem;
+    font-size: 3rem;
     cursor: pointer;
     }
 
