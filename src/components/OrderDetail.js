@@ -199,7 +199,7 @@ export default function OrderDetails() {
                       className="lead fw-bold mb-5 "
                       style={{ color: "#f37a27", fontSize: "30px" }}
                     >
-                      Purchase Receipt
+                      Chi tiết đơn hàng
                     </p>
                     <MDBRow>
                       <MDBCol className="mb-3">

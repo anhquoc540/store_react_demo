@@ -18,7 +18,7 @@ const columns = [
   {
     title: "Ngày đặt",
     dataIndex: "date",
-    sorter: (a, b) => {
+    sorter: (b, a) => {
       const dateA = Date.parse(
         a.date.split(" ")[0].split("-").reverse().join("-") +
           "T" +
