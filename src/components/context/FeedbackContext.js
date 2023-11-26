@@ -1,15 +1,13 @@
 import { v4 as uuidv4 } from "uuid";
 import { createContext, useState } from "react";
 import FeedbackData from "../../data/FeedbackData";
-import axios from 'axios';
-import React, { useEffect } from 'react';
+import axios from "axios";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-
 
 const FeedbackContext = createContext();
 export const FeedbackProvider = ({ children }) => {
   const [feedback, setFeedback] = useState([]);
-
   useEffect(() => {
     axios
       .get(
@@ -92,7 +90,6 @@ export const FeedbackProvider = ({ children }) => {
         feedback,
         setFeedback,
         feedbackEdit,
-
         deleteFeedback,
         addFeedback,
         editFeedback,
