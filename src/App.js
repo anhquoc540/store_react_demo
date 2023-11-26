@@ -35,7 +35,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      {/* <FeedbackProvider> */}
+      <FeedbackProvider>
         <Router>
           <ToastContainer />
           <Routes>
@@ -76,7 +76,7 @@ const App = () => {
             <Route path="/special" element={<SpecialDetailForm />} />
           </Routes>
         </Router>
-      {/* </FeedbackProvider> */}
+      </FeedbackProvider>
     </ThemeProvider>
   );
 };
