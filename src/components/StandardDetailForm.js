@@ -4,14 +4,16 @@ import React, { useState, useEffect } from "react";
 import { Table, Card, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import { addToCart } from "../action/features/cart/cartSlice";
-import { motion, AnimatePresence } from 'framer-motion'
-import FeedbackItem1 from './FeedbackItem1'
-import { useContext } from 'react';
-import axios from 'axios';
-import FeedbackContext from './context/FeedbackContext'
+import { motion, AnimatePresence } from "framer-motion";
+import FeedbackItem1 from "./FeedbackItem1";
+import { useContext } from "react";
+import axios from "axios";
+import FeedbackContext from "./context/FeedbackContext";
 const StandardDetailForm = () => {
+  const imageUrl =
+    process.env.PUBLIC_URL + "/images/pexels-ekaterina-belinskaya-4700383.jpg";
   // const { name, image } = myData;
 
   const dispatch = useDispatch();
@@ -26,7 +28,6 @@ const StandardDetailForm = () => {
         `https://magpie-aware-lark.ngrok-free.app/api/v1/base/laundry/feedback/${id}`,
         {
           headers: {
-
             Accept: "application/json",
             "Access-Control-Allow-Origin": "*",
             "ngrok-skip-browser-warning": "69420",
@@ -41,16 +42,8 @@ const StandardDetailForm = () => {
       });
   }, []);
 
-
-  const {
-    id,
-    name,
-    description,
-    imageBanner,
-    isStandard,
-    store,
-    details,
-  } = standardLaundries;
+  const { id, name, description, imageBanner, isStandard, store, details } =
+    standardLaundries;
 
   const [inputValues, setInputValue] = useState({
     id,
@@ -113,9 +106,10 @@ const StandardDetailForm = () => {
     dispatch(addToCart(product));
     //navigate('/cart');
   };
-  let average = feedback.reduce((acc, cur) => {
-    return acc + cur.star
-  }, 0) / feedback.length
+  let average =
+    feedback.reduce((acc, cur) => {
+      return acc + cur.star;
+    }, 0) / feedback.length;
   return (
     <Wrapper>
       {standardLaundries.details?.length > 0 ? (
@@ -125,7 +119,11 @@ const StandardDetailForm = () => {
               <div class="card mb-4">
                 <div class="card-body">
                   <div class="row">
-                    <img src="https://th.bing.com/th/id/OIP.mP86NhZ1dEKSQiQyvZAM-wHaC_?rs=1&pid=ImgDetMain" alt={name} style={{width:'100%',height:'100%'}}/>
+                    <img
+                      src={imageUrl}
+                      alt={name}
+                      style={{ width: "100%", height: "100%" }}
+                    />
                   </div>
                 </div>
               </div>
@@ -142,41 +140,42 @@ const StandardDetailForm = () => {
                 pagination={false}
               ></Table>
 
-              
-                <div class="card mb-4" style={{ background: '#DCDCDC', borderRadius: '10px',  }}>
-                  <div class="card-body py-5">
-                    <h2 class="" style={{ color: 'black', fontWeight:'bolder  ' }}>
-                      Đánh giá từ khách hàng{' '}
-                    </h2>
+              <div
+                class="card mb-4"
+                style={{ background: "#DCDCDC", borderRadius: "10px" }}
+              >
+                <div class="card-body py-5">
+                  <h2
+                    class=""
+                    style={{ color: "black", fontWeight: "bolder  " }}
+                  >
+                    Đánh giá từ khách hàng{" "}
+                  </h2>
 
-                    <div className='feedback-stats'>
-                      <h3>{feedback.length} Reviews</h3>
-                      <h3>Average Rating : {isNaN(average) ? 0 : average}</h3>
-                    </div>
-                    <AnimatePresence>
-                      {feedback === null ? (
-                        <Card>
-                          <p
-                            className="text-center"
-                            style={{ opacity: '60%' }}
-                          >
-                            Chưa có đánh giá nào
-                          </p>
-                        </Card>
-                      ) : (
-                        feedback?.map((item) => (
-                          <motion.div
-                            key={item.id}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                          >
-                            <FeedbackItem1 key={item.id} Item={item} />
-                          </motion.div>
-                        ))
-                      )}
-                    </AnimatePresence>
-                
+                  <div className="feedback-stats">
+                    <h3>{feedback.length} Reviews</h3>
+                    <h3>Average Rating : {isNaN(average) ? 0 : average}</h3>
+                  </div>
+                  <AnimatePresence>
+                    {feedback === null ? (
+                      <Card>
+                        <p className="text-center" style={{ opacity: "60%" }}>
+                          Chưa có đánh giá nào
+                        </p>
+                      </Card>
+                    ) : (
+                      feedback?.map((item) => (
+                        <motion.div
+                          key={item.id}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                        >
+                          <FeedbackItem1 key={item.id} Item={item} />
+                        </motion.div>
+                      ))
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
             </div>

@@ -252,7 +252,7 @@ export default function OrderDetails() {
                       </MDBRow>
 
                       {item?.map((item, index) => (
-                        <MDBRow>
+                        <MDBRow className="my-3">
                           <MDBCol md="4" lg="4">
                             <p>{item.laundryService.name}</p>
                           </MDBCol>
@@ -274,7 +274,9 @@ export default function OrderDetails() {
                               <Link
                                 to={`/profilelayout/feedback/${item.laundryService.id}`}
                               >
-                                Đánh giá
+                                <Tag className="review-tag" color="blue">
+                                  Đánh giá
+                                </Tag>
                               </Link>
                             </MDBCol>
                           ) : null}

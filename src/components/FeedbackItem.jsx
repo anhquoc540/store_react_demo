@@ -39,7 +39,7 @@ import Card from "./shared/Card";
 import { useContext, useEffect } from "react";
 import FeedbackContext from "./context/FeedbackContext";
 import { Popconfirm, message } from "antd";
-
+import { Link } from "react-router-dom";
 function FeedbackItem({ Item }) {
   const { deleteFeedback } = useContext(FeedbackContext);
   const confirm = () => {
@@ -53,8 +53,21 @@ function FeedbackItem({ Item }) {
         <Card>
           <div className="num-display">{Item.star}</div>
           <div className="name">
-            <h3>Gửi đến: {Item.laundryService?.name}</h3>
+            <h3>
+              Gửi đến:{" "}
+              <Link
+                to={
+                  Item.laundryService.isStandard === true
+                    ? `/single-store/${Item.laundryService.store.id}`
+                    : `/single-service/${Item.laundryService.id}`
+                }
+                className="store-link"
+              >
+                {Item.laundryService.name}
+              </Link>
+            </h3>
           </div>
+
           <Popconfirm
             title="Bạn có muốn xoá đánh giá này?"
             onConfirm={confirm}

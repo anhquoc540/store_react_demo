@@ -98,10 +98,10 @@ const HistoryOrders = () => {
         setError(error.toJSON().message);
       });
   };
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     // Call the function once when the component mounts
-    getHistoryOrders(userInfoDTO.id);
+    getHistoryOrders(userInfoDTO.id).finally(() => setLoading(false));
 
     const interval = setInterval(() => {
       getHistoryOrders(userInfoDTO.id);
@@ -156,7 +156,7 @@ const HistoryOrders = () => {
             Không tìm thấy bất kỳ đơn hàng nào
           </h2>
         </div>
-      ) : data1.length === 0 ? (
+      ) : loading ? (
         <Spin
           style={{ marginTop: "15px" }}
           tip="Đang lấy dữ liệu..."
