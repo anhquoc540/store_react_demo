@@ -11,41 +11,34 @@ import { createOrder } from "../action/features/orders/orderSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Form, Button, Select, Checkbox } from "antd";
-
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-
+  const {storeId} = cart;
   const [inputValues, setInputValues] = useState({
     items: [],
     total: 0,
     createDate: "",
     storeId: "",
-    timeId: "",
+    storeTimeId: "",
   });
 
   const [componentDisabled, setComponentDisabled] = useState(true);
+  const [apiData, setApiData] = useState([]);
 
-  const time = [
-    {
-      id: 1,
-      name: "Nhanh",
-      price: 30000,
-    },
-    {
-      id: 2,
-      name: "Sieu toc",
-      price: 40000,
-    },
-  ];
-  const data = [];
-  for (let i = 0; i < time.length; i++) {
-    data.push({
-      label: time[i].name,
-      value: JSON.stringify({ id: time[i].id, price: time[i].price }),
-    });
-  }
+  
+
+
+
+
+  // for (let i = 0; i < time.length; i++) {
+  //   data.push({
+  //     label: time[i].name,
+  //     value: JSON.stringify({ id: time[i].id, price: time[i].price }),
+  //   });
+  // }
 
   const dispatch = useDispatch();
 
@@ -54,13 +47,38 @@ const Cart = () => {
   function generateCurrency(params) {
     return params.toLocaleString("it-IT", {
       style: "currency",
-      currency: "VND",
+      currency: "USD",
     });
   }
   useEffect(() => {
     dispatch(getTotals());
+    if(storeId){
+      apiTime();
+    }
+   
   }, [cart, dispatch]);
+  const formattedData = apiData.map(item => ({
+    label: item.timeCategory.name,
+    value: JSON.stringify({ id: item.id, price: item.price }),
 
+  }));
+
+  const apiTime = async () => {
+   
+    const res = await axios.get(`https://magpie-aware-lark.ngrok-free.app/api/v1/base/store-time/${storeId}`, {
+      headers: {
+
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        'ngrok-skip-browser-warning': 'true'
+      },
+    });
+    if (res.status === 200) {
+
+      setApiData(res.data);
+    }
+
+  }
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
@@ -82,7 +100,7 @@ const Cart = () => {
     if (e !== undefined) {
       const value = JSON.parse(e);
 
-      setInputValues({ ...inputValues, timeId: value.id, total: +value.price });
+      setInputValues({ ...inputValues, storeTimeId: value.id, total: + value.price });
     }
   };
 
@@ -229,7 +247,7 @@ const Cart = () => {
                       >
                         <Select
                           onChange={handleTimeInput}
-                          options={data}
+                          options={formattedData}
                           value={inputValues.timeId}
                         ></Select>
                       </Form.Item>
