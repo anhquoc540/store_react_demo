@@ -409,3 +409,24 @@ input:focus {
   margin: auto;
   padding: 0 20px;
 }
+.review-tag {
+  transition: all 0.3s;
+}
+
+.review-tag:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.review-tag a:visited {
+  color: #fff;
+}
+.store-link {
+  color: #f37a27;
+  text-decoration: none;
+}
+
+.store-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
