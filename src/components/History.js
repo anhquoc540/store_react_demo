@@ -18,7 +18,7 @@ const columns = [
   {
     title: "Ngày đặt",
     dataIndex: "date",
-    sorter: (a, b) => {
+    sorter: (b, a) => {
       const dateA = Date.parse(
         a.date.split(" ")[0].split("-").reverse().join("-") +
           "T" +
@@ -105,7 +105,7 @@ const HistoryOrders = () => {
 
     const interval = setInterval(() => {
       getHistoryOrders(userInfoDTO.id);
-    }, 2000); // Changed to 2 seconds as per your requirement
+    }, 1500); // Changed to 2 seconds as per your requirement
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(interval);
@@ -116,7 +116,7 @@ const HistoryOrders = () => {
   for (let i = 0; i < state.length; i++) {
     // Format the total value as needed
     let formattedTotal =
-      new Intl.NumberFormat("en-US").format(state[i].total) + "VNĐ";
+      new Intl.NumberFormat("en-US").format(state[i].total) + "$";
 
     data1.push({
       orderCode: state[i].orderCode,

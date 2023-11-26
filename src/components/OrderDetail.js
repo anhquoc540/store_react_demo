@@ -7,7 +7,7 @@ import {
   MDBRow,
 } from "mdb-react-ui-kit";
 import { useParams } from "react-router-dom";
-import { Button, Timeline } from "antd";
+import { Button, Timeline, message } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as AiIcons from "react-icons/ai";
@@ -60,6 +60,7 @@ export default function OrderDetails() {
         }
       );
       if (response.data) navigator();
+      message.success("Thanh toán thành công!");
       // setItem(response.data.items);
     } catch (error) {
       console.error(error);
@@ -80,7 +81,7 @@ export default function OrderDetails() {
 
     const interval = setInterval(() => {
       fetchData();
-    }, 1500); // Changed to 2 seconds as per your requirement
+    }, 1000); // Changed to 2 seconds as per your requirement
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(interval);
@@ -155,7 +156,6 @@ export default function OrderDetails() {
     } catch (error) {
       console.error(error);
     }
-    
   };
 
   return (
@@ -200,7 +200,7 @@ export default function OrderDetails() {
                       className="lead fw-bold mb-5 "
                       style={{ color: "#f37a27", fontSize: "30px" }}
                     >
-                      Purchase Receipt
+                      Chi tiết đơn hàng
                     </p>
                     <MDBRow>
                       <MDBCol className="mb-3">
@@ -326,13 +326,13 @@ export default function OrderDetails() {
                     )}
                     {order.status > 4 && order.isPaid === 0 && (
                       <PayPalScriptProvider>
-                      <PayPalButtons
-                        onClick={handlepayment}
-                        type="primary"
-                        size="large"
-                      >
-                        Thanh toán
-                      </PayPalButtons>
+                        <PayPalButtons
+                          onClick={handlepayment}
+                          type="primary"
+                          size="large"
+                        >
+                          Thanh toán
+                        </PayPalButtons>
                       </PayPalScriptProvider>
                     )}
                   </MDBCardBody>

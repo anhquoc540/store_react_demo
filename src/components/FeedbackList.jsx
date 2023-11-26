@@ -42,7 +42,20 @@ function FeedbackList() {
     fetchFeedback().finally(() => setLoading(false));
   }, []);
   if (!feedback || feedback.length === 0) {
-    return <p>Chưa có đánh giá nào </p>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: " center",
+          height: " 50vh",
+        }}
+      >
+        <h2 style={{ color: "#6c757d", fontFamily: "Arial, sans-serif" }}>
+          Không tìm thấy bất kỳ đánh giá nào
+        </h2>
+      </div>
+    );
   }
   return (
     <div className="feedback-List">
