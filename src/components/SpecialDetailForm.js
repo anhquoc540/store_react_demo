@@ -86,7 +86,7 @@ const SpecialDetailForm = () => {
     }
 
     function generateCurrency(params) {
-        return params.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        return params.toLocaleString('it-IT', { style: 'currency', currency: 'USD' });
     }
 
     return (

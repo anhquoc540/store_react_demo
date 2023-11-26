@@ -11,8 +11,7 @@ const LaundryCard = (curElem) => {
   function generateCurrency(params) {
     return params.toLocaleString("it-IT", {
       style: "currency",
-      currency: "VND",
-    });
+      currency: "USD"    });
   }
   const dispatch = useDispatch();
 
