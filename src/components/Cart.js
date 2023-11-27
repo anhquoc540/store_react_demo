@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  const {storeId} = cart;
+  const { storeId } = cart;
   const [inputValues, setInputValues] = useState({
     items: [],
     total: 0,
@@ -27,11 +27,6 @@ const Cart = () => {
 
   const [componentDisabled, setComponentDisabled] = useState(true);
   const [apiData, setApiData] = useState([]);
-
-  
-
-
-
 
   // for (let i = 0; i < time.length; i++) {
   //   data.push({
@@ -52,33 +47,30 @@ const Cart = () => {
   }
   useEffect(() => {
     dispatch(getTotals());
-    if(storeId){
+    if (storeId) {
       apiTime();
     }
-   
   }, [cart, dispatch]);
-  const formattedData = apiData.map(item => ({
+  const formattedData = apiData.map((item) => ({
     label: item.timeCategory.name,
     value: JSON.stringify({ id: item.id, price: item.price }),
-
   }));
 
   const apiTime = async () => {
-   
-    const res = await axios.get(`https://magpie-aware-lark.ngrok-free.app/api/v1/base/store-time/${storeId}`, {
-      headers: {
-
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        'ngrok-skip-browser-warning': 'true'
-      },
-    });
+    const res = await axios.get(
+      `https://magpie-aware-lark.ngrok-free.app/api/v1/base/store-time/${storeId}`,
+      {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "ngrok-skip-browser-warning": "true",
+        },
+      }
+    );
     if (res.status === 200) {
-
       setApiData(res.data);
     }
-
-  }
+  };
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
@@ -100,7 +92,11 @@ const Cart = () => {
     if (e !== undefined) {
       const value = JSON.parse(e);
 
-      setInputValues({ ...inputValues, storeTimeId: value.id, total: + value.price });
+      setInputValues({
+        ...inputValues,
+        storeTimeId: value.id,
+        total: +value.price,
+      });
     }
   };
 

@@ -2,13 +2,14 @@
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-import { Input, Form, Button, Select } from "antd";
+import { Input, Form, Button, Select, message } from "antd";
 import UploadImage from "./Form/UploadImage";
 import { config } from "../axios/auth-header";
+import FeedbackContext from "./context/FeedbackContext";
 
 const initialState = {
   id: "",
@@ -30,31 +31,21 @@ export default function ProfileDetailForm() {
   const [state, setState] = useState(initialState);
   const { id, fullName, email, phone, address, image, status, role } = state;
   const { userInfoDTO } = useSelector((state) => state.auth);
-  //const [APIData, setAPIData] = useState([]);
   const getUsersUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/base/profile/2`;
-  // const getProfile = async () => {
-  //   const res = await axios.get(getUsersUrl, config);
-  //   if (res.status === 200) {
-  //     setState(res.data);
-  //   }
-  // };
 
+  const [userProfile, setUserProfile] = useState(userInfoDTO);
   useEffect(() => {
-    // await axios.get(getUsersUrl, config).then(
-    //     response => {
-    //         setState(response.data)
-    //     })
-    //     // .then(data => { setAPIData(data) })
-    //     .catch(error => console.log(error.message));
-    // getProfile();
     form.setFieldsValue({
-      fullName: userInfoDTO.fullName,
-      phone: userInfoDTO.phone,
-      address: userInfoDTO.address,
+      fullName: userProfile.fullName,
+      phone: userProfile.phone,
+      address: userProfile.address,
     });
   }, []);
 
-  console.log("Dữ liệu từ API:", state);
+  useEffect(() => {
+    setUserProfile(userInfoDTO);
+  }, []);
+
   const layout = {
     labelCol: {
       span: 3,
@@ -89,7 +80,7 @@ export default function ProfileDetailForm() {
   const onFinish = async (values) => {
     try {
       const response = await axios.put(
-        `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile/update/${user.id}`,
+        `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile/update/${userInfoDTO.id}`,
         values,
         {
           headers: {
@@ -103,15 +94,15 @@ export default function ProfileDetailForm() {
         }
       );
       console.log("Update successful", response.data);
+      localStorage.setItem("userInfoDTO", JSON.stringify(response.data));
+      setUserProfile(response.data);
+      console.log(values);
+      message.success("Update profile successfully!");
     } catch (error) {
       console.error("Update failed", error);
     }
   };
 
-  // const onCreate = (values) => {
-  //     console.log('Received values of form: ', values);
-  //     setOpen(false);
-  // };
   const handleInputChange = (event) => {
     let { name, value } = event.target;
     setState((state) => ({ ...state, [name]: value }));
@@ -148,7 +139,7 @@ export default function ProfileDetailForm() {
                   >
                     <Input
                       type="text"
-                      defaultValue={userInfoDTO.fullName}
+                      defaultValue={userProfile?.fullName}
                       onChange={handleInputChange}
                     />
                   </Form.Item>
@@ -163,11 +154,18 @@ export default function ProfileDetailForm() {
                   >
                     <Input
                       type="text"
-                      defaultValue={userInfoDTO.address}
+                      defaultValue={userProfile?.address}
                       onChange={handleInputChange}
                     />
                   </Form.Item>
-                  <Form.Item label="Email">{userInfoDTO.email}</Form.Item>
+                  <Form.Item name="Email" label="email">
+                    <Input
+                      type="text"
+                      defaultValue={userProfile?.email}
+                      onChange={handleInputChange}
+                      disabled="true"
+                    />
+                  </Form.Item>
                   <Form.Item
                     name="phone"
                     label="Phone"
@@ -181,7 +179,7 @@ export default function ProfileDetailForm() {
                     <Input
                       type="text"
                       name="phone"
-                      defaultValue={userInfoDTO.phone}
+                      defaultValue={userProfile?.phone}
                       onChange={handleInputChange}
                       addonBefore={prefixSelector}
                       style={{
