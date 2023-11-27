@@ -13,7 +13,7 @@ const GridViewLaundry = ({ data }) => {
 
     return (
       <div style={{ opacity: "40%" }} className="h4 d-flex justify-content-center" >
-        <p>Không tìm được dữ liệu</p>
+        <p>Could not find data !</p>
       </div>
     );
   }

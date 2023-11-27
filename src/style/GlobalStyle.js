@@ -245,11 +245,12 @@ input, textarea{
   border: none;
   outline: none;
   background: none;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 2.5rem;
   cursor: pointer;
 }
 .cart-item .cart-product-quantity .count {
   padding: 1rem 0;
+  font-size: 2rem;
 }
 .cart-item .cart-product-total-price {
   padding-right: 0.5rem;

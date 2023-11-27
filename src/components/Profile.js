@@ -7,6 +7,11 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 import { Input, Form, Button, Select, message } from "antd";
+import React, { useState, useEffect, useContext } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { Input, Form, Button, Select } from "antd";
+
 import UploadImage from "./Form/UploadImage";
 import { config } from "../axios/auth-header";
 import FeedbackContext from "./context/FeedbackContext";
@@ -97,7 +102,6 @@ export default function ProfileDetailForm() {
       localStorage.setItem("userInfoDTO", JSON.stringify(response.data));
       setUserProfile(response.data);
       console.log(values);
-      message.success("Update profile successfully!");
     } catch (error) {
       console.error("Update failed", error);
     }
@@ -111,7 +115,7 @@ export default function ProfileDetailForm() {
   return (
     <Wrapper>
       <div class="container">
-        <h1>Thông tin cá nhân</h1>
+        <h1>Profile</h1>
         <div className="card">
           <div className="card-body p-5">
             <div class="row">
@@ -195,7 +199,7 @@ export default function ProfileDetailForm() {
                     }}
                   >
                     <Button type="primary" htmlType="submit">
-                      Lưu Thông Tin
+                      Update Profile
                     </Button>
                   </Form.Item>
                 </Form>

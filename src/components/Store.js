@@ -14,14 +14,12 @@ const Store = (curElem) => {
 
             <div className="card-data">
                 <div className="card-data-flex">
-                    <h3>Cửa hàng {name}</h3>
+                    <h3>{name} Store</h3>
                     <div className="card-data"> 
-                    <label className="h3 card-data-inline">Địa chỉ :</label>  {address}, {district} 
+                    <label className="h3 card-data-inline">Address :</label>  {address}, {district} 
                     <br/>
                     <p className="h3" style={{color:'blue'}}>SĐT : {phone} </p>  
                     </div>
-                    
-
                 </div>
             </div>
         </div>

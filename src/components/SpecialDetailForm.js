@@ -124,7 +124,7 @@ const SpecialDetailForm = () => {
                                                         {cloth?.name}
                                                     </Tag>
 
-                                                    <p className="h4 py-3 fw-bold">Mô tả: </p>
+                                                    <p className="h4 py-3 fw-bold">Description: </p>
                                                     <p>{description}</p>
 
                                                     <br />
@@ -133,7 +133,7 @@ const SpecialDetailForm = () => {
                                                             className="mx-2 display-1 fw-bold"
                                                             style={{ color: 'green' }}
                                                         >
-                                                            Giá: {generateCurrency(item.price)}/{item.unit}
+                                                            Price: {generateCurrency(item.price)}/{item.unit}
                                                         </p>
                                                     ))}
 
@@ -144,7 +144,7 @@ const SpecialDetailForm = () => {
                                                         className="my-4 col-12"
                                                         onClick={() => handleAddToCart(inputValues)}
                                                     >
-                                                        Thêm vào giỏ hàng
+                                                        Add to cart
                                                     </Button>
                                                 </div>
                                             </div>
@@ -158,7 +158,7 @@ const SpecialDetailForm = () => {
                                 >
                                     <div class="card-body py-5">
                                         <h2 class="" style={{fontWeight:'bolder' }}>
-                                            Đánh giá từ khách hàng{' '}
+                                            Feedback from customer{' '}
                                         </h2>
                                         <div className='feedback-stats'>
                                             <h3>{feedback.length} Reviews</h3>
@@ -171,7 +171,7 @@ const SpecialDetailForm = () => {
                                                 
                                                 <Card>
                                                     <p className="text-center" style={{ opacity: '60%' }}>
-                                                        Chưa có đánh giá nào
+                                                    There are no feedbacks yet
                                                     </p>
                                                 </Card>
                                                 

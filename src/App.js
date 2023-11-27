@@ -25,7 +25,6 @@ import History from "./components/History";
 import AboutUs from "./components/AboutUs";
 import Quytrinh from "./components/QuyTrinh";
 import Contact from "./components/Contact";
-import Footer from "./components/Footer";
 import OrderDetails from "./components/OrderDetail";
 import DetailLayout from "./components/layout/DetailLayout";
 import FeedbackForm from "./components/FeedbackForm";
@@ -62,7 +61,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
 
             <Route path="/login" element={<Login />} />
-            <Route path="/USER" element={<SignUp />} />
+            <Route exact path="/SignUp" element={<SignUp />} />
 
             <Route path="/profilelayout" element={<ProfileLayout />}>
               <Route path="/profilelayout/profile" element={<Profile />} />

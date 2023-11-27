@@ -136,7 +136,7 @@ const Cart = () => {
       <h2>Shopping Cart</h2>
       {cart.cartItems.length === 0 ? (
         <div className="cart-empty">
-          <p>Giỏ hàng của bạn còn trống</p>
+          <p>There are no items in your bag</p>
           <div className="start-shopping">
             <Link onClick={() => navigate(-1)}>
               <svg
@@ -152,17 +152,17 @@ const Cart = () => {
                   d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
                 />
               </svg>
-              <span>Tìm kiếm và đặt dịch vụ</span>
+              <span>Search and book services</span>
             </Link>
           </div>
         </div>
       ) : (
         <div>
           <div className="titles">
-            <h3 className="product-title">Dịch vụ</h3>
-            <h3 className="price">Giá</h3>
-            <h3 className="quantity">Số lượng</h3>
-            <h3 className="total">Tổng giá:</h3>
+            <h3 className="product-title">Service</h3>
+            <h3 className="price">Price</h3>
+            <h3 className="quantity">Amount</h3>
+            <h3 className="total">Total price:</h3>
           </div>
           <div className="cart-items">
             {cart.cartItems &&
@@ -174,7 +174,7 @@ const Cart = () => {
                       <h3>{cartItem.name}</h3>
                       <p>{cartItem.desc}</p>
                       <button onClick={() => handleRemoveFromCart(cartItem)}>
-                        Xóa dịch vụ
+                        Delete service
                       </button>
                     </div>
                   </div>
@@ -184,11 +184,11 @@ const Cart = () => {
                         {generateCurrency(cartItem.price)}
                       </div>
                       <div className="cart-product-quantity">
-                        <button onClick={() => handleDecreaseCart(cartItem)}>
+                        <button style={{fontSize:'25px'}} onClick={() => handleDecreaseCart(cartItem)}>
                           -
                         </button>
                         <div className="count">{cartItem.cartQuantity}</div>
-                        <button onClick={() => handleAddToCart(cartItem)}>
+                        <button style={{fontSize:'25px'}} onClick={() => handleAddToCart(cartItem)}>
                           +
                         </button>
                       </div>
@@ -207,11 +207,11 @@ const Cart = () => {
 
           <div className="cart-summary">
             <button className="clear-btn" onClick={() => handleClearCart()}>
-              Xóa tất cả
+              Delete all
             </button>
             <div className="cart-checkout">
               <div className="subtotal">
-                <span>Tổng: </span>
+                <span>Total: </span>
                 <span className="amount">
                   {generateCurrency(cart.cartTotalAmount + inputValues.total)}
                 </span>
@@ -225,19 +225,19 @@ const Cart = () => {
                     // }}
                     onChange={handleCheckbox}
                   >
-                    Form disabled
+                    Select laundry time service
                   </Checkbox>
 
                   <div>
                     <Form disabled={componentDisabled}>
                       <Form.Item
-                        label="Thời gian hoàn thành:"
+                        label="Completion time:"
                         name={"timeId"}
                         noStyle
                         rules={[
                           {
                             required: true,
-                            message: "Vui lòng chọn giá trị !!!",
+                            message: "Please select a value !!!",
                           },
                         ]}
                       >
@@ -252,7 +252,7 @@ const Cart = () => {
                 </div>
                 <Form.Item label=" " colon={false}>
                   <Button type="primary" htmlType="submit">
-                    Đặt dịch vụ
+                    Book service
                   </Button>
                 </Form.Item>
               </Form>

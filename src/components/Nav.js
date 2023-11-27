@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
@@ -11,12 +11,12 @@ import { logout } from "../action/features/auth/authSlice";
 
 
 const Nav = () => {
-  const {userInfoDTO} = useSelector((state) => state.auth);
+  const { userInfoDTO } = useSelector((state) => state.auth);
   const [menuIcon, setMenuIcon] = useState();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart);
-  
+
+
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
@@ -185,63 +185,59 @@ const Nav = () => {
     <Nav>
       <div className={menuIcon ? "navbar active" : "navbar"}>
         <div className="navbar-lists">
-
           <div style={{ color: 'white', fontSize: '35px' }}>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">
               <FiShoppingCart className="cart-trolley" />
               <span className="cart-total--item"> {cart.cartTotalQuantity} </span>
             </NavLink>
           </div>
-         
-          <div style={{ color: 'white', fontSize: '25px', width:'' }}>
-            
-              {/* {user === null ? (<><Link>Đăng nhập</Link> / <Link>Đăng ký</Link>
-              </>) : (<a>user1</a>)}
-               */}
-               <li style={{color:'white'}}>
-            {/* {userInfoDTO === null ? (<><Link>Đăng nhập</Link> / <Link>Đăng ký</Link>
-            </>) : (<a></a>)} */}
-            {userInfoDTO === null ? (<Dropdown>
-              <Dropdown.Toggle variant="" id="dropdown-basic" style={{fontSize: '22px'}}>
-                
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px'}}>
-                <Dropdown.Item href="/USER">Đăng ký</Dropdown.Item>
-                {/* <Dropdown.Item href="/user/accountsettings">Profile</Dropdown.Item> */}
-                <Dropdown.Item  href="/login">Đăng nhập</Dropdown.Item>
-                {/* <Dropdown.Item  href="/">Logout</Dropdown.Item> */}
-                
-                
-              </Dropdown.Menu>
-           
-           
-            </Dropdown>) : (<div className="d-flex gap-3 align-items-center dropdown">
-              {/* <a>{userInfoDTO.fullName}</a> */}
-              <Dropdown>
-              <Dropdown.Toggle variant="" id="dropdown-basic" style={{fontSize: '22px'}}>
-                
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px'}}>
-                {/* <Dropdown.Item href="/USER">Signup</Dropdown.Item> */}
-                <Dropdown.Item href="/profilelayout/profile">Hồ sơ</Dropdown.Item> 
-                <Dropdown.Item href="/profilelayout/history">Lịch sử</Dropdown.Item> 
-
-                {/* <Dropdown.Item  href="/login">Login</Dropdown.Item> */}
-                <Dropdown.Item  href="/" onClick={() => dispatch(logout())} >Đăng xuất</Dropdown.Item> 
-                
-                
-              </Dropdown.Menu>
-            </Dropdown></div>)}
-                 
-          </li>
           
+          <div style={{ color: 'white', fontSize: '25px', width: '' }}>
+
+
+            <li style={{ color: 'white' }}>
+
+              {userInfoDTO === null ? (<Dropdown>
+                <Dropdown.Toggle variant="" id="dropdown-basic" style={{ fontSize: '22px' }}>
+
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px' }}>
+                  <Dropdown.Item href="/USER">SignUp</Dropdown.Item>
+
+                  <Dropdown.Item href="/login">Login</Dropdown.Item>
+
+
+
+                </Dropdown.Menu>
+
+
+              </Dropdown>) : (<div className="d-flex gap-3 align-items-center dropdown">
+                {userInfoDTO.fullName}
+                <Dropdown>
+                  <Dropdown.Toggle variant="" id="dropdown-basic" style={{ fontSize: '22px' }}>
+
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu style={{ width: '200px', height: 'auto', fontSize: '18px' }}>
+
+                    <Dropdown.Item href="/profilelayout/profile">Profile</Dropdown.Item>
+                    <Dropdown.Item href="/profilelayout/history">Order History</Dropdown.Item>
+
+
+                    <Dropdown.Item href="/" onClick={() => dispatch(logout())} >Logout</Dropdown.Item>
+
+
+                  </Dropdown.Menu>
+                </Dropdown></div>)}
+
+            </li>
+
           </div>
 
         </div>
 
-        {/* two button for open and close of menu */}
+
         <div className="mobile-navbar-btn">
           <CgMenu
             name="menu-outline"

@@ -1,9 +1,8 @@
-import React, { useFormik } from "formik";
+import React from "formik";
 import { useEffect, useState } from "react";
 import MultipleSelect from "./MultipleSelect";
 import { getMaterials } from "../action/features/materials/materialSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Divider, Select } from "antd";
 import { getClothes, resetState } from "../action/features/clothes/clothSlice";
 import { getFilter } from "../action/features/filter/filterSlice";
 import styled from "styled-components";
@@ -11,8 +10,7 @@ import styled from "styled-components";
 import SingleSelect from "./SingleSelect";
 
 import { Button, Form, Affix } from "antd";
-import { opacity } from "@cloudinary/url-gen/actions/adjust";
-import { color } from "@cloudinary/url-gen/qualifiers/background";
+
 
 const FilterForm = () => {
   const dispatch = useDispatch();
@@ -107,8 +105,8 @@ const FilterForm = () => {
     <Wrapper>
       <Affix offsetTop={100} onChange={(affixed) => console.log(affixed)}>
         <div>
-          <h1 className="px-3 py-1" style={{ fontSize: "30px" }}>
-            Tìm kiếm cửa hàng :
+          <h1 className="px-3 py-1" style={{ fontSize: "35px" }}>
+            Find the store :
           </h1>
           <br />
           <Form
@@ -120,9 +118,9 @@ const FilterForm = () => {
           >
             {" "}
             <Form.Item className="px-3 h6">
-              <h1>Theo giặt hấp:</h1>
+              <h2>Dry cleaning:</h2>
               <Form.Item
-                label="Chất liệu vải"
+                label="Cloth materials"
                 style={{ opacity: 0.75, fontSize: "20px" }}
               >
                 <Form.Item name={"materials"} noStyle>
@@ -135,7 +133,7 @@ const FilterForm = () => {
                 </Form.Item>
               </Form.Item>
               <Form.Item
-                label="Loại quần áo"
+                label="Type of clothing"
                 style={{ opacity: 0.75, fontSize: "20px" }}
               >
                 <Form.Item name={"clothId"} noStyle>
@@ -149,7 +147,7 @@ const FilterForm = () => {
               </Form.Item>
             </Form.Item>
             <Form.Item className="px-3">
-              <h1>Theo quận:</h1>
+              <h2>District :</h2>
               <Form.Item name={"district"} noStyle>
                 <SingleSelect
                   name="district"
@@ -164,7 +162,7 @@ const FilterForm = () => {
               htmlType="submit"
               className="my-5 col-sm-10 mx-4"
             >
-              Tìm kiếm
+              Search
             </Button>
           </Form>
         </div>

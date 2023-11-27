@@ -3,7 +3,7 @@ import {base_url} from '../../../axios/baseUrl';
 import {config} from '../../../axios/auth-header';
 import { coneMonochromacy } from '@cloudinary/url-gen/qualifiers/simulateColorBlind';
 const login = async (userInfoDTO) => {
-  const response = await axios.post(`${base_url}auth/authenticate`, userInfoDTO);
+  const response = await axios.post(`${base_url}auth/user/authenticate`, userInfoDTO);
   if (response.data) {
     localStorage.setItem("userInfoDTO", JSON.stringify(response.data.userInfoDTO));
     localStorage.setItem("access_token", JSON.stringify(response.data.access_token));

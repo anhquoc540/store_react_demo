@@ -15,7 +15,7 @@ import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
 import Nav from "./Nav";
 
-const pages = ["Trang chủ", "Giới thiệu", "Quy trình"];
+const pages = ["Home", "About Us", "Process"];
 const pagePaths = ["/", "/about", "/quytrinh"];
 
 function ResponsiveAppBar() {
@@ -64,8 +64,9 @@ function ResponsiveAppBar() {
               paddingRight: "30px",
             }}
           >
-            LOGO
+            
           </Typography>
+          
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -104,7 +105,7 @@ function ResponsiveAppBar() {
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography
                       textAlign="center"
-                      style={{ fontSize: "20px", paddingRight: "20px" }}
+                      style={{ fontSize: "18px", paddingRight: "20px" }}
                     >
                       {page}
                     </Typography>
@@ -150,7 +151,7 @@ function ResponsiveAppBar() {
                     my: 2,
                     color: "white",
                     display: "block",
-                    fontSize: "20px",
+                    fontSize: "18px",
                     paddingRight: "20px",
                   }}
                 >
