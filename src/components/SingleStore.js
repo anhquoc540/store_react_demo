@@ -34,14 +34,14 @@ const SingleStore = () => {
   const data = [
     {
       key: 1,
-      label: "Giặt sấy tiêu chuẩn",
+      label: "Standard dry cleaning",
       children: (
         <StandardDetailForm key={standardLaundries.id} {...standardLaundries} />
       ),
     },
     {
       key: 2,
-      label: "Giặt các loại quần áo đặc biệt",
+      label: "Wash special types of clothes",
       children: <GridViewLaundry data={specialLaundries}></GridViewLaundry>,
     },
   ];
@@ -58,7 +58,7 @@ const SingleStore = () => {
               <div class="row gy-3 gy-lg-0 align-items-lg-center justify-content-lg-between">
                 <div class="col-12 col-lg-4 order-1 order-lg-0">
                   <h1 class="display-4 fw-bold mb-3">
-                    Chào mừng đến với cửa hàng
+                  Welcome to the store
                   </h1>
                   <p class="display-3 fw-bold  mb-5" style={{ color: "blue" }}>
                     {singleStore?.name}

@@ -54,7 +54,7 @@ function FeedbackItem({ Item }) {
           <div className="num-display">{Item.star}</div>
           <div className="name">
             <h3>
-              Gửi đến:{" "}
+            Send to:{" "}
               <Link
                 to={
                   Item.laundryService.isStandard === true
@@ -69,10 +69,10 @@ function FeedbackItem({ Item }) {
           </div>
 
           <Popconfirm
-            title="Bạn có muốn xoá đánh giá này?"
+            title="Do you want to delete this review?"
             onConfirm={confirm}
-            okText="có"
-            cancelText="không"
+            okText="Yes"
+            cancelText="No"
           >
             <button className="close">
               <FaTimes color="purple" />

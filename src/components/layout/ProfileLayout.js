@@ -17,8 +17,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "../../styles/dashboard.css";
 import withAuth from "../withAuth";
+
 const { Header, Sider, Content } = Layout;
-const MainLayout = () => {
+const ProfileLayout = () => {
   //const {user:currUser} = useSelector((state) => state.auth);
   const [collapsed, setCollapsed] = useState(false);
   const {userInfoDTO} = useSelector((state) => state.auth);
@@ -172,4 +173,4 @@ const MainLayout = () => {
     </Layout>
   );
 };
-export default withAuth(MainLayout);
+export default withAuth(ProfileLayout);

@@ -105,7 +105,7 @@ function ResponsiveAppBar() {
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography
                       textAlign="center"
-                      style={{ fontSize: "20px", paddingRight: "20px" }}
+                      style={{ fontSize: "18px", paddingRight: "20px" }}
                     >
                       {page}
                     </Typography>
@@ -151,7 +151,7 @@ function ResponsiveAppBar() {
                     my: 2,
                     color: "white",
                     display: "block",
-                    fontSize: "20px",
+                    fontSize: "18px",
                     paddingRight: "20px",
                   }}
                 >

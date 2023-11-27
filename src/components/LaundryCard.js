@@ -27,7 +27,7 @@ const LaundryCard = (curElem) => {
         </figure>
 
         <div className="card-data">
-          <h3>Dịch vụ {name}</h3>
+          <h3>{name} Service </h3>
           <div className="card-data-flex">
             <div className="display-6 fw-bold col-8" style={{ color: "green" }}>
               {generateCurrency(details[0].price)} / {details[0].unit}
@@ -38,7 +38,7 @@ const LaundryCard = (curElem) => {
               style={{ background: "#00A9FF", color: "white" }}
               onClick={handleSubmit(id)}
             >
-              Chi tiết
+              Detail
             </Button>
           </div>
         </div>

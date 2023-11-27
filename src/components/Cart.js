@@ -188,11 +188,11 @@ const Cart = () => {
                         {generateCurrency(cartItem.price)}
                       </div>
                       <div className="cart-product-quantity">
-                        <button onClick={() => handleDecreaseCart(cartItem)}>
+                        <button style={{fontSize:'25px'}} onClick={() => handleDecreaseCart(cartItem)}>
                           -
                         </button>
                         <div className="count">{cartItem.cartQuantity}</div>
-                        <button onClick={() => handleAddToCart(cartItem)}>
+                        <button style={{fontSize:'25px'}} onClick={() => handleAddToCart(cartItem)}>
                           +
                         </button>
                       </div>
@@ -229,19 +229,19 @@ const Cart = () => {
                     // }}
                     onChange={handleCheckbox}
                   >
-                    Chọn dịch vụ thời gian giặt
+                    Select laundry time service
                   </Checkbox>
 
                   <div>
                     <Form disabled={componentDisabled}>
                       <Form.Item
-                        label="Thời gian hoàn thành:"
+                        label="Completion time:"
                         name={"timeId"}
                         noStyle
                         rules={[
                           {
                             required: true,
-                            message: "Vui lòng chọn giá trị !!!",
+                            message: "Please select a value !!!",
                           },
                         ]}
                       >

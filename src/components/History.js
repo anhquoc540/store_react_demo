@@ -12,13 +12,13 @@ const URL = "https://magpie-aware-lark.ngrok-free.app/api/v1/user/order/all";
 
 const columns = [
   {
-    title: "Mã đơn hàng",
+    title: "No",
     dataIndex: "orderCode",
   },
   {
-    title: "Ngày đặt",
+    title: "Booking date",
     dataIndex: "date",
-    sorter: (b, a) => {
+    sorter: (a, b) => {
       const dateA = Date.parse(
         a.date.split(" ")[0].split("-").reverse().join("-") +
           "T" +
@@ -33,21 +33,21 @@ const columns = [
     },
   },
   {
-    title: "Tên cửa hàng",
+    title: "Store name",
     dataIndex: "name",
   },
   {
-    title: "Trạng thái",
+    title: "Status",
     dataIndex: "status",
   },
   {
-    title: "Tổng Giá",
+    title: "Total",
     dataIndex: "total",
 
     render: (text, record) => record.formattedTotal,
   },
   {
-    title: "Thao tác",
+    title: "Action",
     dataIndex: "action",
   },
 ];
@@ -98,14 +98,14 @@ const HistoryOrders = () => {
         setError(error.toJSON().message);
       });
   };
-  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     // Call the function once when the component mounts
-    getHistoryOrders(userInfoDTO.id).finally(() => setLoading(false));
+    getHistoryOrders(userInfoDTO.id);
 
     const interval = setInterval(() => {
       getHistoryOrders(userInfoDTO.id);
-    }, 1500); // Changed to 2 seconds as per your requirement
+    }, 2000); // Changed to 2 seconds as per your requirement
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(interval);
@@ -116,7 +116,7 @@ const HistoryOrders = () => {
   for (let i = 0; i < state.length; i++) {
     // Format the total value as needed
     let formattedTotal =
-      new Intl.NumberFormat("en-US").format(state[i].total) + "$";
+      new Intl.NumberFormat("en-US").format(state[i].total) + "USD";
 
     data1.push({
       orderCode: state[i].orderCode,
@@ -153,10 +153,10 @@ const HistoryOrders = () => {
           }}
         >
           <h2 style={{ color: "#6c757d", fontFamily: "Arial, sans-serif" }}>
-            Không tìm thấy bất kỳ đơn hàng nào
+          No orders found
           </h2>
         </div>
-      ) : loading ? (
+      ) : data1.length === 0 ? (
         <Spin
           style={{ marginTop: "15px" }}
           tip="Đang lấy dữ liệu..."

@@ -16,6 +16,7 @@ const Nav = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
+
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
@@ -190,6 +191,7 @@ const Nav = () => {
               <span className="cart-total--item"> {cart.cartTotalQuantity} </span>
             </NavLink>
           </div>
+          
           <div style={{ color: 'white', fontSize: '25px', width: '' }}>
 
 
@@ -211,7 +213,7 @@ const Nav = () => {
 
 
               </Dropdown>) : (<div className="d-flex gap-3 align-items-center dropdown">
-
+                {userInfoDTO.fullName}
                 <Dropdown>
                   <Dropdown.Toggle variant="" id="dropdown-basic" style={{ fontSize: '22px' }}>
 

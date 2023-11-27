@@ -105,8 +105,8 @@ const FilterForm = () => {
     <Wrapper>
       <Affix offsetTop={100} onChange={(affixed) => console.log(affixed)}>
         <div>
-          <h1 className="px-3 py-1" style={{ fontSize: "30px" }}>
-            Tìm kiếm cửa hàng :
+          <h1 className="px-3 py-1" style={{ fontSize: "35px" }}>
+            Find the store :
           </h1>
           <br />
           <Form
@@ -118,7 +118,7 @@ const FilterForm = () => {
           >
             {" "}
             <Form.Item className="px-3 h6">
-              <h1>Dry cleaning:</h1>
+              <h2>Dry cleaning:</h2>
               <Form.Item
                 label="Cloth materials"
                 style={{ opacity: 0.75, fontSize: "20px" }}
@@ -147,7 +147,7 @@ const FilterForm = () => {
               </Form.Item>
             </Form.Item>
             <Form.Item className="px-3">
-              <h1>District :</h1>
+              <h2>District :</h2>
               <Form.Item name={"district"} noStyle>
                 <SingleSelect
                   name="district"

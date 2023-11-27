@@ -13,7 +13,7 @@ import axios from "axios";
 import FeedbackContext from "./context/FeedbackContext";
 const StandardDetailForm = () => {
   const imageUrl =
-    process.env.PUBLIC_URL + "/images/pexels-ekaterina-belinskaya-4700383.jpg";
+    process.env.PUBLIC_URL + "https://www.housedigest.com/img/gallery/60-laundry-room-ideas-that-will-make-you-think-about-a-remodel/an-ombre-paint-wall-1643295784.jpg";
   // const { name, image } = myData;
 
   const dispatch = useDispatch();
@@ -73,19 +73,19 @@ const StandardDetailForm = () => {
       dataIndex: "key",
     },
     {
-      title: "Từ",
+      title: "From",
       dataIndex: "from",
     },
     {
-      title: "Đến",
+      title: "To",
       dataIndex: "to",
     },
     {
-      title: "Đơn vị",
+      title: "Unit",
       dataIndex: "unit",
     },
     {
-      title: "Giá tiền",
+      title: "Price",
       dataIndex: "price",
     },
   ];
@@ -122,13 +122,13 @@ const StandardDetailForm = () => {
                     <img
                       src={imageUrl}
                       alt={name}
-                      style={{ width: "100%", height: "100%" }}
+                      style={{ width: "100%", height: '50%' }}
                     />
                   </div>
                 </div>
               </div>
 
-              <h3 className="px-5 fw-bold">Bảng Giá : </h3>
+              <h3 className="px-5 fw-bold">Price list : </h3>
 
               <Table
                 columns={columns}
@@ -149,7 +149,7 @@ const StandardDetailForm = () => {
                     class=""
                     style={{ color: "black", fontWeight: "bolder  " }}
                   >
-                    Đánh giá từ khách hàng{" "}
+                    Feedback from customer{" "}
                   </h2>
 
                   <div className="feedback-stats">
@@ -160,7 +160,7 @@ const StandardDetailForm = () => {
                     {feedback === null ? (
                       <Card>
                         <p className="text-center" style={{ opacity: "60%" }}>
-                          Chưa có đánh giá nào
+                        There are no feedbacks yet
                         </p>
                       </Card>
                     ) : (
@@ -185,7 +185,7 @@ const StandardDetailForm = () => {
                 <div class="card-body px-5">
                   <h2 class="fw-bolder">{name}</h2>
                   <p> </p>
-                  <p class="h4 fw-bold">Mô tả: </p>
+                  <p class="h4 fw-bold">Description: </p>
                   <p>{description}</p>
                   <Button
                     type="primary"
@@ -194,7 +194,7 @@ const StandardDetailForm = () => {
                     className="my-4 col-12"
                     onClick={() => handleAddToCart(inputValues)}
                   >
-                    Thêm vào giỏ hàng
+                    Add to cart
                   </Button>
                 </div>
               </div>
@@ -202,7 +202,7 @@ const StandardDetailForm = () => {
           </div>
         </div>
       ) : (
-        <h3>Cửa hàng chưa có dịch vụ này</h3>
+        <h3>The store does not have this service yet</h3>
       )}
     </Wrapper>
   );

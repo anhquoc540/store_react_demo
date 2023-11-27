@@ -1,15 +1,13 @@
 //import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-
 import { Input, Form, Button, Select } from "antd";
 import UploadImage from "./Form/UploadImage";
 import { config } from "../axios/auth-header";
-import { set } from "lodash";
+import FeedbackContext from "./context/FeedbackContext";
 
 const initialState = {
   id: "",
@@ -26,22 +24,26 @@ export default function ProfileDetailForm() {
   const [form] = Form.useForm();
   const { Option } = Select;
   const user = useParams();
+  const [open, setOpen] = useState(false);
   const putUserUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile/${user.id}`;
   const [state, setState] = useState(initialState);
+  const { id, fullName, email, phone, address, image, status, role } = state;
   const { userInfoDTO } = useSelector((state) => state.auth);
-  const [UpdateProfile, setUpdateProfile] = useState(userInfoDTO)
-  
- 
+  const getUsersUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/base/profile/2`;
+
+  const [userProfile, setUserProfile] = useState(userInfoDTO);
   useEffect(() => {
-   
     form.setFieldsValue({
-      fullName: userInfoDTO.fullName,
-      phone: userInfoDTO.phone,
-      address: userInfoDTO.address,
+      fullName: userProfile.fullName,
+      phone: userProfile.phone,
+      address: userProfile.address,
     });
   }, []);
 
-  console.log("Dữ liệu từ API:", state);
+  useEffect(() => {
+    setUserProfile(userInfoDTO);
+  }, []);
+
   const layout = {
     labelCol: {
       span: 3,
@@ -89,9 +91,10 @@ export default function ProfileDetailForm() {
           },
         }
       );
-      console.log("Update successful", values);
-      setState(UpdateProfile);
-      localStorage.setItem("userInfoDTO", JSON.stringify(userInfoDTO))
+      console.log("Update successful", response.data);
+      localStorage.setItem("userInfoDTO", JSON.stringify(response.data));
+      setUserProfile(response.data);
+      console.log(values);
     } catch (error) {
       console.error("Update failed", error);
     }
@@ -100,12 +103,12 @@ export default function ProfileDetailForm() {
   const handleInputChange = (event) => {
     let { name, value } = event.target;
     setState((state) => ({ ...state, [name]: value }));
-  };
+};
 
   return (
     <Wrapper>
       <div class="container">
-        <h1>User profile</h1>
+        <h1>Profile</h1>
         <div className="card">
           <div className="card-body p-5">
             <div class="row">
@@ -133,6 +136,7 @@ export default function ProfileDetailForm() {
                   >
                     <Input
                       type="text"
+                      defaultValue={userProfile?.fullName}
                       onChange={handleInputChange}
                     />
                   </Form.Item>
@@ -147,11 +151,18 @@ export default function ProfileDetailForm() {
                   >
                     <Input
                       type="text"
-                      defaultValue={userInfoDTO.address}
+                      defaultValue={userProfile?.address}
                       onChange={handleInputChange}
                     />
                   </Form.Item>
-                  <Form.Item label="Email">{userInfoDTO.email}</Form.Item>
+                  <Form.Item name="Email" label="email">
+                    <Input
+                      type="text"
+                      defaultValue={userProfile?.email}
+                      onChange={handleInputChange}
+                      disabled="true"
+                    />
+                  </Form.Item>
                   <Form.Item
                     name="phone"
                     label="Phone"
@@ -165,7 +176,7 @@ export default function ProfileDetailForm() {
                     <Input
                       type="text"
                       name="phone"
-                      defaultValue={userInfoDTO.phone}
+                      defaultValue={userProfile?.phone}
                       onChange={handleInputChange}
                       addonBefore={prefixSelector}
                       style={{
@@ -181,10 +192,10 @@ export default function ProfileDetailForm() {
                     }}
                   >
                     <Button type="primary" htmlType="submit">
-                      Save
+                      Update Profile
                     </Button>
                   </Form.Item>
-                </Form>
+</Form>
               </div>
             </div>
           </div>

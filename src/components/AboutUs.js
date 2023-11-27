@@ -88,5 +88,6 @@ const Wrapper = styled.section`
   .container {
     margin: auto !important;
     margin-bottom: 30px !important;
+    margin-left: 8% !important;
   }
 `;

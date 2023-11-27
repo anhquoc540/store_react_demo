@@ -52,7 +52,7 @@ function FeedbackList() {
         }}
       >
         <h2 style={{ color: "#6c757d", fontFamily: "Arial, sans-serif" }}>
-          Không tìm thấy bất kỳ đánh giá nào
+        No feedbacks found
         </h2>
       </div>
     );
