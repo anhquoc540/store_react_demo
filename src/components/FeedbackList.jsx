@@ -52,7 +52,7 @@ function FeedbackList() {
         }}
       >
         <h2 style={{ color: "#6c757d", fontFamily: "Arial, sans-serif" }}>
-        No feedbacks found
+          No feedbacks found
         </h2>
       </div>
     );
@@ -60,11 +60,7 @@ function FeedbackList() {
   return (
     <div className="feedback-List">
       {loading ? (
-        <Spin
-          style={{ marginTop: "15px" }}
-          tip="Đang lấy dữ liệu..."
-          size="large"
-        >
+        <Spin style={{ marginTop: "15px" }} tip="Fetching data..." size="large">
           <div className="content" />
         </Spin>
       ) : (

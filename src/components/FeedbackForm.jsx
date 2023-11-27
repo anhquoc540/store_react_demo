@@ -33,12 +33,12 @@ function FeedbackForm() {
   const handleTextChange = (e) => {
     if (text === "") {
       SetBtnDisabled(true);
-      setFeedbackMessage("Hãy nhập đánh giá!");
+      setFeedbackMessage("Please input comment!");
     } else if (rating === null) {
       SetBtnDisabled(true);
-      setFeedbackMessage("Hãy nhập sao");
+      setFeedbackMessage("Please input star!");
     } else if (text !== "" && text.trim().length <= 10) {
-      setFeedbackMessage("Đánh giá phải từ 10 ký tự trở lên!");
+      setFeedbackMessage("The review must be from 10 characters or more!");
       SetBtnDisabled(true);
     } else if (rating !== null && text.trim().length > 10) {
       setFeedbackMessage(null);
@@ -86,7 +86,7 @@ function FeedbackForm() {
           )
           .then((response) => {
             console.log("Success:", response.data);
-            message.success("Đánh giá thành công");
+            message.success("Leave a feedback successfully!");
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -125,17 +125,17 @@ function FeedbackForm() {
       <div className="feedback-form">
         <Card>
           <form style={{ paddingTop: "15px" }} onSubmit={handleSubmit}>
-            <h2>Bạn nghĩ thế nào về dịch vụ {ServiceName}?</h2>
+            <h2>What do you think about {ServiceName}?</h2>
             <RatingSelect select={changeRating} />
             <div className="input-group">
               <input
                 type="text"
-                placeholder="Hãy nhập đánh giá"
+                placeholder="Input review"
                 onChange={handleTextChange}
                 value={text}
               />
               <Button type="submit" isDisabled={btnDisabled}>
-                send
+                Send
               </Button>
             </div>
             {feedbackMessage && (

@@ -124,7 +124,7 @@ const Cart = () => {
     inputValues.createDate = updatedDateTime;
     handleClearCart();
     console.log(inputValues);
-    toast.success("Đặt dịch vụ thành công", {
+    toast.success("Order successfully!", {
       position: "top-center",
     });
     handleSubmitOrder(inputValues);
@@ -184,11 +184,17 @@ const Cart = () => {
                         {generateCurrency(cartItem.price)}
                       </div>
                       <div className="cart-product-quantity">
-                        <button style={{fontSize:'25px'}} onClick={() => handleDecreaseCart(cartItem)}>
+                        <button
+                          style={{ fontSize: "25px" }}
+                          onClick={() => handleDecreaseCart(cartItem)}
+                        >
                           -
                         </button>
                         <div className="count">{cartItem.cartQuantity}</div>
-                        <button style={{fontSize:'25px'}} onClick={() => handleAddToCart(cartItem)}>
+                        <button
+                          style={{ fontSize: "25px" }}
+                          onClick={() => handleAddToCart(cartItem)}
+                        >
                           +
                         </button>
                       </div>
@@ -225,7 +231,7 @@ const Cart = () => {
                     // }}
                     onChange={handleCheckbox}
                   >
-                    Select laundry time service
+                    Normal laundry time
                   </Checkbox>
 
                   <div>
@@ -242,7 +248,9 @@ const Cart = () => {
                         ]}
                       >
                         <Select
+                          style={{ width: "130px" }}
                           onChange={handleTimeInput}
+                          placeholder={"Thông thường"}
                           options={formattedData}
                           value={inputValues.timeId}
                         ></Select>

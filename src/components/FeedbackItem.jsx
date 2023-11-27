@@ -43,7 +43,7 @@ import { Link } from "react-router-dom";
 function FeedbackItem({ Item }) {
   const { deleteFeedback } = useContext(FeedbackContext);
   const confirm = () => {
-    message.success("Xoá đơn thành công");
+    message.success("Delete successfully!");
     deleteFeedback(Item.id);
   };
 
@@ -54,7 +54,7 @@ function FeedbackItem({ Item }) {
           <div className="num-display">{Item.star}</div>
           <div className="name">
             <h3>
-            Send to:{" "}
+              Send to:{" "}
               <Link
                 to={
                   Item.laundryService.isStandard === true

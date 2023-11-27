@@ -52,14 +52,14 @@ const columns = [
   },
 ];
 const statusMap = {
-  0: "Đã huỷ",
-  1: "Chờ xác nhận",
-  2: "Chờ lấy hàng",
-  3: "Vận chuyển đến cửa hàng",
-  4: "Xử lý bởi cửa hàng",
-  5: "Đơn sẵn sàng vận chuyển",
-  6: "Đơn đang được giao",
-  7: "Đơn đã hoàn thành",
+  0: "Canceled",
+  1: "Awaiting confirmation",
+  2: "Awaiting pickup from customer",
+  3: "Transporting to store",
+  4: "Processing by store",
+  5: "Order ready for delivery",
+  6: "Order being delivered to customer",
+  7: "Order completed",
 };
 
 const colorMap = {
@@ -153,15 +153,11 @@ const HistoryOrders = () => {
           }}
         >
           <h2 style={{ color: "#6c757d", fontFamily: "Arial, sans-serif" }}>
-          No orders found
+            No orders found
           </h2>
         </div>
       ) : data1.length === 0 ? (
-        <Spin
-          style={{ marginTop: "15px" }}
-          tip="Đang lấy dữ liệu..."
-          size="large"
-        >
+        <Spin style={{ marginTop: "15px" }} tip="Fetching data..." size="large">
           <div className="content" />
         </Spin>
       ) : (

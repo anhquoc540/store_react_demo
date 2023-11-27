@@ -117,13 +117,13 @@ export default function OrderDetails() {
   };
 
   const statusMap = {
-    1: "Chờ xác nhận",
-    2: "Chờ lấy hàng từ khách hàng",
-    3: "Vận chuyển đến cửa hàng",
-    4: "Đang xử lý bởi cửa hàng" /*shop xác nhận số kg, status 4->5*/,
-    5: "Đơn sẵn sàng vận chuyển" /*đã có số kg*/,
-    6: "Đơn đang được giao đến khách hàng",
-    7: "Đơn đã hoàn thành",
+    1: "Awaiting confirmation",
+    2: "Awaiting pickup from customer",
+    3: "Transporting to store",
+    4: "Processing by store",
+    5: "Order ready for delivery",
+    6: "Order being delivered to customer",
+    7: "Order completed",
   };
 
   let statusArray = [];
@@ -133,7 +133,7 @@ export default function OrderDetails() {
   if (order.status === 7) {
     statusArray.push({ children: statusMap[order.status] });
   } else if (order.status === 0) {
-    statusArray.push({ children: "Đơn đã huỷ" });
+    statusArray.push({ children: "Canceled" });
   }
   let pendingStatus = statusMap[order.status];
   const handlepayment = async () => {
@@ -170,22 +170,18 @@ export default function OrderDetails() {
           }}
         >
           <h2 style={{ color: "#6c757d", fontFamily: "Arial, sans-serif" }}>
-            Không thể truy cập
+            Cannot access!
           </h2>
         </div>
       ) : order.length === 0 ? (
-        <Spin
-          style={{ marginTop: "15px" }}
-          tip="Đang lấy dữ liệu..."
-          size="large"
-        >
+        <Spin style={{ marginTop: "15px" }} tip="Fetching data..." size="large">
           <div className="content" />
         </Spin>
       ) : (
         <section className="h-100 h-custom">
           <Link to={`/profilelayout/history`}>
             <button className="back-button" type="button">
-              <span style={{ marginLeft: "5px" }}>Quay về </span>
+              <span style={{ marginLeft: "5px" }}>Go back </span>
               <AiIcons.AiOutlineRollback
                 style={{ width: "20px", marginLeft: "10px" }}
               />
@@ -200,29 +196,29 @@ export default function OrderDetails() {
                       className="lead fw-bold mb-5 "
                       style={{ color: "#f37a27", fontSize: "30px" }}
                     >
-                      Chi tiết đơn hàng
+                      Order Details
                     </p>
                     <MDBRow>
                       <MDBCol className="mb-3">
-                        <p className="small text-muted mb-1">Tên cửa hàng</p>
+                        <p className="small text-muted mb-1">Store name</p>
                         <p>{order.store?.name}</p>
                       </MDBCol>
                       <MDBCol className="mb-3">
-                        <p className="small text-muted mb-1">Thanh toán</p>
-                        {order?.isPaid === 1 ? (
-                          <Tag color="green">Hoàn thành</Tag>
+                        <p className="small text-muted mb-1">Payment</p>
+                        {order.isPaid === 1 ? (
+                          <Tag color="green">Completed</Tag>
                         ) : (
-                          <Tag color="volcano">Chưa hoàn thành</Tag>
+                          <Tag color="volcano">Not Completed</Tag>
                         )}
                       </MDBCol>
                     </MDBRow>
                     <MDBRow>
                       <MDBCol className="mb-3">
-                        <p className="small text-muted mb-1">Ngày đặt đơn</p>
+                        <p className="small text-muted mb-1">Order date</p>
                         <p>{order.orderDate}</p>
                       </MDBCol>
                       <MDBCol className="mb-3">
-                        <p className="small text-muted mb-1">Mã đơn</p>
+                        <p className="small text-muted mb-1">ID</p>
                         <p>{order?.orderCode}</p>
                       </MDBCol>
                     </MDBRow>
@@ -233,20 +229,20 @@ export default function OrderDetails() {
                     >
                       <MDBRow>
                         <MDBCol md="4" lg="4">
-                          <p style={{ fontWeight: "bold" }}>Tên dịch vụ</p>
+                          <p style={{ fontWeight: "bold" }}>Service name</p>
                         </MDBCol>
                         <MDBCol md="2" lg="2">
-                          <p style={{ fontWeight: "bold" }}>Số lượng</p>
+                          <p style={{ fontWeight: "bold" }}>Quantity</p>
                         </MDBCol>
                         <MDBCol md="2" lg="2">
-                          <p style={{ fontWeight: "bold" }}>Cân nặng</p>
+                          <p style={{ fontWeight: "bold" }}>Weight</p>
                         </MDBCol>
                         <MDBCol md="2" lg="2">
-                          <p style={{ fontWeight: "bold" }}>Giá tiền</p>
+                          <p style={{ fontWeight: "bold" }}>Price</p>
                         </MDBCol>
                         {order.status === 7 ? (
                           <MDBCol md="2" lg="2">
-                            <p style={{ fontWeight: "bold" }}>Đánh giá</p>
+                            <p style={{ fontWeight: "bold" }}>Feedback</p>
                           </MDBCol>
                         ) : null}
                       </MDBRow>
@@ -275,7 +271,7 @@ export default function OrderDetails() {
                                 to={`/profilelayout/feedback/${item.laundryService.id}`}
                               >
                                 <Tag className="review-tag" color="blue">
-                                  Đánh giá
+                                  Feedback
                                 </Tag>
                               </Link>
                             </MDBCol>
@@ -305,7 +301,7 @@ export default function OrderDetails() {
                       className="lead fw-bold mb-4 pb-2"
                       style={{ color: "#f37a27", fontSize: "20px" }}
                     >
-                      Theo dõi đơn hàng
+                      Tracking order
                     </p>
 
                     <div>
@@ -316,13 +312,13 @@ export default function OrderDetails() {
                     </div>
                     {order.status === 1 && (
                       <Popconfirm
-                        title="Bạn có muốn huỷ đơn hàng này?"
+                        title="Do you want to cancel this order?"
                         onConfirm={handleButtonClick}
-                        okText="Có"
-                        cancelText="Không"
+                        okText="Yes"
+                        cancelText="No"
                       >
                         <Button type="primary" size="large">
-                          Huỷ đơn hàng
+                          Cancel
                         </Button>
                       </Popconfirm>
                     )}
@@ -333,7 +329,7 @@ export default function OrderDetails() {
                           type="primary"
                           size="large"
                         >
-                          Thanh toán
+                          Payment
                         </PayPalButtons>
                       </PayPalScriptProvider>
                     )}

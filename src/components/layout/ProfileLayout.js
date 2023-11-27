@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { MenuFoldOutlined, MenuUnfoldOutlined, SmileFilled } from "@ant-design/icons";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  SmileFilled,
+} from "@ant-design/icons";
 import {
   AiOutlineLike,
   AiOutlineDashboard,
@@ -22,7 +26,7 @@ const { Header, Sider, Content } = Layout;
 const ProfileLayout = () => {
   //const {user:currUser} = useSelector((state) => state.auth);
   const [collapsed, setCollapsed] = useState(false);
-  const {userInfoDTO} = useSelector((state) => state.auth);
+  const { userInfoDTO } = useSelector((state) => state.auth);
 
   const {
     token: { colorBgContainer },
@@ -94,28 +98,7 @@ const ProfileLayout = () => {
             }
           )}
           <div className="d-flex gap-4 align-items-center">
-            <div className="position-relative">
-              <IoIosNotifications
-                className="fs-4"
-                style={{ width: "30px", height: "30px" }}
-              />
-              <span
-                className="badge bg-warning rounded-circle p-1 position-absolute"
-                style={{ width: "15px", height: "15px" }}
-              >
-                3
-              </span>
-            </div>
-
             <div className="d-flex gap-3 align-items-center dropdown">
-              <div>
-                <img
-                  width={32}
-                  height={32}
-                  src="https://stroyka-admin.html.themeforest.scompiler.ru/variants/ltr/images/customers/customer-4-64x64.jpg"
-                  alt=""
-                />
-              </div>
               <div
                 role="button"
                 id="dropdownMenuLink"

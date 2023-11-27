@@ -1,16 +1,11 @@
 //import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-
-import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
 import { Input, Form, Button, Select, message } from "antd";
 import React, { useState, useEffect, useContext } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import { Input, Form, Button, Select } from "antd";
 
 import UploadImage from "./Form/UploadImage";
 import { config } from "../axios/auth-header";
@@ -102,6 +97,7 @@ export default function ProfileDetailForm() {
       localStorage.setItem("userInfoDTO", JSON.stringify(response.data));
       setUserProfile(response.data);
       console.log(values);
+      message.success("Update successfully!");
     } catch (error) {
       console.error("Update failed", error);
     }
@@ -119,9 +115,9 @@ export default function ProfileDetailForm() {
         <div className="card">
           <div className="card-body p-5">
             <div class="row">
-              <div className="col-sm-2 p-5">
+              {/* <div className="col-sm-2 p-5">
                 <UploadImage className="m-2"></UploadImage>
-              </div>
+              </div> */}
               <div className="col-sm-10">
                 <Form
                   form={form}
@@ -162,7 +158,7 @@ export default function ProfileDetailForm() {
                       onChange={handleInputChange}
                     />
                   </Form.Item>
-                  <Form.Item name="Email" label="email">
+                  <Form.Item name="Email" label="Email">
                     <Input
                       type="text"
                       defaultValue={userProfile?.email}
@@ -185,7 +181,6 @@ export default function ProfileDetailForm() {
                       name="phone"
                       defaultValue={userProfile?.phone}
                       onChange={handleInputChange}
-                      addonBefore={prefixSelector}
                       style={{
                         width: "100%",
                       }}

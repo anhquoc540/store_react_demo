@@ -9,8 +9,7 @@ import styled from "styled-components";
 
 import SingleSelect from "./SingleSelect";
 
-import { Button, Form, Affix } from "antd";
-
+import { Affix, Form, Button, Select } from "antd";
 
 const FilterForm = () => {
   const dispatch = useDispatch();
@@ -116,7 +115,6 @@ const FilterForm = () => {
             labelWrap
             className="py-3"
           >
-            {" "}
             <Form.Item className="px-3 h6">
               <h2>Dry cleaning:</h2>
               <Form.Item
@@ -124,12 +122,18 @@ const FilterForm = () => {
                 style={{ opacity: 0.75, fontSize: "20px" }}
               >
                 <Form.Item name={"materials"} noStyle>
-                  <MultipleSelect
-                    name="materials"
-                    options={data1}
+                  <Select
+                    mode="multiple"
+                    placeholder="Select materials"
                     onChange={handleMaterialInput}
                     value={inputValues.materials}
-                  ></MultipleSelect>
+                  >
+                    {data1.map((item) => (
+                      <Option key={item.value} value={item.value}>
+                        {item.label}
+                      </Option>
+                    ))}
+                  </Select>
                 </Form.Item>
               </Form.Item>
               <Form.Item
@@ -137,24 +141,34 @@ const FilterForm = () => {
                 style={{ opacity: 0.75, fontSize: "20px" }}
               >
                 <Form.Item name={"clothId"} noStyle>
-                  <SingleSelect
-                    name="clothId"
-                    options={data2}
+                  <Select
+                    placeholder="Select clothing type"
                     onChange={handleClothInput}
                     value={inputValues.clothId}
-                  ></SingleSelect>
+                  >
+                    {data2.map((item) => (
+                      <Option key={item.value} value={item.value}>
+                        {item.label}
+                      </Option>
+                    ))}
+                  </Select>
                 </Form.Item>
               </Form.Item>
             </Form.Item>
             <Form.Item className="px-3">
               <h2>District :</h2>
               <Form.Item name={"district"} noStyle>
-                <SingleSelect
-                  name="district"
-                  options={districts}
+                <Select
+                  placeholder="Select district"
                   onChange={handleDistrictInput}
                   value={inputValues.district}
-                ></SingleSelect>
+                >
+                  {districts.map((item) => (
+                    <Option key={item.value} value={item.value}>
+                      {item.label}
+                    </Option>
+                  ))}
+                </Select>
               </Form.Item>
             </Form.Item>
             <Button
