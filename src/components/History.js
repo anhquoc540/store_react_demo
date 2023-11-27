@@ -166,7 +166,7 @@ const HistoryOrders = () => {
         </Spin>
       ) : (
         <div>
-          <h3 className="mb-4 title">Lịch Sử Đơn Hàng</h3>
+          <h3 className="mb-4 title">Order History</h3>
 
           <div>
             <Table columns={columns} dataSource={data1.reverse()} />

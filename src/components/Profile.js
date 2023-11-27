@@ -9,6 +9,7 @@ import axios from "axios";
 import { Input, Form, Button, Select } from "antd";
 import UploadImage from "./Form/UploadImage";
 import { config } from "../axios/auth-header";
+import { set } from "lodash";
 
 const initialState = {
   id: "",
@@ -25,28 +26,14 @@ export default function ProfileDetailForm() {
   const [form] = Form.useForm();
   const { Option } = Select;
   const user = useParams();
-  const [open, setOpen] = useState(false);
   const putUserUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile/${user.id}`;
   const [state, setState] = useState(initialState);
-  const { id, fullName, email, phone, address, image, status, role } = state;
   const { userInfoDTO } = useSelector((state) => state.auth);
-  //const [APIData, setAPIData] = useState([]);
-  const getUsersUrl = `https://magpie-aware-lark.ngrok-free.app/api/v1/base/profile/2`;
-  // const getProfile = async () => {
-  //   const res = await axios.get(getUsersUrl, config);
-  //   if (res.status === 200) {
-  //     setState(res.data);
-  //   }
-  // };
-
+  const [UpdateProfile, setUpdateProfile] = useState(userInfoDTO)
+  
+ 
   useEffect(() => {
-    // await axios.get(getUsersUrl, config).then(
-    //     response => {
-    //         setState(response.data)
-    //     })
-    //     // .then(data => { setAPIData(data) })
-    //     .catch(error => console.log(error.message));
-    // getProfile();
+   
     form.setFieldsValue({
       fullName: userInfoDTO.fullName,
       phone: userInfoDTO.phone,
@@ -89,7 +76,7 @@ export default function ProfileDetailForm() {
   const onFinish = async (values) => {
     try {
       const response = await axios.put(
-        `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile/update/${user.id}`,
+        `https://magpie-aware-lark.ngrok-free.app/api/v1/user/profile/update/${userInfoDTO.id}`,
         values,
         {
           headers: {
@@ -102,16 +89,14 @@ export default function ProfileDetailForm() {
           },
         }
       );
-      console.log("Update successful", response.data);
+      console.log("Update successful", values);
+      setState(UpdateProfile);
+      localStorage.setItem("userInfoDTO", JSON.stringify(userInfoDTO))
     } catch (error) {
       console.error("Update failed", error);
     }
   };
 
-  // const onCreate = (values) => {
-  //     console.log('Received values of form: ', values);
-  //     setOpen(false);
-  // };
   const handleInputChange = (event) => {
     let { name, value } = event.target;
     setState((state) => ({ ...state, [name]: value }));
@@ -120,7 +105,7 @@ export default function ProfileDetailForm() {
   return (
     <Wrapper>
       <div class="container">
-        <h1>Thông tin cá nhân</h1>
+        <h1>User profile</h1>
         <div className="card">
           <div className="card-body p-5">
             <div class="row">
@@ -148,7 +133,6 @@ export default function ProfileDetailForm() {
                   >
                     <Input
                       type="text"
-                      defaultValue={userInfoDTO.fullName}
                       onChange={handleInputChange}
                     />
                   </Form.Item>
@@ -197,7 +181,7 @@ export default function ProfileDetailForm() {
                     }}
                   >
                     <Button type="primary" htmlType="submit">
-                      Lưu Thông Tin
+                      Save
                     </Button>
                   </Form.Item>
                 </Form>

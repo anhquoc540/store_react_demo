@@ -99,7 +99,7 @@ const Login = () => {
           
           <div className="mb-2 text-first">
             Don't have any account?
-            <Link to="SignUp" className="">
+            <Link to="/SignUp" className="">
               Register
             </Link>   
           </div>

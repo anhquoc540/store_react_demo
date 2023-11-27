@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined, SmileFilled } from "@ant-design/icons";
 import {
+  AiOutlineLike,
   AiOutlineDashboard,
   AiOutlineShoppingCart,
   AiOutlineUser,
@@ -15,7 +16,7 @@ import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "../../styles/dashboard.css";
-
+import withAuth from "../withAuth";
 const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
   //const {user:currUser} = useSelector((state) => state.auth);
@@ -61,17 +62,17 @@ const MainLayout = () => {
             {
               key: "profile",
               icon: <AiOutlineUser className="fs-4 " size={26} />,
-              label: <span style={{ fontSize: 18 }}> Thông Tin Cá Nhân</span>,
+              label: <span style={{ fontSize: 18 }}> User Information</span>,
             },
             {
               key: "history",
               icon: <AiOutlineShoppingCart className="fs-4 " size={26} />,
-              label: <span style={{ fontSize: 18 }}>Lịch Sử Đơn Hàng</span>,
+              label: <span style={{ fontSize: 18 }}>Order History</span>,
             },
             {
               key: "myFeedback",
-              icon: <AiOutlineShoppingCart className="fs-4 " size={26} />,
-              label: <span style={{ fontSize: 18 }}>Đánh giá của tôi</span>,
+              icon: <AiOutlineLike className="fs-4 " size={26} />,
+              label: <span style={{ fontSize: 18 }}>My Feedback</span>,
             },
           ]}
         />
@@ -171,4 +172,4 @@ const MainLayout = () => {
     </Layout>
   );
 };
-export default MainLayout;
+export default withAuth(MainLayout);

@@ -3,7 +3,7 @@ import Header from "./Header";
 import { MdLaptopMac } from "react-icons/md";
 import { FaMoneyBillWave, FaTshirt, FaMotorcycle } from "react-icons/fa";
 import { Layout } from "antd";
-const { Footer, Sider, Content } = Layout;
+const { Footer } = Layout;
 
 const QuyTrinh = () => {
   return (
@@ -11,47 +11,46 @@ const QuyTrinh = () => {
       <Header />
       <div className="container">
         <h1 style={{ textAlign: "center", margin: "50px" }}>
-          Quy Trình Vận Hành
+          Operating Procedure
         </h1>
         <div className="grid grid-four-column">
           <div className="about-data1">
             <div className="icon">
               <MdLaptopMac />
             </div>
-            <h1 className="h2-fix">Đặt dịch vụ</h1>
+            <h1 className="h2-fix">Book a service</h1>
             <h4>
-              Dễ dàng trong vài giây với Website & Hotline (0936.277.993) của
-              chúng tôi
+            Easily in seconds with our Website &; Hotline (0936.277.993)
             </h4>
           </div>
           <div className="about-data1">
             <div className="icon">
               <FaMotorcycle />
             </div>
-            <h1 className="h2-fix">Nhận Đồ</h1>
+            <h1 className="h2-fix">Get Stuff</h1>
             <h4>
-              Chúng tôi nhận đồ tận nơi, vào thời gian tiện nhất cho bạn -
-              8AM-9PM mỗi ngày tại TpHCM
+            We pick up items door-to-door, at the time most convenient for you -
+            8AM-9PM daily in HCMC
             </h4>
           </div>
           <div className="about-data1">
             <div className="icon">
               <FaTshirt />
             </div>
-            <h1 className="h2-fix">Giặt & Làm Sạch</h1>
+            <h1 className="h2-fix">Washing & Cleaning</h1>
             <h4>
-              Không chỉ giặt & làm sạch chất lượng cao cấp, chúng tôi chăm sóc
-              cẩn thận từng món đồ của bạn
+            Not only premium quality washing & cleaning, we take care
+            Take care of each of your items
             </h4>
           </div>
           <div className="about-data1">
             <div className="icon">
               <FaMoneyBillWave />
             </div>
-            <h1 className="h2-fix">Giao Đồ & Thanh Toán</h1>
+            <h1 className="h2-fix">Delivery & Payment</h1>
             <h4>
-              Những món đồ sạch thơm của bạn sẽ được giao lại tận nơi - 8AM-9PM
-              mỗi ngày tại TpHCM
+            Your clean and fragrant items will be delivered to your door - 8AM-9PM
+            every day in Ho Chi Minh City
             </h4>
           </div>
         </div>
@@ -66,7 +65,7 @@ const QuyTrinh = () => {
           bottom: 0,
         }}
       >
-        Ant Design ©2023 Created by Ant UED
+        The Laundry ©2023 Created by Team 5
       </Footer>{" "}
     </Wrapper>
   );
